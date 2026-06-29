@@ -1,0 +1,371 @@
+{% liquid
+  assign is_size = false
+  assign size_title_downcase = size_title | downcase
+  assign picker_type = settings.variant_picker_type
+  assign picker_types = ''
+  assign option_labels = ''
+
+  for option in product.options_with_values
+    assign found_option = false
+    assign option_design = ''
+    assign option_label = option.name
+
+    for i in (1..5)
+      unless found_option == true
+        assign option_name_key = 'variant_option_title' | append: i
+        assign option_design_key = 'variant_option_design' | append: i
+        assign option_label_key = 'variant_option_display_name' | append: i
+
+        assign option_name = settings[option_name_key]
+        if option_name == option.name
+          assign found_option = true
+          assign option_design = settings[option_design_key]
+          assign option_label = settings[option_label_key] | default: option.name
+        endif
+      endunless
+    endfor
+
+    assign design = option_design | prepend: ','
+    assign option_label = option_label | prepend: ','
+    if found_option == false or option_design == ''
+      assign design = settings.variant_option_design_default | prepend: ','
+    endif
+
+    assign picker_types = picker_types | append: design
+    assign option_labels = option_labels | append: option_label
+  endfor
+  assign picker_types = picker_types | remove_first: ',' | split: ','
+  assign option_labels = option_labels | remove_first: ',' | split: ','
+
+  assign enableVariantGroupImg = false
+  if section.settings.enable_variant_group_images and product.metafields['foxecom-bs-kit']['variant-images'].value.enable
+    assign enableVariantGroupImg = true
+  endif
+  if show_featured_media == null
+    assign show_featured_media = section.settings.show_featured_media
+  endif
+%}
+
+<variant-picker
+  data-product-id="{{ product.id }}"
+  data-enable-variant-group-images="{{ enableVariantGroupImg }}"
+  data-section-id="{{ section.id }}"
+  data-update-url="{{ update_browser_history }}"
+  data-product-url="{{ product.url }}"
+  data-disable-selected-variant-default="{{ section.settings.disable_selected_variant_default }}"
+  data-show-featured-media="{{ show_featured_media }}"
+  data-has-only-default-variant="{{ product.has_only_default_variant }}"
+>
+  {%- unless product.has_only_default_variant -%}
+    {%- for option in product.options_with_values -%}
+      {% liquid
+        assign picker_type = picker_types[forloop.index0]
+        assign option_label = option_labels[forloop.index0]
+        assign option_name_downcase = option.name | downcase
+        if size_title_downcase contains option_name_downcase
+          assign is_size = true
+        else
+          assign is_size = false
+        endif
+      %}
+      <div class="m-product-option m-product-option--{{ picker_type }}">
+        {%- case picker_type -%}
+          {% when 'dropdown' %}
+            <variant-select
+              data-picker-field="select"
+              data-option-name="{{ option.name }}"
+              data-selected-value="{{ option.selected_value }}"
+            >
+              <div class="m-product-option--label">
+                <label class="option-label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+                  <span class="option-label--title">{{ option_label }}:</span>
+                  <span class="option-label--selected">{{ option.selected_value }}</span>
+                </label>
+                {% if is_size %}
+                  <button data-open-sizeguide class="foxkit-sizechart-button m:inline-flex m:items-center m:hidden">
+                    <svg
+                      class="m-svg-icon--large"
+                      fill="currentColor"
+                      stroke="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 640 512"
+                    >
+                      <path d="M608 128H32c-17.67 0-32 14.33-32 32v192c0 17.67 14.33 32 32 32h576c17.67 0 32-14.33 32-32V160c0-17.67-14.33-32-32-32zm0 224H32V160h80v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h80v192z"/>
+                    </svg>
+                    <span class="foxkit-sizechart-button--label">{{ 'products.product.size_guide' | t }}</span>
+                  </button>
+                {% endif %}
+              </div>
+              <div class="m-product-option--content">
+                <div class="m:inline-flex m:flex-wrap">
+                  <select
+                    id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                    name="options[{{ option.name | escape }}]"
+                    form="{{ product_form_id }}"
+                  >
+                    <option value="" disabled>{{ option.name }}</option>
+                    {%- for value in option.values -%}
+                      <option
+                        value="{{ value | escape }}"
+                        class="m-product-option--node"
+                        data-value="{{- value | escape -}}"
+                        data-option-position="{{ option.position }}"
+                        {% if option.selected_value == value %}
+                          selected="selected"
+                        {% endif %}
+                      >
+                        {{- value -}}
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                </div>
+              </div>
+            </variant-select>
+          {% when 'color' %}
+            <variant-color
+              data-picker-field="radio"
+              data-option-name="{{ option.name }}"
+              data-selected-value="{{ option.selected_value }}"
+            >
+              <div class="m-product-option--label">
+                <label class="option-label">
+                  <span class="option-label--title">{{ option_label }}:</span>
+                  <span class="option-label--selected">{{ option.selected_value }}</span>
+                </label>
+                {% if is_size %}
+                  <button data-open-sizeguide class="foxkit-sizechart-button m:inline-flex m:items-center m:hidden">
+                    <svg
+                      class="m-svg-icon--large"
+                      fill="currentColor"
+                      stroke="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 640 512"
+                    >
+                      <path d="M608 128H32c-17.67 0-32 14.33-32 32v192c0 17.67 14.33 32 32 32h576c17.67 0 32-14.33 32-32V160c0-17.67-14.33-32-32-32zm0 224H32V160h80v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h80v192z"/>
+                    </svg>
+                    <span class="foxkit-sizechart-button--label">{{ 'products.product.size_guide' | t }}</span>
+                  </button>
+                {% endif %}
+              </div>
+              <div class="m-product-option--content m:inline-flex m:flex-wrap">
+                {%- for value in option.values -%}
+                  <div
+                    class="m-product-option--node m-tooltip m-tooltip--top"
+                    data-option-position="{{ option.position }}"
+                    data-option-type="{{ picker_type }}"
+                    data-value="{{- value | escape -}}"
+                  >
+                    <div class="m-product-option--swatch">
+                      <input
+                        type="radio"
+                        id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                        name="{{ option.name }}"
+                        value="{{ value | escape }}"
+                        form="{{ product_form_id }}"
+                        class="vissu"
+                        {% if option.selected_value == value %}
+                          checked
+                        {% endif %}
+                      >
+                      <label
+                        data-option-type="{{ picker_type }}"
+                        data-view="product"
+                        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                        class="m-product-option--node__label option-loading"
+                      >
+                        {{- value -}}
+                      </label>
+                    </div>
+                    <span class="m-tooltip__content">{{- value -}}</span>
+                  </div>
+                {%- endfor -%}
+              </div>
+              <div class="m-product-option-error"></div>
+            </variant-color>
+          {% when 'image' %}
+            <variant-image
+              data-picker-field="radio"
+              data-option-name="{{ option.name }}"
+              data-selected-value="{{ option.selected_value }}"
+            >
+              <div class="m-product-option--label">
+                <label class="option-label">
+                  <span class="option-label--title">{{ option_label }}:</span>
+                  <span class="option-label--selected">{{ option.selected_value }}</span>
+                </label>
+                {% if is_size %}
+                  <button data-open-sizeguide class="foxkit-sizechart-button m:inline-flex m:items-center m:hidden">
+                    <svg
+                      class="m-svg-icon--large"
+                      fill="currentColor"
+                      stroke="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 640 512"
+                    >
+                      <path d="M608 128H32c-17.67 0-32 14.33-32 32v192c0 17.67 14.33 32 32 32h576c17.67 0 32-14.33 32-32V160c0-17.67-14.33-32-32-32zm0 224H32V160h80v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h80v192z"/>
+                    </svg>
+                    <span class="foxkit-sizechart-button--label">{{ 'products.product.size_guide' | t }}</span>
+                  </button>
+                {% endif %}
+              </div>
+              <div class="m-product-option--content m:inline-flex m:flex-wrap">
+                {%- for value in option.values -%}
+                  <div
+                    class="m-product-option--node m-tooltip m-tooltip--top"
+                    data-option-position="{{ option.position }}"
+                    data-option-type="{{ picker_type }}"
+                    data-value="{{- value | escape -}}"
+                    style="--option-aspect-ratio: {{ product.featured_image.aspect_ratio | default: '1' }}"
+                  >
+                    <input
+                      type="radio"
+                      id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                      name="{{ option.name }}"
+                      value="{{ value | escape }}"
+                      form="{{ product_form_id }}"
+                      {% if option.selected_value == value %}
+                        checked
+                      {% endif %}
+                    >
+                    <label
+                      data-option-type="{{ picker_type }}"
+                      for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                      class="m-product-option--node__label option-loading"
+                      style="font-size:0;"
+                    >
+                      {{- value -}}
+                    </label>
+                    <span class="m-tooltip__content">{{- value -}}</span>
+                  </div>
+                {%- endfor -%}
+              </div>
+              <div class="m-product-option-error"></div>
+            </variant-image>
+          {% when 'button' %}
+            <variant-button
+              data-picker-field="radio"
+              data-option-name="{{ option.name }}"
+              data-selected-value="{{ option.selected_value }}"
+            >
+              <div class="m-product-option--label">
+                <label class="option-label">
+                  <span class="option-label--title">{{ option_label }}:</span>
+                  <span class="option-label--selected">{{ option.selected_value }}</span>
+                </label>
+                {% if is_size %}
+                  <button data-open-sizeguide class="foxkit-sizechart-button m:inline-flex m:items-center m:hidden">
+                    <svg
+                      class="m-svg-icon--large"
+                      fill="currentColor"
+                      stroke="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 640 512"
+                    >
+                      <path d="M608 128H32c-17.67 0-32 14.33-32 32v192c0 17.67 14.33 32 32 32h576c17.67 0 32-14.33 32-32V160c0-17.67-14.33-32-32-32zm0 224H32V160h80v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h80v192z"/>
+                    </svg>
+                    <span class="foxkit-sizechart-button--label">{{ 'products.product.size_guide' | t }}</span>
+                  </button>
+                {% endif %}
+              </div>
+              <div class="m-product-option--content m:inline-flex m:flex-wrap">
+                {%- for value in option.values -%}
+                  <div
+                    class="m-product-option--node"
+                    data-option-position="{{ option.position }}"
+                    data-option-type="{{ picker_type }}"
+                    data-value="{{- value | escape -}}"
+                  >
+                    <input
+                      type="radio"
+                      id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                      name="{{ option.name }}"
+                      value="{{ value | escape }}"
+                      form="{{ product_form_id }}"
+                      {% if option.selected_value == value %}
+                        checked
+                      {% endif %}
+                    >
+                    <label
+                      for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                      class="m-product-option--node__label"
+                    >
+                      {{- value -}}
+                    </label>
+                  </div>
+                {%- endfor -%}
+              </div>
+              <div class="m-product-option-error"></div>
+            </variant-button>
+          {% else %}
+            <variant-color
+              data-picker-field="radio"
+              data-option-name="{{ option.name }}"
+              data-selected-value="{{ option.selected_value }}"
+            >
+              <div class="m-product-option--label">
+                <label class="option-label">
+                  <span class="option-label--title">{{ option_label }}:</span>
+                  <span class="option-label--selected">{{ option.selected_value }}</span>
+                </label>
+                {% if is_size %}
+                  <button data-open-sizeguide class="foxkit-sizechart-button m:inline-flex m:items-center m:hidden">
+                    <svg
+                      class="m-svg-icon--large"
+                      fill="currentColor"
+                      stroke="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 640 512"
+                    >
+                      <path d="M608 128H32c-17.67 0-32 14.33-32 32v192c0 17.67 14.33 32 32 32h576c17.67 0 32-14.33 32-32V160c0-17.67-14.33-32-32-32zm0 224H32V160h80v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h80v192z"/>
+                    </svg>
+                    <span class="foxkit-sizechart-button--label">{{ 'products.product.size_guide' | t }}</span>
+                  </button>
+                {% endif %}
+              </div>
+              <div class="m-product-option--content m:inline-flex m:flex-wrap">
+                {%- for value in option.values -%}
+                  <div
+                    class="m-product-option--node m-tooltip m-tooltip--top"
+                    data-option-position="{{ option.position }}"
+                    data-option-type="color"
+                    data-value="{{- value | escape -}}"
+                  >
+                    <div class="m-product-option--swatch">
+                      <input
+                        type="radio"
+                        id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                        name="{{ option.name }}"
+                        value="{{ value | escape }}"
+                        form="{{ product_form_id }}"
+                        class="vissu"
+                        {% if option.selected_value == value %}
+                          checked
+                        {% endif %}
+                      >
+                      <label
+                        data-option-type="color"
+                        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                        class="m-product-option--node__label"
+                      >
+                        {{- value -}}
+                      </label>
+                    </div>
+                    <span class="m-tooltip__content">{{- value -}}</span>
+                  </div>
+                {%- endfor -%}
+              </div>
+              <div class="m-product-option-error"></div>
+            </variant-color>
+        {%- endcase -%}
+      </div>
+    {%- endfor -%}
+  {%- endunless -%}
+  <script id="productVariants" type="application/json">
+    {{ product.variants | json }}
+  </script>
+  {%- if section.settings.enable_variant_group_images -%}
+    <script id="variantGroup" type="application/json">
+      {{ product.metafields.foxecom-bs-kit.variant-images.value | json }}
+    </script>
+  {%- endif -%}
+</variant-picker>

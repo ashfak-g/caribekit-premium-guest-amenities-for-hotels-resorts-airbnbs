@@ -1,0 +1,250 @@
+{%- liquid 
+  assign product_handle = product.handle
+  case pcard_alignment
+    when 'left'
+      assign alignment = 'start'
+    when 'right'
+      assign alignment = 'end'
+    else
+      assign alignment = 'center'
+  endcase
+
+  assign match = false
+  for option in product.options_with_values
+    assign option_name = option.name | downcase
+    assign pcard_option_name_setting_downcase = settings.pcard_option_name | downcase
+
+    if option_name == pcard_option_name_setting_downcase
+      assign match = true
+    endif
+  endfor
+-%}
+
+{% if match %}
+  <div
+    data-limit="{{ values_limit }}"
+    data-pcard-variant-picker
+    data-product-handle="{{ product.handle }}"
+  >
+    <pcard-swatch class="m-product-option m-product-option--{{ settings.pcard_option_design }} m:flex-wrap m:items-center m:justify-{{ alignment }}">
+      {%- for option in product.options_with_values -%}
+        {%- liquid
+          assign option_name = option.name | downcase
+          assign pcard_option_name_setting_downcase = settings.pcard_option_name | downcase
+
+          assign values_limit = settings.pcard_limit_values_number
+          assign rest_values = 0
+
+          if values_limit == 0
+            assign values_limit = 99
+          elsif option.values.size > values_limit
+            assign rest_values = option.values.size | minus: values_limit
+          endif
+        -%}
+        {% if option_name == pcard_option_name_setting_downcase %}
+          {%- case settings.pcard_option_design -%}
+            {%- when 'dropdown' -%}
+              <swatch-dropdown class="m-product-option--content m:inline-flex m:flex-wrap">
+                <label for="{{ option.name }} {{ option.position }}"></label>
+                <select class="m-product-option--dropdown-select">
+                  {% for value in option.values %}
+                    <option
+                      {% if option.selected_value == value %}
+                        selected
+                      {% endif %}
+                      class="m-product-option--node__label"
+                      data-option-position="{{ option.position }}"
+                      data-option-type="dropdown"
+                      data-value="{{- value | escape -}}"
+                    >
+                      {{- value -}}
+                    </option>
+                  {% endfor %}
+                </select>
+              </swatch-dropdown>
+            {% when 'image' %}
+              <swatch-image class="m-product-option--content m:inline-flex m:flex-wrap">
+                {% for value in option.values %}
+                  {%- if forloop.index0 < values_limit -%}
+                    <label
+                      {% if option.selected_value == value %}
+                        data-selected="true"
+                      {% endif %}
+                      class="m-product-option--node__label"
+                      data-option-position="{{ option.position }}"
+                      data-option-type="image"
+                      data-value="{{- value | escape -}}"
+                      style="--option-aspect-ratio: {{ product.featured_image.aspect_ratio | default: '1' }}"
+                    >
+                      {{- value -}}
+                    </label>
+                  {%- endif -%}
+                {% endfor %}
+                
+                {% if rest_values > 0 %}
+                  <div 
+                    class="m-product-option--node__label m-product-option--more-option m-product-quickview-button m-spinner-button" 
+                    data-product-handle="{{ product_handle }}"
+                  >
+                    <span class="m-spinner-icon">
+                      <svg
+                        class="animate-spin m-svg-icon--medium"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    </span>
+                    <div class="m-tooltip m-tooltip--style-2 m-tooltip--top">
+                      <span class="text-base">+{{ rest_values }}</span>
+                      <span class="m-tooltip__content">
+                        {% render 'new-locale', key: 'products.product.see_more_options', param: '{{ count }}', value: rest_values %}
+                      </span>
+                    </div>
+                  </div>
+                  {% endif %}
+              </swatch-image>
+            {% when 'color' %}
+              <swatch-color class="m-product-option--content m:inline-flex m:flex-wrap">
+                {% for value in option.values %}
+                  {%- if forloop.index0 < values_limit -%}
+                    <div class="m-product-option--node m-tooltip m-tooltip--top">
+                      <div class="m-product-option--swatch">
+                        <label
+                          {% if option.selected_value == value %}
+                            data-selected="true"
+                          {% endif %}
+                          class="m-product-option--node__label"
+                          data-option-position="{{ option.position }}"
+                          data-option-type="color"
+                          data-value="{{- value | escape -}}"
+                        >
+                          {{- value -}}
+                        </label>
+                      </div>
+                      <span class="m-tooltip__content">{{- value -}}</span>
+                    </div>
+                  {%- endif -%}
+                {% endfor %}
+                {% if rest_values > 0 %}
+                  <div 
+                    class="m-product-option--more-option m-product-quickview-button m-spinner-button" 
+                    data-product-handle="{{ product_handle }}"
+                  >
+                    <span class="m-spinner-icon">
+                      <svg
+                        class="animate-spin m-svg-icon--medium"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    </span>
+                    <div class="m-tooltip m-tooltip--style-2 m-tooltip--top">
+                      <span class="text-base">+{{ rest_values }}</span>
+                      <span class="m-tooltip__content">
+                        {% render 'new-locale', key: 'products.product.see_more_options', param: '{{ count }}', value: rest_values %}
+                      </span>
+                    </div>
+                  </div>
+                  {% endif %}
+              </swatch-color>
+            {% when 'button' %}
+              <swatch-button class="m-product-option--content m:inline-flex m:flex-wrap{% if is_size %} mr-4{% endif %}">
+                {% for value in option.values %}
+                  {%- if forloop.index0 < values_limit -%}
+                    <label
+                      {% if option.selected_value == value %}
+                        data-selected="true"
+                      {% endif %}
+                      class="m-product-option--node__label"
+                      data-option-position="{{ option.position }}"
+                      data-option-type="button"
+                      data-value="{{- value | escape -}}"
+                    >
+                      {{- value -}}
+                    </label>
+                  {%- endif -%}
+                {% endfor %}
+                {% if rest_values > 0 %}
+                  <div 
+                    class="m-product-option--node__label m-product-option--more-option m-product-quickview-button m-spinner-button" 
+                    data-product-handle="{{ product_handle }}"
+                  >
+                    <span class="m-spinner-icon">
+                      <svg
+                        class="animate-spin m-svg-icon--medium"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    </span>
+                    <div class="m-tooltip m-tooltip--style-2 m-tooltip--top">
+                      <span class="text-base">+{{ rest_values }}</span>
+                      <span class="m-tooltip__content">
+                        {% render 'new-locale', key: 'products.product.see_more_options', param: '{{ count }}', value: rest_values %}
+                      </span>
+                    </div>
+                  </div>
+                {% endif %}
+              </swatch-button>
+            {%- else -%}
+              <swatch-color class="m-product-option--content m:inline-flex m:flex-wrap">
+                {% for value in option.values %}
+                  {%- if forloop.index0 < values_limit -%}
+                    <div class="m-product-option--swatch">
+                      <label
+                        {% if option.selected_value == value %}
+                          data-selected="true"
+                        {% endif %}
+                        class="m-product-option--node__label"
+                        data-option-position="{{ option.position }}"
+                        data-option-type="color"
+                        data-value="{{- value | escape -}}"
+                      >
+                        {{- value -}}
+                      </label>
+                    </div>
+                  {%- endif -%}
+                {% endfor %}
+                {% if rest_values > 0 %}
+                  <div 
+                    class="m-product-option--node__label m-product-option--more-option m-product-quickview-button m-spinner-button" 
+                    data-product-handle="{{ product_handle }}"
+                  >
+                    <span class="m-spinner-icon">
+                      <svg
+                        class="animate-spin m-svg-icon--medium"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    </span>
+                    <div class="m-tooltip m-tooltip--style-2 m-tooltip--top">
+                      <span class="text-base">+{{ rest_values }}</span>
+                      <span class="m-tooltip__content">
+                        {% render 'new-locale', key: 'products.product.see_more_options', param: '{{ count }}', value: rest_values %}
+                      </span>
+                    </div>
+                  </div>
+                {% endif %}
+              </swatch-color>
+          {%- endcase -%}
+        {% endif %}
+      {%- endfor -%}
+    </pcard-swatch>
+    <script type="application/json">
+      {{ product.variants | json }}
+    </script>
+  </div>
+{% endif %}
