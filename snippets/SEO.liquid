@@ -1,0 +1,24 @@
+{%- if settings.use_favicon == true and settings.favicon != blank -%}
+  <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+{%- endif -%}
+
+{%- capture seo_title -%}
+  {%- if request.page_type == 'search' and search.performed == true -%}
+    {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+  {%- elsif request.page_type == 'password' -%}
+    {{ shop.name }} &ndash; {{ 'general.password_page.opening_soon' | t }}
+  {%- else -%}
+    {{ page_title }}
+  {%- endif -%}
+  {%- if current_tags -%}
+  {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+  {%- endif -%}
+  {%- if current_page != 1 -%}
+  &ndash; {{ 'general.meta.page' | t: page: current_page }}
+  {%- endif -%}
+
+{%- endcapture -%}
+<title class="{{ request.page_type }}">{{ seo_title | strip }}</title>
+{%- if page_description -%}
+<meta name="description" content="{{ page_description | escape }}">
+{%- endif -%}

@@ -1,0 +1,155 @@
+{%- liquid
+  assign st = section.settings
+  assign class = ''
+
+  assign container = section.settings.container
+  if container == 'w-full'
+    assign container = 'container-full'
+  endif
+
+  unless st.use_sticky_atc
+    assign class = ' hide-on-desk'
+  endunless
+
+  unless st.use_sticky_atc_on_mobile
+    assign class = ' hide-on-mobile'
+  endunless
+
+  assign image_field = section.blocks | where: 'type', 'image_field'
+
+  assign enable_dynamic_checkout = st.enable_dynamic_checkout
+
+  assign image = product.featured_image
+  if first_3d_model and product.media.size < 2
+    for media in product.media
+      assign image = media
+    endfor
+  endif
+-%}
+{{ 'sticky-add-to-cart.css' | asset_url | stylesheet_tag }}
+<div
+  class="m-sticky-addtocart {{ class }}{% if enable_dynamic_checkout %} enable-dynamic-checkout{% endif %}"
+  data-show-on-desktop="{{ st.use_sticky_atc }}"
+  data-show-on-mobile="{{ st.use_sticky_atc_on_mobile }}"
+  data-view="sticky-atc"
+>
+  <div class="{{ container }}">
+    <sticky-atc
+      class="m:flex m:items-center m:justify-between"
+      data-product-id="{{ product.id }}"
+      data-disable-selected-variant-default="{{ section.settings.disable_selected_variant_default }}"
+    >
+      <div class="m-sticky-addtocart--leftblock m:hidden md:m:flex">
+        <div class="m-sticky-addtocart--image">
+          {%- if image -%}
+            {% render 'responsive-image', image: image, sizes: '100x', aspect_ratio: 1 %}
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'm-placeholder-svg' }}
+          {%- endif -%}
+        </div>
+        <div class="m-sticky-addtocart--title">
+          <h3 class="m:text-base">
+            {{ product.title }}
+          </h3>
+          {% if product.has_only_default_variant %}
+            {% render 'product-prices', use_variant: true, product: product %}
+          {% endif %}
+        </div>
+      </div>
+      <div class="m-sticky-addtocart--rightblock">
+        {%- assign product_form_id = 'sticky-atc-form-' | append: section.id -%}
+        {%- assign product_form_class = 'sticky-atc-form m:flex product-form-' | append: section.id -%}
+        <product-form class="m-product-form m:w-full">
+          {%- form 'product',
+            product,
+            id: product_form_id,
+            data-product-id: product.id,
+            class: product_form_class,
+            novalidate: 'novalidate',
+            data-type: 'add-to-cart-form'
+          -%}
+            <label for="id" class="m:visually-hidden">
+              {%- render 'new-locale', key: 'products.product.select_options' -%}
+            </label>
+            <select
+              name="id"
+              class="m-product-option--dropdown-select{% if product.has_only_default_variant %} m:hidden{% endif %}"
+            >
+              <option value="" disabled>{% render 'new-locale', key: 'products.product.select_options' %}</option>
+              {% for variant in product.variants %}
+                {% assign selected = false %}
+                {%- if variant.id == product.selected_or_first_available_variant.id -%}
+                  {% assign selected = true %}
+                {%- endif -%}
+                <option
+                  value="{{ variant.id }}"
+                  {% if selected %}
+                    selected="true"
+                  {% endif %}
+                >
+                  {{ variant.title }} - {{ variant.price | money }}
+                </option>
+              {% endfor %}
+            </select>
+            {% render 'product-qty-input',
+              class: 'm-sticky-addtocart--quantity',
+              product_form_id: product_form_id,
+              product: product
+            %}
+
+            {%- liquid
+              assign btn_class = 'm-button--primary m:flex-1'
+              if enable_dynamic_checkout
+                assign btn_class = 'm-button--secondary show-dynamic-checkout'
+              endif
+            -%}
+            <button
+              type="submit"
+              name="add"
+              class="m-add-to-cart m-spinner-button m-button {{ btn_class }} {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}"
+              data-atc-text="{{ 'products.product.add_to_cart' | t }}"
+            >
+              <span class="m-spinner-icon">
+                <svg
+                  class="animate-spin m-svg-icon--medium"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              </span>
+              <span class="m-add-to-cart--text">
+                {% if product.selected_or_first_available_variant.available %}
+                  {{ 'products.product.add_to_cart' | t }}
+                {% else %}
+                  {{ 'products.product.sold_out' | t }}
+                {% endif %}
+              </span>
+            </button>
+            {% if enable_dynamic_checkout and image_field.size <= 0 %}
+              <div class="m-product-dynamic-checkout buy-one-click m:flex-1">
+                {{ form | payment_button }}
+              </div>
+            {% endif %}
+          {%- endform -%}
+        </product-form>
+        {% if st.sticky_atc_wishtlist or st.sticky_atc_compare %}
+          <div class="m-sticky-addtocart--addon m:hidden lg:m:flex m:items-center ml-5">
+            {% if st.sticky_atc_compare %}
+              {% render 'tooltip', type: 'compare', class_name: 'm-tooltip--top' %}
+            {% endif %}
+            {% if st.sticky_atc_wishtlist %}
+              {% render 'tooltip', type: 'wishlist', class_name: 'm-tooltip--top' %}
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </sticky-atc>
+  </div>
+  <script type="application/json">
+    {{ product.variants | json }}
+  </script>
+</div>
+<script src="{{ 'sticky-atc.js' | asset_url }}" defer="defer"></script>
