@@ -1,0 +1,80 @@
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "annoucement": {
+      "type": "annoucement",
+      "blocks": {
+        "item_dGj4GU": {
+          "type": "item",
+          "settings": {
+            "message": "Free shipping for all orders from $60+",
+            "message_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_dGj4GU"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".m-announcement-bar__container {--container-width: 600px;}"
+      ],
+      "settings": {
+        "container": "container",
+        "color_scheme": "badge-sale",
+        "show_announcement": true,
+        "homepage_only": true,
+        "show_close": true,
+        "show_divider": false,
+        "show_nav": true,
+        "autorotate": true,
+        "autorotate_speed": 3
+      }
+    },
+    "header": {
+      "type": "header",
+      "custom_css": [
+        ".m-topbar a[href*=\"facebook\"] {order: 2;}",
+        ".social-media-links {column-gap: 30px;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1cb0c1b4-256e-4f0a-b044-a72cb7457566",
+        "color_scheme_menu": "",
+        "header_design": "logo-center-menu-left",
+        "container": "container-fluid",
+        "sticky_header": "always",
+        "transparent_on_top": false,
+        "transparent_text_color": "#ffffff",
+        "logo_text": "MINIMOG",
+        "logo": "shopify:\/\/shop_images\/PNG_LOGO-01.png",
+        "logo_svg": "",
+        "logo_mobile_svg": "",
+        "logo_transparent_svg": "",
+        "logo_max_width": 200,
+        "sticky_logo_max_width": 200,
+        "mobile_logo_max_width": 110,
+        "main_menu": "main-menu",
+        "secondary_menu": "",
+        "mobile_menu": "",
+        "uppercase_parent_level": false,
+        "show_menu_column_divider": true,
+        "search": "hide",
+        "show_account_icon": true,
+        "show_cart_icon": true,
+        "show_wishlist_icon": false,
+        "show_compare_icon": false,
+        "show_currency_switcher": false,
+        "show_country_selector": false,
+        "show_language_switcher": false,
+        "mb_show_currency_switcher": false,
+        "mb_show_country_selector": true,
+        "mb_show_language_switcher": true
+      }
+    }
+  },
+  "order": [
+    "annoucement",
+    "header"
+  ]
+}
