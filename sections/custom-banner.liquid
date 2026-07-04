@@ -1,0 +1,246 @@
+<section id="custom-banner-{{ section.id }}" class="m-section m-custom-banner" style="position: relative; width: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+  
+  {%- liquid
+    assign mobile_height = section.settings.mobile_height | default: 400
+    assign desktop_height = section.settings.desktop_height | default: 600
+  -%}
+  
+  <style>
+    #custom-banner-{{ section.id }} {
+      min-height: {{ mobile_height }}px;
+      height: {{ mobile_height }}px;
+    }
+    @media (min-width: 768px) {
+      #custom-banner-{{ section.id }} {
+        min-height: {{ desktop_height }}px;
+        height: {{ desktop_height }}px;
+      }
+    }
+    .m-custom-banner__media {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    .m-custom-banner__media img,
+    .m-custom-banner__media video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .m-custom-banner__media .mobile-media {
+      display: none;
+    }
+    @media (max-width: 767px) {
+      .m-custom-banner__media .desktop-media {
+        display: none;
+      }
+      .m-custom-banner__media .mobile-media {
+        display: block;
+      }
+    }
+    .m-custom-banner__overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000000;
+      opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+      z-index: 2;
+    }
+    .m-custom-banner__content {
+      position: relative;
+      z-index: 3;
+      text-align: {{ section.settings.text_alignment }};
+      padding: 30px;
+      max-width: 800px;
+      width: 100%;
+    }
+    .m-custom-banner__title {
+      color: {{ section.settings.text_color }};
+      margin-bottom: 15px;
+      margin-top: 0;
+    }
+    @media (min-width: 768px) {
+      .m-custom-banner__title {
+        font-size: 42px !important;
+      }
+    }
+    .m-custom-banner__text {
+      color: {{ section.settings.text_color }};
+      margin-bottom: 25px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+  </style>
+
+  <div class="m-custom-banner__media">
+    {%- if section.settings.video != blank -%}
+      {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: 'desktop-media' }}
+      {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: 'mobile-media' }}
+    {%- else -%}
+      {%- if section.settings.image_desktop != blank -%}
+        <img src="{{ section.settings.image_desktop | image_url: width: 2000 }}" alt="{{ section.settings.title | escape }}" class="desktop-media" loading="lazy">
+      {%- endif -%}
+      {%- if section.settings.image_mobile != blank -%}
+        <img src="{{ section.settings.image_mobile | image_url: width: 800 }}" alt="{{ section.settings.title | escape }}" class="mobile-media" loading="lazy">
+      {%- elsif section.settings.image_desktop != blank -%}
+        <img src="{{ section.settings.image_desktop | image_url: width: 800 }}" alt="{{ section.settings.title | escape }}" class="mobile-media" loading="lazy">
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+
+  <div class="m-custom-banner__overlay"></div>
+
+  <div class="m-custom-banner__content">
+    {%- if section.settings.title != blank -%}
+      <h2 class="m-custom-banner__title m-section__heading {{ section.settings.heading_size }}">{{ section.settings.title }}</h2>
+    {%- endif -%}
+    
+    {%- if section.settings.description != blank -%}
+      <div class="m-custom-banner__text">{{ section.settings.description }}</div>
+    {%- endif -%}
+    
+    {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
+      <a href="{{ section.settings.button_link }}" class="m-button {{ section.settings.button_style }}">{{ section.settings.button_text }}</a>
+    {%- endif -%}
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Custom Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media Settings"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "If video is uploaded, it will replace the images."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop Image",
+      "info": "Recommended size: 1920x800px"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile Image",
+      "info": "Recommended size: 800x1000px"
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "label": "Desktop height",
+      "min": 300,
+      "max": 1000,
+      "step": 10,
+      "default": 600,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "label": "Mobile height",
+      "min": 200,
+      "max": 800,
+      "step": 10,
+      "default": 480,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 30,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Custom Banner Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        { "value": "h1", "label": "Large" },
+        { "value": "h2", "label": "Medium" },
+        { "value": "h3", "label": "Small" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Add a brief description here to engage your customers.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button Style",
+      "options": [
+        { "value": "m-button--primary", "label": "Primary" },
+        { "value": "m-button--secondary", "label": "Secondary" },
+        { "value": "m-button--white", "label": "White" },
+        { "value": "m-button--outline", "label": "Outline" }
+      ],
+      "default": "m-button--primary"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Banner",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}

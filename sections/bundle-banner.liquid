@@ -1,0 +1,372 @@
+{% assign selected_collection = section.settings.bundle_collection %}
+{% assign discount_percent = section.settings.discount_percent | default: 20 %}
+{% assign total_price = 0 %}
+{% if selected_collection != blank %}
+  {% for product in selected_collection.products %}
+    {% assign total_price = total_price | plus: product.price %}
+  {% endfor %}
+{% else %}
+  {% assign total_price = 4000 %}
+{% endif %}
+{% assign discount_amount = total_price | times: discount_percent | divided_by: 100 %}
+{% assign discounted_price = total_price | minus: discount_amount %}
+<style>
+  .bundle-section-{{ section.id }} {
+    padding-top: calc({{ section.settings.padding_top }}px * 0.7);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.7);
+  }
+  @media (min-width: 768px) {
+    .bundle-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+  .bundle-{{ section.id }} {
+    --bg: #FFFBF5;
+    --surface: #FFFFFF;
+    --text: #1A1A1A;
+    --text-soft: #5A5A5A;
+    --border: #E8E0D5;
+    --coral: #000000;
+    --coral-dark: #333333;
+    --radius-card: 20px;
+    --radius-img: 16px;
+    --radius-pill: 40px;
+    --shadow-sm: 0 2px 8px rgba(26,26,26,.04);
+    font-weight: 400;
+    color: inherit;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    {% if section.settings.bg_gradient != blank %}
+      background: {{ section.settings.bg_gradient }};
+    {% endif %}
+    border-radius: var(--radius-card);
+    padding: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .bundle-{{ section.id }} * {
+    box-sizing: border-box;
+  }
+  .bundle-{{ section.id }} .bundle-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  .bundle-{{ section.id }} .save-tag {
+    background: #000000;
+    color: white;
+    padding: 6px 16px;
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .bundle-{{ section.id }} p {
+    color: inherit;
+    opacity: 0.8;
+    margin: 0;
+  }
+  .bundle-{{ section.id }} .bundle-price {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+  .bundle-{{ section.id }} .bundle-price .new {
+    color: #000000;
+    font-size: 28px;
+    font-weight: 600;
+  }
+  .bundle-{{ section.id }} .bundle-price .old {
+    color: inherit;
+    opacity: 0.7;
+    text-decoration: line-through;
+    font-size: 18px;
+  }
+  .bundle-{{ section.id }} .btn-bundle {
+    background: #000000;
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: var(--radius-pill);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.2s, transform 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .bundle-{{ section.id }} .btn-bundle:hover {
+    background: #333333;
+    transform: translateY(-2px);
+  }
+  .bundle-{{ section.id }} .bundle-items {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+  .bundle-{{ section.id }} .bundle-items::-webkit-scrollbar {
+    height: 6px;
+  }
+  .bundle-{{ section.id }} .bundle-items::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 10px;
+  }
+  .bundle-{{ section.id }} .bundle-item {
+    background: var(--surface);
+    padding: 15px;
+    border-radius: var(--radius-img);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 140px;
+    box-shadow: var(--shadow-sm);
+  }
+  .bundle-{{ section.id }} .bundle-item img, .bundle-{{ section.id }} .bundle-item svg {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #f8f8f8;
+  }
+  .bundle-{{ section.id }} .bundle-item small {
+    font-size: 13px;
+    text-align: center;
+    color: #5a5a5a;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  @media (max-width: 991px) {
+    .bundle-{{ section.id }} {
+      grid-template-columns: 1fr;
+      padding: 40px;
+      gap: 30px;
+    }
+  }
+  @media (max-width: 768px) {
+    .bundle-{{ section.id }} {
+      padding: 30px 20px;
+    }
+
+    .bundle-{{ section.id }} .bundle-price .new {
+      font-size: 24px;
+    }
+    .bundle-{{ section.id }} .bundle-item {
+      min-width: 120px;
+    }
+  }
+</style>
+{%- liquid
+  assign container = section.settings.container
+  if container == 'w-full'
+    assign container = 'container-full'
+  endif
+  if container == blank
+    assign container = 'container-fluid'
+  endif
+-%}
+<section class="bundle-section-{{ section.id }} m-section m-color-{{ section.settings.color_scheme | default: 'background-1' }}">
+  <div class="{{ container }}">
+    <div class="bundle-{{ section.id }}">
+      <div class="bundle-info">
+        <span class="save-tag">Save {{ discount_percent }}%</span>
+        <h2 class="m-section__heading {{ section.settings.heading_size | default: 'h2' }}" style="margin: 0;">{{ section.settings.title }}</h2>
+        <p>{{ section.settings.description }}</p>
+        <div class="bundle-price">
+          <span class="new">{{ discounted_price | money }}</span>
+          <span class="old">{{ total_price | money }}</span>
+        </div>
+        
+        {% capture items_json %}
+        [
+          {% if selected_collection != blank %}
+            {% for product in selected_collection.products %}
+              {
+                "id": {{ product.selected_or_first_available_variant.id }},
+                "quantity": 1
+              }{% unless forloop.last %},{% endunless %}
+            {% endfor %}
+          {% endif %}
+        ]
+        {% endcapture %}
+        <button class="btn-bundle" data-items='{{ items_json | strip_newlines | escape }}' onclick="addBundleToCart_{{ section.id | replace: '-', '_' }}(this)">
+          <i class="fa-solid fa-box-open"></i> {{ section.settings.button_text }}
+        </button>
+      </div>
+      
+      <div class="bundle-items">
+        {% if selected_collection != blank %}
+          {% for product in selected_collection.products %}
+            <div class="bundle-item">
+              {% if product.featured_image != blank %}
+                <img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.title | escape }}" loading="lazy">
+              {% else %}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+              <small>{{ product.title }}</small>
+            </div>
+          {% endfor %}
+        {% else %}
+          {% for i in (1..4) %}
+            <div class="bundle-item">
+              {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+              <small>Product {{ i }}</small>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+function addBundleToCart_{{ section.id | replace: '-', '_' }}(button) {
+  const items = JSON.parse(button.dataset.items);
+  if(!items || items.length === 0) {
+    alert('Please select a collection in the section settings first.');
+    return;
+  }
+  
+  const originalText = button.innerHTML;
+  button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Adding...';
+  button.disabled = true;
+  fetch(window.Shopify.routes.root + 'cart/add.js', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ items: items })
+  })
+  .then(response => response.json())
+  .then(data => {
+    window.location.href = window.Shopify.routes.root + 'cart';
+  })
+  .catch((error) => {
+    console.error('Error adding bundle to cart:', error);
+    alert('There was an error adding the bundle to the cart. Please try again.');
+    button.innerHTML = originalText;
+    button.disabled = false;
+  });
+}
+</script>
+{% schema %}
+{
+  "name": "Collection Bundle",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container type",
+      "default": "container-fluid",
+      "options": [
+        { "value": "container-fluid", "label": "Default" },
+        { "value": "w-full", "label": "Full width" },
+        { "value": "container", "label": "Use container box" }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme"
+    },
+    {
+      "type": "text",
+      "id": "bg_gradient",
+      "label": "Custom Background Gradient",
+      "default": "linear-gradient(135deg,#FFF6EC 0%,#FBE9DB 100%)",
+      "info": "Leave blank to use the color scheme's background."
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Bundle Settings"
+    },
+    {
+      "type": "collection",
+      "id": "bundle_collection",
+      "label": "Bundle Collection",
+      "info": "Select the collection to bundle. All products in this collection will be added to the bundle."
+    },
+    {
+      "type": "range",
+      "id": "discount_percent",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Discount Percentage",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "options": [
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Complete the Caribe Kit Set"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Four signature amenities, one tropical experience. Save 20% when you order the complete bathroom set."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Add Bundle to Cart"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Bundle"
+    }
+  ]
+}
+{% endschema %}
