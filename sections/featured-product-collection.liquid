@@ -1,0 +1,505 @@
+{% comment %}
+  Section: Featured Collection
+  Displays all products from a selected collection in a 4-column grid.
+  Style: Caribe Kit Island Amenities
+{% endcomment %}
+
+{% assign collection = collections[section.settings.collection] %}
+
+<section class="fc-section" id="featured-collection-{{ section.id }}">
+
+  <!-- ── Section Header ── -->
+  <div class="fc-header">
+    <div class="fc-header__left">
+      {% if section.settings.label != blank %}
+        <p class="fc-header__label">
+          <span class="fc-header__label-line"></span>
+          {{ section.settings.label }}
+        </p>
+      {% endif %}
+      <h2 class="fc-header__heading">{{ section.settings.heading }}</h2>
+    </div>
+
+    {% if collection != blank and section.settings.show_view_all %}
+      <a href="{{ collection.url }}" class="fc-header__link" aria-label="View full collection">
+        {{ section.settings.view_all_text }}
+        <span class="fc-header__link-arrow">→</span>
+      </a>
+    {% endif %}
+  </div>
+
+  <!-- ── Product Grid ── -->
+  {% if collection != blank and collection.products_count > 0 %}
+    <div class="fc-grid" role="list">
+      {% for product in collection.products limit: section.settings.products_limit %}
+        <article class="fc-card" role="listitem">
+          <a href="{{ product.url }}" class="fc-card__image-wrap" aria-label="{{ product.title | escape }}">
+            {% if product.featured_image %}
+              <img
+                src="{{ product.featured_image | image_url: width: 600 }}"
+                alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                class="fc-card__img"
+                loading="lazy"
+                width="600"
+                height="600"
+              >
+            {% else %}
+              <div class="fc-card__img fc-card__img--placeholder">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21 15 16 10 5 21"/>
+                </svg>
+              </div>
+            {% endif %}
+
+            <!-- Product Type Badge -->
+            {% if product.type != blank %}
+              <span class="fc-card__badge">{{ product.type }}</span>
+            {% elsif product.vendor != blank %}
+              <span class="fc-card__badge">{{ product.vendor }}</span>
+            {% endif %}
+          </a>
+
+          <div class="fc-card__info">
+            <div class="fc-card__meta">
+              <h3 class="fc-card__title">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h3>
+              <span class="fc-card__price">
+                {{ product.price | money }}
+              </span>
+            </div>
+            {% if product.description != blank and section.settings.show_description %}
+              <p class="fc-card__desc">{{ product.description | strip_html | truncatewords: 10 }}</p>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+  {% elsif collection == blank %}
+    <!-- Editor placeholder -->
+    <div class="fc-placeholder">
+      <p>Please select a collection in the section settings.</p>
+    </div>
+  {% else %}
+    <div class="fc-placeholder">
+      <p>No products found in this collection.</p>
+    </div>
+  {% endif %}
+
+</section>
+
+<style>
+  /* ── Section Wrapper ── */
+  .fc-section {
+    background-color: {{ section.settings.background_color }};
+    padding: 64px {{ section.settings.horizontal_padding }}px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ── Header ── */
+  .fc-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 40px;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .fc-header__label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: {{ section.settings.label_color }};
+    margin-bottom: 14px;
+  }
+
+  .fc-header__label-line {
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background-color: {{ section.settings.label_color }};
+    flex-shrink: 0;
+  }
+
+  .fc-header__heading {
+    font-family: {{ section.settings.heading_font }};
+    font-size: clamp(26px, 3.5vw, 42px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: {{ section.settings.heading_color }};
+    margin: 0;
+    max-width: 560px;
+  }
+
+  .fc-header__heading em {
+    font-style: italic;
+  }
+
+  .fc-header__link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: {{ section.settings.heading_color }};
+    text-decoration: none;
+    white-space: nowrap;
+    padding-bottom: 4px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  .fc-header__link:hover {
+    border-bottom-color: {{ section.settings.heading_color }};
+  }
+
+  .fc-header__link-arrow {
+    transition: transform 0.25s ease;
+  }
+
+  .fc-header__link:hover .fc-header__link-arrow {
+    transform: translateX(4px);
+  }
+
+  /* ── Product Grid ── */
+  .fc-grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+    gap: {{ section.settings.grid_gap }}px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  /* ── Product Card ── */
+  .fc-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .fc-card__image-wrap {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: {{ section.settings.image_border_radius }}px;
+    background-color: #e8e0d4;
+    aspect-ratio: 1 / 1;
+    text-decoration: none;
+  }
+
+  .fc-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .fc-card__image-wrap:hover .fc-card__img {
+    transform: scale(1.04);
+  }
+
+  .fc-card__img--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ddd6c8;
+  }
+
+  .fc-card__img--placeholder svg {
+    width: 40px;
+    height: 40px;
+    color: #a09080;
+  }
+
+  /* Badge */
+  .fc-card__badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background-color: rgba(237, 232, 223, 0.92);
+    backdrop-filter: blur(4px);
+    color: #3b3530;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  /* Card Info */
+  .fc-card__info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0 2px;
+  }
+
+  .fc-card__meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .fc-card__title {
+    font-family: {{ section.settings.heading_font }};
+    font-size: {{ section.settings.product_title_size }}px;
+    font-weight: 400;
+    color: {{ section.settings.heading_color }};
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .fc-card__title a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .fc-card__title a:hover {
+    opacity: 0.7;
+  }
+
+  .fc-card__price {
+    font-size: {{ section.settings.product_title_size }}px;
+    font-weight: 400;
+    color: {{ section.settings.heading_color }};
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .fc-card__desc {
+    font-size: 12px;
+    line-height: 1.55;
+    color: {{ section.settings.heading_color }};
+    opacity: 0.6;
+    margin: 0;
+  }
+
+  /* Placeholder */
+  .fc-placeholder {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    text-align: center;
+    background: rgba(0,0,0,0.03);
+    border-radius: 8px;
+    border: 1px dashed rgba(0,0,0,0.15);
+    color: #888;
+    font-size: 14px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .fc-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .fc-section {
+      padding: 48px 20px;
+    }
+
+    .fc-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .fc-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .fc-card__desc {
+      display: none;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .fc-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "tag": "section",
+  "class": "featured-collection-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Collection"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Maximum products to show",
+      "min": 2,
+      "max": 24,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label (above heading)",
+      "default": "The Signature Edit"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>A curated <em>Featured Collection</em> for every guest moment.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View Full Collection' link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View all link text",
+      "default": "View Full Collection"
+    },
+    {
+      "type": "header",
+      "content": "Product Cards"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show product description",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns (desktop)",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Gap between cards (px)",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image corner radius (px)",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "product_title_size",
+      "label": "Product title font size (px)",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Colors & Spacing"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#F5F0E8"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading & Text Color",
+      "default": "#2A2420"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label Color",
+      "default": "#8A7A6A"
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding",
+      "label": "Side Padding (px)",
+      "min": 16,
+      "max": 100,
+      "step": 4,
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "options": [
+        { "value": "'Cormorant Garamond', serif", "label": "Cormorant Garamond (recommended)" },
+        { "value": "'Playfair Display', serif", "label": "Playfair Display" },
+        { "value": "var(--font-heading-family)", "label": "Theme Heading Font" },
+        { "value": "var(--font-body-family)", "label": "Theme Body Font" }
+      ],
+      "default": "var(--font-heading-family)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Product Collection",
+      "settings": {
+        "label": "The Signature Edit",
+        "show_view_all": true,
+        "show_description": true,
+        "columns_desktop": 4,
+        "products_limit": 12
+      }
+    }
+  ]
+}
+{% endschema %}

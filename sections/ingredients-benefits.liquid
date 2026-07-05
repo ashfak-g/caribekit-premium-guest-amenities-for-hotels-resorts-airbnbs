@@ -1,0 +1,483 @@
+{%- style -%}
+/* ===== INGREDIENTS & BENEFITS ===== */
+#shopify-section-{{ section.id }} {
+  --bg: #FAF5EB;
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --text-soft: #5a5a5a;
+  --border: #e8e0d5;
+  --coral: #ff7f5c;
+  --radius-card: 16px;
+  --radius-pill: 40px;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+.ing-section-{{ section.id }} {
+  background-color: var(--bg);
+  padding: calc({{ section.settings.padding_top }}px * 0.7) 1.5rem calc({{ section.settings.padding_bottom }}px * 0.7);
+}
+@media (min-width: 768px) {
+  .ing-section-{{ section.id }} {
+    padding: {{ section.settings.padding_top }}px 3rem {{ section.settings.padding_bottom }}px;
+  }
+}
+.ing-container-{{ section.id }} {
+  max-width: 75rem;
+  margin: 0 auto;
+}
+.ing-grid-{{ section.id }} {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+@media (min-width: 1024px) {
+  .ing-grid-{{ section.id }} {
+    grid-template-columns: 1.4fr 1fr;
+    gap: 4rem;
+  }
+}
+/* ─── Accordion (Left) ─── */
+.ing-title-{{ section.id }} {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  color: inherit;
+}
+.ing-accordion-{{ section.id }} {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.acc-item-{{ section.id }} {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+.acc-item-{{ section.id }}:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.acc-head-{{ section.id }} {
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.acc-head-icon-{{ section.id }} {
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+.acc-item-{{ section.id }}.active .acc-head-icon-{{ section.id }} {
+  transform: rotate(45deg);
+}
+.acc-body-{{ section.id }} {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+.acc-body-inner-{{ section.id }} {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+/* Accordion Content Styling */
+.acc-body-inner-{{ section.id }} p {
+  color: inherit;
+  opacity: 0.8;
+  line-height: 1.6;
+  margin: 0;
+}
+.ing-table-{{ section.id }} {
+  width: 100%;
+  border-collapse: collapse;
+}
+.ing-table-{{ section.id }} td {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.ing-table-{{ section.id }} tr:last-child td {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.ing-table-{{ section.id }} tr:first-child td {
+  padding-top: 0;
+}
+.ing-table-{{ section.id }} td:first-child {
+  font-weight: 600;
+  color: inherit;
+  width: 40%;
+}
+.ing-table-{{ section.id }} td:last-child {
+  color: inherit;
+  opacity: 0.8;
+}
+.free-from-{{ section.id }} {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.free-from-{{ section.id }} span {
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-pill);
+  color: inherit;
+  font-weight: 500;
+}
+/* ─── Benefits Visual (Right) ─── */
+.benefits-visual-{{ section.id }} {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  align-items: stretch;
+}
+.benefits-visual-{{ section.id }}::-webkit-scrollbar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .benefits-visual-{{ section.id }} {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+}
+.benefit-card-{{ section.id }} {
+  flex: 0 0 85%;
+  scroll-snap-align: start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+@media (min-width: 768px) {
+  .benefit-card-{{ section.id }} {
+    flex: auto;
+  }
+}
+.benefit-card-{{ section.id }}:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+}
+.benefit-ico-{{ section.id }} {
+  width: 3.5rem;
+  height: 3.5rem;
+  color: inherit;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+.benefit-ico-{{ section.id }} svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: currentColor;
+}
+.benefit-title-{{ section.id }} {
+  font-weight: 600;
+  color: inherit;
+  margin: 0 0 0.25rem 0;
+}
+.benefit-desc-{{ section.id }} {
+  color: inherit;
+  opacity: 0.8;
+  margin: 0;
+}
+{%- endstyle -%}
+<section id="ing-{{ section.id }}" class="ing-section-{{ section.id }}">
+  <div class="ing-container-{{ section.id }}">
+    <div class="ing-grid-{{ section.id }}">
+    
+    {%- comment -%} ── Left Column: Accordion ── {%- endcomment -%}
+    <div class="accordion-wrapper-{{ section.id }}">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="ing-title-{{ section.id }} {{ section.settings.heading_size | default: 'h2' }}">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      
+      <div class="ing-accordion-{{ section.id }}">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'accordion' -%}
+            <div class="acc-item-{{ section.id }}" {{ block.shopify_attributes }}>
+              <button class="acc-head-{{ section.id }}">
+                {{ block.settings.title }}
+                <span class="acc-head-icon-{{ section.id }}">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg>
+                </span>
+              </button>
+              <div class="acc-body-{{ section.id }}">
+                <div class="acc-body-inner-{{ section.id }}">
+                  
+                  {%- if block.settings.content_type == 'text' -%}
+                    <p>{{ block.settings.text }}</p>
+                  
+                  {%- elsif block.settings.content_type == 'table' -%}
+                    <table class="ing-table-{{ section.id }}">
+                      <tbody>
+                        {%- if block.settings.t1_name != blank -%}<tr><td>{{ block.settings.t1_name }}</td><td>{{ block.settings.t1_val }}</td></tr>{%- endif -%}
+                        {%- if block.settings.t2_name != blank -%}<tr><td>{{ block.settings.t2_name }}</td><td>{{ block.settings.t2_val }}</td></tr>{%- endif -%}
+                        {%- if block.settings.t3_name != blank -%}<tr><td>{{ block.settings.t3_name }}</td><td>{{ block.settings.t3_val }}</td></tr>{%- endif -%}
+                        {%- if block.settings.t4_name != blank -%}<tr><td>{{ block.settings.t4_name }}</td><td>{{ block.settings.t4_val }}</td></tr>{%- endif -%}
+                      </tbody>
+                    </table>
+                  
+                  {%- elsif block.settings.content_type == 'tags' -%}
+                    <div class="free-from-{{ section.id }}">
+                      {%- assign tags = block.settings.tags | split: ',' -%}
+                      {%- for tag in tags -%}
+                        <span>{{ tag | strip }}</span>
+                      {%- endfor -%}
+                    </div>
+                  {%- endif -%}
+                  
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- comment -%} ── Right Column: Benefits Grid ── {%- endcomment -%}
+    <div class="benefits-visual-{{ section.id }}">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'card' -%}
+          <div class="benefit-card-{{ section.id }}" {{ block.shopify_attributes }}>
+            <div class="benefit-ico-{{ section.id }}">
+              {%- if block.settings.icon_image != blank -%}
+                <img src="{{ block.settings.icon_image | image_url: width: 60 }}" alt="{{ block.settings.title | escape }}" width="24" height="24" style="object-fit: contain;">
+              {%- elsif block.settings.icon_svg != blank -%}
+                {{ block.settings.icon_svg }}
+              {%- else -%}
+                <i class="{{ block.settings.icon_class }}" aria-hidden="true"></i>
+              {%- endif -%}
+            </div>
+            <h5 class="benefit-title-{{ section.id }}">{{ block.settings.title }}</h5>
+            <p class="benefit-desc-{{ section.id }}">{{ block.settings.desc }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    </div>
+  </div>
+</section>
+<script>
+  function initAccordion{{ section.id | replace: '-', '_' }}() {
+    const items = document.querySelectorAll('#ing-{{ section.id }} .acc-item-{{ section.id }}');
+    items.forEach(item => {
+      const head = item.querySelector('.acc-head-{{ section.id }}');
+      const body = item.querySelector('.acc-body-{{ section.id }}');
+      
+      // Clean up old listeners (useful in Theme Editor)
+      const newHead = head.cloneNode(true);
+      head.parentNode.replaceChild(newHead, head);
+      
+      newHead.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        // Close all
+        items.forEach(i => {
+          i.classList.remove('active');
+          i.querySelector('.acc-body-{{ section.id }}').style.maxHeight = null;
+        });
+        
+        // Open clicked if it wasn't active
+        if (!isActive) {
+          item.classList.add('active');
+          body.style.maxHeight = body.scrollHeight + 'px';
+        }
+      });
+    });
+  }
+  document.addEventListener('DOMContentLoaded', initAccordion{{ section.id | replace: '-', '_' }});
+  
+  // Re-initialize inside Shopify Theme Editor when block is added/removed
+  if (window.Shopify && Shopify.designMode) {
+    document.addEventListener('shopify:section:load', function(event) {
+      if (event.detail.sectionId === '{{ section.id }}') {
+        initAccordion{{ section.id | replace: '-', '_' }}();
+      }
+    });
+  }
+</script>
+{% schema %}
+{
+  "name": "Ingredients & Benefits",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Ingredients & Benefits"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Accordion Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Accordion Title",
+          "default": "Full Ingredients List (INCI)"
+        },
+        {
+          "type": "select",
+          "id": "content_type",
+          "label": "Content Type",
+          "options": [
+            { "value": "text", "label": "Text Paragraph" },
+            { "value": "table", "label": "Ingredients Table" },
+            { "value": "tags", "label": "Tags / Free From" }
+          ],
+          "default": "text"
+        },
+        {
+          "type": "header",
+          "content": "Content: Text Paragraph"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Aqua, Cocos Nucifera (Coconut) Oil, Aloe Barbadensis Leaf Juice, Cocamidopropyl Betaine, Sodium Cocoyl Isethionate, Glycerin, Tocopherol (Vitamin E), Citrus Aurantium Dulcis Peel Oil, Citric Acid, Sodium Benzoate, Potassium Sorbate."
+        },
+        {
+          "type": "header",
+          "content": "Content: Ingredients Table"
+        },
+        { "type": "text", "id": "t1_name", "label": "Row 1 Name", "default": "Coconut Oil" },
+        { "type": "text", "id": "t1_val", "label": "Row 1 Value", "default": "Deep hydration" },
+        { "type": "text", "id": "t2_name", "label": "Row 2 Name", "default": "Aloe Vera" },
+        { "type": "text", "id": "t2_val", "label": "Row 2 Value", "default": "Soothes scalp" },
+        { "type": "text", "id": "t3_name", "label": "Row 3 Name", "default": "Vitamin E" },
+        { "type": "text", "id": "t3_val", "label": "Row 3 Value", "default": "Antioxidant protection" },
+        { "type": "text", "id": "t4_name", "label": "Row 4 Name", "default": "Citrus Oil" },
+        { "type": "text", "id": "t4_val", "label": "Row 4 Value", "default": "Natural fragrance" },
+        {
+          "type": "header",
+          "content": "Content: Tags"
+        },
+        {
+          "type": "text",
+          "id": "tags",
+          "label": "Tags (comma separated)",
+          "default": "No Parabens, No Sulfates, No Silicones, No Phthalates, No Dyes"
+        }
+      ]
+    },
+    {
+      "type": "card",
+      "name": "Benefit Card",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon Image"
+        },
+        {
+          "type": "html",
+          "id": "icon_svg",
+          "label": "Icon SVG"
+        },
+        {
+          "type": "text",
+          "id": "icon_class",
+          "label": "Icon Class (FontAwesome Fallback)",
+          "default": "fa-solid fa-droplet",
+          "info": "Example: fa-solid fa-droplet, fa-solid fa-feather"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Hydration"
+        },
+        {
+          "type": "text",
+          "id": "desc",
+          "label": "Description",
+          "default": "Locks in moisture"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredients & Benefits",
+      "blocks": [
+        { "type": "accordion", "settings": { "title": "Full Ingredients List (INCI)", "content_type": "text" } },
+        { "type": "accordion", "settings": { "title": "Key Ingredients & Benefits", "content_type": "table" } },
+        { "type": "accordion", "settings": { "title": "Free From", "content_type": "tags" } },
+        { "type": "card", "settings": { "icon_class": "fa-solid fa-droplet", "title": "Hydration", "desc": "Locks in moisture" } },
+        { "type": "card", "settings": { "icon_class": "fa-solid fa-feather", "title": "Gentle", "desc": "Safe for daily use" } },
+        { "type": "card", "settings": { "icon_class": "fa-solid fa-wand-magic-sparkles", "title": "Repair", "desc": "Strengthens strands" } },
+        { "type": "card", "settings": { "icon_class": "fa-solid fa-sun", "title": "Shine", "desc": "Natural luminosity" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
