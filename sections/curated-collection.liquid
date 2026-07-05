@@ -1,0 +1,536 @@
+{%- style -%}
+/* ===== CURATED COLLECTIONS SECTION ===== */
+#shopify-section-{{ section.id }} {
+  --tracking-widest: 0.1em;
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-font-smoothing: antialiased;
+}
+/* ─── Section wrapper ─── */
+.cc-section-{{ section.id }} {
+  padding-top: calc({{ section.settings.padding_top }}px * 0.7);
+  padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.7);
+}
+@media (min-width: 768px) {
+  .cc-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+}
+
+/* ─── Section header ─── */
+.cc-header-{{ section.id }} {
+  margin: 0 0 2.5rem 0;
+}
+.cc-eyebrow-{{ section.id }} {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  margin: 0 0 0.5rem 0;
+  display: block;
+}
+.cc-heading-{{ section.id }} {
+  margin: 0;
+}
+/* ─── Flex row: 3 equal cards side by side ─── */
+/* ─── Flex row: 3 equal square cards ─── */
+.cc-grid-{{ section.id }} {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: 1.25rem;
+  padding-bottom: 1.5rem;
+}
+.cc-grid-{{ section.id }}::-webkit-scrollbar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .cc-grid-{{ section.id }} {
+    overflow-x: visible;
+    padding-bottom: 0;
+    gap: 1.5rem;
+  }
+}
+/* ─── Card base ─── */
+/* ─── Card base — square via aspect-ratio ─── */
+.cc-card-{{ section.id }} {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
+  flex-shrink: 0;
+  width: 85%;
+  scroll-snap-align: center;
+  /* Square on mobile */
+  aspect-ratio: 1 / 1;
+  box-shadow: 0 10px 30px #FFFBF5;
+  transition: transform 0.35s var(--ease-in-out), box-shadow 0.35s var(--ease-in-out);
+}
+.cc-card-{{ section.id }}:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px #FFFBF5;
+}
+@media (min-width: 768px) {
+  .cc-card-{{ section.id }} {
+    flex: 1 1 0;
+    width: 0;
+    height: 34rem;
+    /* Square on desktop too */
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+}
+/* ─── Card image ─── */
+.cc-img-{{ section.id }} {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.7s var(--ease-in-out);
+  display: block;
+}
+.cc-card-{{ section.id }}:hover .cc-img-{{ section.id }} {
+  transform: scale(1.05);
+}
+/* ─── Gradient overlay ─── */
+.cc-overlay-{{ section.id }} {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(191, 160, 125, 0.95) 0%,
+    rgba(191, 160, 125, 0.7) 40%,
+    rgba(191, 160, 125, 0.15) 100%
+  );
+  transition: opacity 0.4s var(--ease-in-out);
+}
+.cc-card-{{ section.id }}:hover .cc-overlay-{{ section.id }} {
+  opacity: 1;
+}
+/* ─── Card content ─── */
+.cc-content-{{ section.id }} {
+  position: absolute;
+  inset: 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+@media (min-width: 768px) {
+  .cc-content-{{ section.id }} {
+    padding: 3rem;
+  }
+}
+.cc-card-title-{{ section.id }} {
+  color: #000000;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.15;
+  text-shadow: none;
+}
+.cc-card-sub-{{ section.id }} {
+  color: rgba(0, 0, 0, 0.80);
+  font-size: 0.875rem;
+  margin: 0 0 1.5rem 0;
+  max-width: 28rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+@media (max-width: 767px) {
+  .cc-card-sub-{{ section.id }} {
+    font-size: 0.8125rem;
+    margin-bottom: 1.125rem;
+  }
+}
+/* ─── Shop Collection button ─── */
+.cc-btn-{{ section.id }} {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #fff;
+  color: #000;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background-color 0.25s var(--ease-in-out), color 0.25s var(--ease-in-out),
+              transform 0.2s var(--ease-in-out), box-shadow 0.25s var(--ease-in-out);
+  width: fit-content;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+}
+.cc-card-{{ section.id }}:hover .cc-btn-{{ section.id }} {
+  background-color: #000;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 127, 92, 0.40);
+}
+.cc-btn-icon-{{ section.id }} {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.875rem;
+  transition: transform 0.2s var(--ease-in-out);
+}
+.cc-card-{{ section.id }}:hover .cc-btn-icon-{{ section.id }} {
+  transform: translateX(3px);
+}
+/* ─── Placeholder (no image set) ─── */
+.cc-placeholder-{{ section.id }} {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #d5c9bc 0%, #b8aa9a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.5);
+  font-size: 3rem;
+}
+{%- endstyle -%}
+{%- comment -%}
+  ══════════════════════════════════════════════
+  MARKUP
+  ══════════════════════════════════════════════
+{%- endcomment -%}
+{%- liquid
+  assign container = section.settings.container
+  if container == 'w-full'
+    assign container = 'container-full'
+  endif
+  if container == blank
+    assign container = 'container-fluid'
+  endif
+-%}
+<section id="cc-section-{{ section.id }}" class="cc-section-{{ section.id }} m-section m-color-{{ section.settings.color_scheme | default: 'background-1' }}">
+  <div class="{{ container }}">
+    {%- comment -%}── Section header ──{%- endcomment -%}
+    <div class="cc-header-{{ section.id }}">
+      <span class="cc-eyebrow-{{ section.id }}">{{ section.settings.eyebrow | default: 'Shop the collections' }}</span>
+      <h2 class="cc-heading-{{ section.id }}">{{ section.settings.heading | default: 'Curated for every stay' }}</h2>
+    </div>
+    {%- comment -%}── Collections grid ──{%- endcomment -%}
+    <div class="cc-grid-{{ section.id }}">
+      {%- comment -%}── Collection 1 — featured (spans 2 rows on desktop) ──{%- endcomment -%}
+      {%- liquid
+        assign col1      = section.settings.collection_1
+        assign col1_title = section.settings.col1_title | default: col1.title | default: 'Bathroom Essentials'
+        assign col1_sub   = section.settings.col1_subtitle | default: 'Shampoo · Conditioner · Shower Gel · Body Lotion'
+        assign col1_link  = section.settings.col1_link | default: col1.url | default: '#'
+        assign col1_img   = section.settings.col1_image
+        assign col1_src   = blank
+        if col1_img != blank
+          assign col1_src = col1_img | image_url: width: 1200
+        elsif col1 != blank and col1.image != blank
+          assign col1_src = col1.image | image_url: width: 1200
+        endif
+      -%}
+      <a href="{{ col1_link }}"
+         class="cc-card-{{ section.id }}"
+         aria-label="{{ col1_title | escape }}">
+        {%- if col1_src != blank -%}
+          <img
+            src="{{ col1_src }}"
+            alt="{{ col1_title | escape }}"
+            loading="lazy"
+            class="cc-img-{{ section.id }}"
+            width="1200"
+            height="1300"
+          >
+        {%- else -%}
+          <div class="cc-placeholder-{{ section.id }}">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M6 36L16 24l8 10 6-8 12 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="14" cy="16" r="4" stroke="currentColor" stroke-width="2.5"/>
+              <rect x="3" y="6" width="42" height="36" rx="4" stroke="currentColor" stroke-width="2.5"/>
+            </svg>
+          </div>
+        {%- endif -%}
+        <div class="cc-overlay-{{ section.id }}"></div>
+        <div class="cc-content-{{ section.id }}">
+          <h3 class="cc-card-title-{{ section.id }}">{{ col1_title }}</h3>
+          <p class="cc-card-sub-{{ section.id }}">{{ col1_sub }}</p>
+          <span class="cc-btn-{{ section.id }}">
+            Shop Collection
+            <span class="cc-btn-icon-{{ section.id }}" aria-hidden="true">→</span>
+          </span>
+        </div>
+      </a>
+      {%- comment -%}── Collection 2 — top-right ──{%- endcomment -%}
+      {%- liquid
+        assign col2       = section.settings.collection_2
+        assign col2_title = section.settings.col2_title | default: col2.title | default: 'Guest Comfort Kits'
+        assign col2_sub   = section.settings.col2_subtitle | default: 'Dental Kit · Vanity Kit · Wooden Comb'
+        assign col2_link  = section.settings.col2_link | default: col2.url | default: '#'
+        assign col2_img   = section.settings.col2_image
+        assign col2_src   = blank
+        if col2_img != blank
+          assign col2_src = col2_img | image_url: width: 900
+        elsif col2 != blank and col2.image != blank
+          assign col2_src = col2.image | image_url: width: 900
+        endif
+      -%}
+      <a href="{{ col2_link }}"
+         class="cc-card-{{ section.id }}"
+         aria-label="{{ col2_title | escape }}">
+        {%- if col2_src != blank -%}
+          <img
+            src="{{ col2_src }}"
+            alt="{{ col2_title | escape }}"
+            loading="lazy"
+            class="cc-img-{{ section.id }}"
+            width="900"
+            height="600"
+          >
+        {%- else -%}
+          <div class="cc-placeholder-{{ section.id }}">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M6 36L16 24l8 10 6-8 12 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="14" cy="16" r="4" stroke="currentColor" stroke-width="2.5"/>
+              <rect x="3" y="6" width="42" height="36" rx="4" stroke="currentColor" stroke-width="2.5"/>
+            </svg>
+          </div>
+        {%- endif -%}
+        <div class="cc-overlay-{{ section.id }}"></div>
+        <div class="cc-content-{{ section.id }}">
+          <h3 class="cc-card-title-{{ section.id }}">{{ col2_title }}</h3>
+          <p class="cc-card-sub-{{ section.id }}">{{ col2_sub }}</p>
+          <span class="cc-btn-{{ section.id }}">
+            Shop Collection
+            <span class="cc-btn-icon-{{ section.id }}" aria-hidden="true">→</span>
+          </span>
+        </div>
+      </a>
+      {%- comment -%}── Collection 3 — bottom-right (new) ──{%- endcomment -%}
+      {%- liquid
+        assign col3       = section.settings.collection_3
+        assign col3_title = section.settings.col3_title | default: col3.title | default: 'Eco & Wellness'
+        assign col3_sub   = section.settings.col3_subtitle | default: 'Sustainable · Refillable · Natural'
+        assign col3_link  = section.settings.col3_link | default: col3.url | default: '#'
+        assign col3_img   = section.settings.col3_image
+        assign col3_src   = blank
+        if col3_img != blank
+          assign col3_src = col3_img | image_url: width: 900
+        elsif col3 != blank and col3.image != blank
+          assign col3_src = col3.image | image_url: width: 900
+        endif
+      -%}
+      <a href="{{ col3_link }}"
+         class="cc-card-{{ section.id }}"
+         aria-label="{{ col3_title | escape }}">
+        {%- if col3_src != blank -%}
+          <img
+            src="{{ col3_src }}"
+            alt="{{ col3_title | escape }}"
+            loading="lazy"
+            class="cc-img-{{ section.id }}"
+            width="900"
+            height="600"
+          >
+        {%- else -%}
+          <div class="cc-placeholder-{{ section.id }}">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M6 36L16 24l8 10 6-8 12 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="14" cy="16" r="4" stroke="currentColor" stroke-width="2.5"/>
+              <rect x="3" y="6" width="42" height="36" rx="4" stroke="currentColor" stroke-width="2.5"/>
+            </svg>
+          </div>
+        {%- endif -%}
+        <div class="cc-overlay-{{ section.id }}"></div>
+        <div class="cc-content-{{ section.id }}">
+          <h3 class="cc-card-title-{{ section.id }}">{{ col3_title }}</h3>
+          <p class="cc-card-sub-{{ section.id }}">{{ col3_sub }}</p>
+          <span class="cc-btn-{{ section.id }}">
+            Shop Collection
+            <span class="cc-btn-icon-{{ section.id }}" aria-hidden="true">→</span>
+          </span>
+        </div>
+      </a>
+    </div>{%- comment -%} /grid {%- endcomment -%}
+  </div>{%- comment -%} /container {%- endcomment -%}
+</section>
+{% schema %}
+{
+  "name": "Curated Collections",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container type",
+      "default": "container-fluid",
+      "options": [
+        {
+          "value": "container-fluid",
+          "label": "Default"
+        },
+        {
+          "value": "w-full",
+          "label": "Full width"
+        },
+        {
+          "value": "container",
+          "label": "Use container box"
+        }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "default": 80,
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "default": 80,
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Label",
+      "default": "Shop the collections"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Curated for every stay"
+    },
+    {
+      "type": "header",
+      "content": "Collection 1 — Featured (Left, Large)"
+    },
+    {
+      "type": "collection",
+      "id": "collection_1",
+      "label": "Collection 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "col1_image",
+      "label": "Collection 1 — Custom Image",
+      "info": "Overrides the collection image. Portrait ratio recommended."
+    },
+    {
+      "type": "text",
+      "id": "col1_title",
+      "label": "Collection 1 — Card Title",
+      "default": "Bathroom Essentials"
+    },
+    {
+      "type": "text",
+      "id": "col1_subtitle",
+      "label": "Collection 1 — Subtitle",
+      "default": "Shampoo · Conditioner · Shower Gel · Body Lotion"
+    },
+    {
+      "type": "url",
+      "id": "col1_link",
+      "label": "Collection 1 — Link",
+      "info": "Overrides the collection URL. Use for anchors like #products."
+    },
+    {
+      "type": "header",
+      "content": "Collection 2 — Top Right"
+    },
+    {
+      "type": "collection",
+      "id": "collection_2",
+      "label": "Collection 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "col2_image",
+      "label": "Collection 2 — Custom Image",
+      "info": "Overrides the collection image. Landscape ratio recommended."
+    },
+    {
+      "type": "text",
+      "id": "col2_title",
+      "label": "Collection 2 — Card Title",
+      "default": "Guest Comfort Kits"
+    },
+    {
+      "type": "text",
+      "id": "col2_subtitle",
+      "label": "Collection 2 — Subtitle",
+      "default": "Dental Kit · Vanity Kit · Wooden Comb"
+    },
+    {
+      "type": "url",
+      "id": "col2_link",
+      "label": "Collection 2 — Link"
+    },
+    {
+      "type": "header",
+      "content": "Collection 3 — Bottom Right (New)"
+    },
+    {
+      "type": "collection",
+      "id": "collection_3",
+      "label": "Collection 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "col3_image",
+      "label": "Collection 3 — Custom Image",
+      "info": "Overrides the collection image. Landscape ratio recommended."
+    },
+    {
+      "type": "text",
+      "id": "col3_title",
+      "label": "Collection 3 — Card Title",
+      "default": "Eco & Wellness"
+    },
+    {
+      "type": "text",
+      "id": "col3_subtitle",
+      "label": "Collection 3 — Subtitle",
+      "default": "Sustainable · Refillable · Natural"
+    },
+    {
+      "type": "url",
+      "id": "col3_link",
+      "label": "Collection 3 — Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Curated Collections"
+    }
+  ]
+}
+{% endschema %}
