@@ -1,0 +1,465 @@
+{%- style -%}
+/* ===== BRAND STORY SECTION ===== */
+#shopify-section-{{ section.id }} {
+  -webkit-font-smoothing: antialiased;
+}
+.story-section-{{ section.id }} {
+  padding-top: calc({{ section.settings.padding_top }}px * 0.7);
+  padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.7);
+}
+@media (min-width: 768px) {
+  .story-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+}
+
+.story-grid-{{ section.id }} {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .story-grid-{{ section.id }} {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5rem;
+  }
+}
+/* ─── Image Wrapper ─── */
+.story-img-wrapper-{{ section.id }} {
+  position: relative;
+  border-radius: 1rem;
+  box-shadow: 0 30px 60px -30px rgba(26, 77, 95, 0.45);
+}
+.story-img-{{ section.id }} {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+}
+/* ─── Floating Badge ─── */
+.story-badge-{{ section.id }} {
+  display: none;
+  position: absolute;
+  bottom: -2rem;
+  right: -2rem;
+  background-color: var(--color-bg-1, #fff);
+  color: inherit;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  max-width: 13.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  z-index: 2;
+}
+@media (min-width: 768px) {
+  .story-badge-{{ section.id }} {
+    display: block;
+  }
+}
+.story-badge-title-{{ section.id }} {
+  font-size: 1.875rem;
+  color: inherit;
+  margin: 0;
+  line-height: 1.2;
+}
+.story-badge-text-{{ section.id }} {
+  font-size: 0.875rem;
+  color: inherit;
+  opacity: 0.8;
+  margin: 0.25rem 0 0 0;
+  line-height: 1.25;
+}
+/* ─── Text Content ─── */
+.story-content-{{ section.id }} {
+  display: flex;
+  flex-direction: column;
+}
+.story-eyebrow-{{ section.id }} {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: inherit;
+  opacity: 0.8;
+  margin-bottom: 0.75rem;
+}
+.story-heading-{{ section.id }} {
+  margin: 0;
+  color: inherit;
+}
+.story-text-{{ section.id }} {
+  margin-top: 1.5rem;
+  color: inherit;
+  opacity: 0.8;
+  font-weight: 300;
+  line-height: 1.625;
+  font-size: 1.125rem;
+}
+/* ─── Icon List ─── */
+.story-list-{{ section.id }} {
+  margin-top: 2rem;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.story-list-item-{{ section.id }} {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: inherit;
+  opacity: 0.8;
+  font-weight: 300;
+  font-size: 1rem;
+}
+.story-icon-{{ section.id }} {
+  color: inherit;
+  margin-top: 0.25rem;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+}
+.story-icon-{{ section.id }} svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: currentColor;
+}
+/* ─── Button ─── */
+.story-btn-{{ section.id }} {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+  border: 2px solid currentColor;
+  color: inherit;
+  background-color: transparent;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.25s, color 0.25s;
+  width: fit-content;
+}
+.story-btn-{{ section.id }}:hover {
+  background-color: #000;
+  color: #fff;
+  border-color: #000;
+}
+.story-btn-icon-{{ section.id }} {
+  transition: transform 0.2s ease;
+}
+.story-btn-{{ section.id }}:hover .story-btn-icon-{{ section.id }} {
+  transform: translateX(4px);
+}
+{%- endstyle -%}
+{%- liquid
+  assign container = section.settings.container
+  if container == 'w-full'
+    assign container = 'container-full'
+  endif
+  if container == blank
+    assign container = 'container-fluid'
+  endif
+-%}
+<section id="story-{{ section.id }}" class="story-section-{{ section.id }} m-section m-color-{{ section.settings.color_scheme | default: 'background-1' }}">
+  <div class="{{ container }}">
+    <div class="story-grid-{{ section.id }}">
+      {%- comment -%}── Left Column: Image & Badge ──{%- endcomment -%}
+      <div class="story-img-wrapper-{{ section.id }}">
+        {%- if section.settings.image != blank -%}
+          <img
+            src="{{ section.settings.image | image_url: width: 1280 }}"
+            alt="{{ section.settings.image.alt | default: section.settings.heading | escape }}"
+            loading="lazy"
+            class="story-img-{{ section.id }}"
+            width="{{ section.settings.image.width }}"
+            height="{{ section.settings.image.height }}"
+          >
+        {%- else -%}
+          <div class="story-img-{{ section.id }}" style="background: linear-gradient(135deg, #d5c9bc 0%, #b8aa9a 100%); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5);">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M6 36L16 24l8 10 6-8 12 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="14" cy="16" r="4" stroke="currentColor" stroke-width="2.5"/>
+              <rect x="3" y="6" width="42" height="36" rx="4" stroke="currentColor" stroke-width="2.5"/>
+            </svg>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.badge_number != blank or section.settings.badge_text != blank -%}
+          <div class="story-badge-{{ section.id }}">
+            {%- if section.settings.badge_number != blank -%}
+              <div class="story-badge-title-{{ section.id }}">{{ section.settings.badge_number }}</div>
+            {%- endif -%}
+            {%- if section.settings.badge_text != blank -%}
+              <p class="story-badge-text-{{ section.id }}">{{ section.settings.badge_text }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+      {%- comment -%}── Right Column: Text Content ──{%- endcomment -%}
+      <div class="story-content-{{ section.id }}">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="story-eyebrow-{{ section.id }}">{{ section.settings.eyebrow }}</span>
+        {%- endif -%}
+        
+        {%- if section.settings.heading != blank -%}
+          <h2 class="story-heading-{{ section.id }} {{ section.settings.heading_size | default: 'h2' }}">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        
+        {%- if section.settings.text != blank -%}
+          <p class="story-text-{{ section.id }}">{{ section.settings.text }}</p>
+        {%- endif -%}
+        
+        {%- if section.settings.list_item_1 != blank or section.settings.list_item_2 != blank or section.settings.list_item_3 != blank -%}
+          <ul class="story-list-{{ section.id }}">
+            {%- if section.settings.list_item_1 != blank -%}
+              <li class="story-list-item-{{ section.id }}">
+                <span class="story-icon-{{ section.id }}">
+                  {%- if section.settings.icon_image_1 != blank -%}
+                    <img src="{{ section.settings.icon_image_1 | image_url: width: 40 }}" alt="{{ section.settings.list_item_1 | escape }}" width="20" height="20" style="object-fit: contain;">
+                  {%- elsif section.settings.icon_svg_1 != blank -%}
+                    {{ section.settings.icon_svg_1 }}
+                  {%- else -%}
+                    <i class="fa-solid fa-leaf"></i>
+                  {%- endif -%}
+                </span>
+                <span>{{ section.settings.list_item_1 }}</span>
+              </li>
+            {%- endif -%}
+            {%- if section.settings.list_item_2 != blank -%}
+              <li class="story-list-item-{{ section.id }}">
+                <span class="story-icon-{{ section.id }}">
+                  {%- if section.settings.icon_image_2 != blank -%}
+                    <img src="{{ section.settings.icon_image_2 | image_url: width: 40 }}" alt="{{ section.settings.list_item_2 | escape }}" width="20" height="20" style="object-fit: contain;">
+                  {%- elsif section.settings.icon_svg_2 != blank -%}
+                    {{ section.settings.icon_svg_2 }}
+                  {%- else -%}
+                    <i class="fa-solid fa-recycle"></i>
+                  {%- endif -%}
+                </span>
+                <span>{{ section.settings.list_item_2 }}</span>
+              </li>
+            {%- endif -%}
+            {%- if section.settings.list_item_3 != blank -%}
+              <li class="story-list-item-{{ section.id }}">
+                <span class="story-icon-{{ section.id }}">
+                  {%- if section.settings.icon_image_3 != blank -%}
+                    <img src="{{ section.settings.icon_image_3 | image_url: width: 40 }}" alt="{{ section.settings.list_item_3 | escape }}" width="20" height="20" style="object-fit: contain;">
+                  {%- elsif section.settings.icon_svg_3 != blank -%}
+                    {{ section.settings.icon_svg_3 }}
+                  {%- else -%}
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                  {%- endif -%}
+                </span>
+                <span>{{ section.settings.list_item_3 }}</span>
+              </li>
+            {%- endif -%}
+          </ul>
+        {%- endif -%}
+        
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ section.settings.button_link | default: '#' }}" class="story-btn-{{ section.id }}">
+            {{ section.settings.button_label }}
+            <span class="story-btn-icon-{{ section.id }}">→</span>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Brand Story",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container type",
+      "default": "container-fluid",
+      "options": [
+        {
+          "value": "container-fluid",
+          "label": "Default"
+        },
+        {
+          "value": "w-full",
+          "label": "Full width"
+        },
+        {
+          "value": "container",
+          "label": "Use container box"
+        }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "default": 80,
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "default": 80,
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Image & Badge"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Featured Image",
+      "info": "Square aspect ratio (1:1) works best."
+    },
+    {
+      "type": "text",
+      "id": "badge_number",
+      "label": "Badge Number",
+      "default": "200+"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Properties across the Caribbean"
+    },
+    {
+      "type": "header",
+      "content": "Text Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The Caribe Kit Story"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Crafted for the Caribbean"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Description",
+      "default": "Each product is designed to bring resort-quality luxury into every stay. Gentle on skin, beautiful in presentation — a small gesture that guests remember long after check-out."
+    },
+    {
+      "type": "header",
+      "content": "Icon List"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_image_1",
+      "label": "Icon Image 1"
+    },
+    {
+      "type": "html",
+      "id": "icon_svg_1",
+      "label": "Icon SVG 1"
+    },
+    {
+      "type": "text",
+      "id": "list_item_1",
+      "label": "List Item 1 Text",
+      "default": "Botanical formulas with coconut & aloe"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_image_2",
+      "label": "Icon Image 2"
+    },
+    {
+      "type": "html",
+      "id": "icon_svg_2",
+      "label": "Icon SVG 2"
+    },
+    {
+      "type": "text",
+      "id": "list_item_2",
+      "label": "List Item 2 Text",
+      "default": "Recyclable, plastic-neutral packaging"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_image_3",
+      "label": "Icon Image 3"
+    },
+    {
+      "type": "html",
+      "id": "icon_svg_3",
+      "label": "Icon SVG 3"
+    },
+    {
+      "type": "text",
+      "id": "list_item_3",
+      "label": "List Item 3 Text",
+      "default": "Made with care in the islands"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Explore the Collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Premium Brand Story"
+    }
+  ]
+}
+{% endschema %}
