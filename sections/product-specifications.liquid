@@ -1,0 +1,210 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    -webkit-font-smoothing: antialiased;
+  }
+  .specs-{{ section.id }} {
+    padding-top: calc({{ section.settings.padding_top }}px * 0.7);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.7);
+    {% if section.settings.bg_color != blank and section.settings.bg_color != 'rgba(0,0,0,0)' %}
+      background-color: {{ section.settings.bg_color }};
+    {% endif %}
+  }
+  @media (min-width: 768px) {
+    .specs-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .specs-{{ section.id }} .spec-table {
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    border: 1px solid #E8E0D5;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(26,26,26,.04);
+    overflow: hidden;
+  }
+  .specs-{{ section.id }} .spec-row {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid #E8E0D5;
+  }
+  .specs-{{ section.id }} .spec-row:last-child {
+    border-bottom: none;
+  }
+  .specs-{{ section.id }} .spec-label {
+    font-weight: 600;
+    color: #1A1A1A;
+    font-size: 0.9375rem;
+  }
+  .specs-{{ section.id }} .spec-value {
+    color: #5A5A5A;
+    font-size: 0.9375rem;
+  }
+  @media (max-width: 600px) {
+    .specs-{{ section.id }} .spec-row {
+      grid-template-columns: 1fr 1.5fr;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign container = section.settings.container
+  if container == 'w-full'
+    assign container = 'container-full'
+  endif
+  if container == blank
+    assign container = 'container-fluid'
+  endif
+-%}
+
+<section id="specs-{{ section.id }}" class="specs-{{ section.id }} m-section m-color-{{ section.settings.color_scheme | default: 'background-1' }}">
+  <div class="{{ container }}">
+    {% if section.settings.title != blank or section.settings.subtitle != blank %}
+      <div class="m-section__header m:text-center">
+        {% if section.settings.title != blank %}
+          <h2 class="m-section__heading {{ section.settings.heading_size | default: 'h2' }}">{{ section.settings.title }}</h2>
+        {% endif %}
+        {% if section.settings.subtitle != blank %}
+          <p class="m-section__subheading">{{ section.settings.subtitle }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+    
+    {% if section.blocks.size > 0 %}
+      <div class="spec-table">
+        {% for block in section.blocks %}
+          {% if block.settings.label != blank or block.settings.value != blank %}
+            <div class="spec-row" {{ block.shopify_attributes }}>
+              <div class="spec-label">{{ block.settings.label }}</div>
+              <div class="spec-value">{{ block.settings.value }}</div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Specifications",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container type",
+      "default": "container-fluid",
+      "options": [
+        { "value": "container-fluid", "label": "Default" },
+        { "value": "w-full", "label": "Full width" },
+        { "value": "container", "label": "Use container box" }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Custom Background Color",
+      "default": "#FFFBF5",
+      "info": "Leave blank to use the color scheme's background."
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Text Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Product Specifications"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Everything you need to know"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "spec_row",
+      "name": "Specification Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Label"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "Value"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Specifications",
+      "blocks": [
+        { "type": "spec_row", "settings": { "label": "Volume", "value": "40ml / 1.35 fl oz" } },
+        { "type": "spec_row", "settings": { "label": "Bottle Material", "value": "PCR Recycled Plastic" } },
+        { "type": "spec_row", "settings": { "label": "Cap Type", "value": "Flip-top" } },
+        { "type": "spec_row", "settings": { "label": "Shelf Life", "value": "24 months" } },
+        { "type": "spec_row", "settings": { "label": "Made in", "value": "Dominican Republic" } },
+        { "type": "spec_row", "settings": { "label": "SKU", "value": "CBK-SH-40" } },
+        { "type": "spec_row", "settings": { "label": "Case Quantity", "value": "100 units" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
