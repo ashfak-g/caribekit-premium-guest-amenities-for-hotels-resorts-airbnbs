@@ -1,0 +1,328 @@
+{%- style -%}
+/* ===== FAQ SECTION ===== */
+#shopify-section-{{ section.id }} {
+  --bg: #fffbf5;
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --text-soft: #5a5a5a;
+  --border: #e8e0d5;
+  --coral: #ff7f5c;
+  --radius-card: 20px;
+  color: inherit;
+  -webkit-font-smoothing: antialiased;
+}
+.faq-section-{{ section.id }} {
+  padding-top: calc({{ section.settings.padding_top }}px * 0.7);
+  padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.7);
+  {% if section.settings.bg_color != blank and section.settings.bg_color != 'rgba(0,0,0,0)' %}
+    background-color: {{ section.settings.bg_color }};
+  {% endif %}
+}
+@media (min-width: 768px) {
+  .faq-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+}
+.faq-container-{{ section.id }} {
+  margin: 0 auto;
+}
+/* ─── Header ─── */
+.faq-header-{{ section.id }} {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* ─── Grid ─── */
+.faq-grid-{{ section.id }} {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+@media (min-width: 1024px) {
+  .faq-grid-{{ section.id }} {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+.faq-col-{{ section.id }} {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+/* ─── Accordion Item ─── */
+.acc-item-{{ section.id }} {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+.acc-item-{{ section.id }}:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.acc-head-{{ section.id }} {
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+}
+.acc-head-icon-{{ section.id }} {
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+.acc-item-{{ section.id }}.active .acc-head-icon-{{ section.id }} {
+  transform: rotate(45deg);
+}
+.acc-body-{{ section.id }} {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+.acc-body-inner-{{ section.id }} {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+.acc-body-inner-{{ section.id }} p {
+  color: var(--text-soft);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin: 0;
+}
+{%- endstyle -%}
+
+{%- liquid
+  assign container = section.settings.container
+  if container == 'w-full'
+    assign container = 'container-full'
+  endif
+  if container == blank
+    assign container = 'container-fluid'
+  endif
+-%}
+
+<section id="faq-{{ section.id }}" class="faq-section-{{ section.id }} m-section m-color-{{ section.settings.color_scheme | default: 'background-1' }}">
+  <div class="{{ container }}">
+    
+    <div class="m-section__header m:text-center">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="m-section__heading {{ section.settings.heading_size | default: 'h2' }}">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="m-section__subheading">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+    {%- assign half_blocks = section.blocks.size | divided_by: 2.0 | ceil -%}
+    
+    <div class="faq-grid-{{ section.id }}">
+      
+      {%- comment -%} ── Left Column ── {%- endcomment -%}
+      <div class="faq-col-{{ section.id }}">
+        {%- for block in section.blocks -%}
+          {%- if forloop.index <= half_blocks -%}
+            <div class="acc-item-{{ section.id }}" {{ block.shopify_attributes }}>
+              <button class="acc-head-{{ section.id }}">
+                {{ block.settings.title }}
+                <span class="acc-head-icon-{{ section.id }}">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg>
+                </span>
+              </button>
+              <div class="acc-body-{{ section.id }}">
+                <div class="acc-body-inner-{{ section.id }}">
+                  <p>{{ block.settings.text }}</p>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- comment -%} ── Right Column ── {%- endcomment -%}
+      <div class="faq-col-{{ section.id }}">
+        {%- for block in section.blocks -%}
+          {%- if forloop.index > half_blocks -%}
+            <div class="acc-item-{{ section.id }}" {{ block.shopify_attributes }}>
+              <button class="acc-head-{{ section.id }}">
+                {{ block.settings.title }}
+                <span class="acc-head-icon-{{ section.id }}">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg>
+                </span>
+              </button>
+              <div class="acc-body-{{ section.id }}">
+                <div class="acc-body-inner-{{ section.id }}">
+                  <p>{{ block.settings.text }}</p>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  function initFAQ{{ section.id | replace: '-', '_' }}() {
+    const items = document.querySelectorAll('#faq-{{ section.id }} .acc-item-{{ section.id }}');
+    items.forEach(item => {
+      const head = item.querySelector('.acc-head-{{ section.id }}');
+      const body = item.querySelector('.acc-body-{{ section.id }}');
+      
+      // Clean up old listeners (useful in Theme Editor)
+      const newHead = head.cloneNode(true);
+      head.parentNode.replaceChild(newHead, head);
+      
+      newHead.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        // Close all
+        items.forEach(i => {
+          i.classList.remove('active');
+          i.querySelector('.acc-body-{{ section.id }}').style.maxHeight = null;
+        });
+        
+        // Open clicked if it wasn't active
+        if (!isActive) {
+          item.classList.add('active');
+          body.style.maxHeight = body.scrollHeight + 'px';
+        }
+      });
+    });
+  }
+  document.addEventListener('DOMContentLoaded', initFAQ{{ section.id | replace: '-', '_' }});
+  
+  // Re-initialize inside Shopify Theme Editor when block is added/removed
+  if (window.Shopify && Shopify.designMode) {
+    document.addEventListener('shopify:section:load', function(event) {
+      if (event.detail.sectionId === '{{ section.id }}') {
+        initFAQ{{ section.id | replace: '-', '_' }}();
+      }
+    });
+  }
+</script>
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container type",
+      "default": "container-fluid",
+      "options": [
+        { "value": "container-fluid", "label": "Default" },
+        { "value": "w-full", "label": "Full width" },
+        { "value": "container", "label": "Use container box" }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Custom Background Color",
+      "default": "#fffbf5",
+      "info": "Leave blank to use the color scheme's background."
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "options": [
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Everything you need to know before ordering"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question",
+          "default": "Is this suitable for sensitive skin?"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Answer",
+          "default": "Yes — our formula is dermatologist tested, free from sulfates and parabens, and safe for daily use even on the most sensitive skin types."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        { "type": "faq", "settings": { "title": "Is this suitable for sensitive skin?", "text": "Yes — our formula is dermatologist tested, free from sulfates and parabens, and safe for daily use even on the most sensitive skin types." } },
+        { "type": "faq", "settings": { "title": "Can I order samples before bulk purchase?", "text": "Absolutely. Hospitality professionals can request a free sample kit through our wholesale portal." } },
+        { "type": "faq", "settings": { "title": "Do you offer white-label options?", "text": "Yes — minimum order of 1,000 units. Custom labels, bottle colors, and scent profiles available." } },
+        { "type": "faq", "settings": { "title": "What's the lead time for bulk orders?", "text": "Standard bulk orders ship within 7 business days. Custom-label orders take 4–6 weeks from artwork approval." } },
+        { "type": "faq", "settings": { "title": "Are these products TSA approved?", "text": "Yes — at 40ml, the bottle is well under the TSA 100ml liquid limit and ideal for carry-on luggage." } },
+        { "type": "faq", "settings": { "title": "How do I become a wholesale partner?", "text": "Apply via our For Hotels page. Approval typically takes 1–2 business days and unlocks tiered pricing." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,701 @@
+{% comment %}
+  Section: Image with Content (Split Layout)
+  Style: Caribe Kit — Caribbean Hospitality
+  Layout: Large image + thumbnail overlap (left) | Text + bullets + CTAs (right)
+{% endcomment %}
+
+<section class="ic-section" id="image-content-{{ section.id }}">
+  <div class="ic-inner">
+
+    <!-- ── LEFT: Image Column ── -->
+    <div class="ic-image-col">
+      <div class="ic-image-main-wrap">
+
+        <!-- Main Image -->
+        {% if section.settings.main_image %}
+          <img
+            src="{{ section.settings.main_image | image_url: width: 900 }}"
+            alt="{{ section.settings.main_image.alt | default: section.settings.heading | escape }}"
+            class="ic-image-main"
+            loading="lazy"
+            width="900"
+            height="1000"
+          >
+        {% else %}
+          <div class="ic-image-main ic-image--placeholder">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+        {% endif %}
+
+        <!-- Badge on image -->
+        {% if section.settings.image_badge_line1 != blank or section.settings.image_badge_line2 != blank %}
+          <div class="ic-image-badge">
+            {% if section.settings.image_badge_line1 != blank %}
+              <span class="ic-image-badge__top">{{ section.settings.image_badge_line1 }}</span>
+            {% endif %}
+            {% if section.settings.image_badge_line2 != blank %}
+              <span class="ic-image-badge__main">{{ section.settings.image_badge_line2 }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
+
+      </div><!-- /.ic-image-main-wrap -->
+
+      <!-- Thumbnail Image (overlaps bottom-left) -->
+      {% if section.settings.thumb_image %}
+        <div class="ic-image-thumb-wrap">
+          <img
+            src="{{ section.settings.thumb_image | image_url: width: 300 }}"
+            alt="{{ section.settings.thumb_image.alt | default: 'Detail image' | escape }}"
+            class="ic-image-thumb"
+            loading="lazy"
+            width="300"
+            height="360"
+          >
+        </div>
+      {% endif %}
+    </div><!-- /.ic-image-col -->
+
+    <!-- ── RIGHT: Content Column ── -->
+    <div class="ic-content-col">
+
+      <!-- Label -->
+      {% if section.settings.label != blank %}
+        <p class="ic-label">
+          <span class="ic-label__line"></span>
+          {{ section.settings.label }}
+        </p>
+      {% endif %}
+
+      <!-- Heading -->
+      {% if section.settings.heading != blank %}
+        <h2 class="ic-heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      <!-- Description -->
+      {% if section.settings.description != blank %}
+        <div class="ic-description">{{ section.settings.description }}</div>
+      {% endif %}
+
+      <!-- Bullet Points -->
+      {% assign has_bullets = false %}
+      {% for block in section.blocks %}
+        {% if block.type == 'bullet' %}
+          {% assign has_bullets = true %}
+        {% endif %}
+      {% endfor %}
+
+      {% if has_bullets %}
+        <ul class="ic-bullets" role="list">
+          {% for block in section.blocks %}
+            {% if block.type == 'bullet' %}
+              <li class="ic-bullet" {{ block.shopify_attributes }}>
+                <span class="ic-bullet__icon" aria-hidden="true">
+                  {% if block.settings.icon == 'leaf' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22c0 0 4-4 10-4s10 4 10 4"/><path d="M12 18C12 12 6 6 2 4c4 0 10 2 14 6s4 10 0 14c-2-4-4-6-4-6z"/></svg>
+                  {% elsif block.settings.icon == 'recycle' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+                  {% elsif block.settings.icon == 'star' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  {% elsif block.settings.icon == 'heart' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  {% elsif block.settings.icon == 'check' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22c0 0 4-4 10-4s10 4 10 4"/><path d="M12 18C12 12 6 6 2 4c4 0 10 2 14 6s4 10 0 14c-2-4-4-6-4-6z"/></svg>
+                  {% endif %}
+                </span>
+                <span class="ic-bullet__text">{{ block.settings.text }}</span>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <!-- CTAs -->
+      <div class="ic-ctas">
+        {% if section.settings.btn1_label != blank %}
+          <a href="{{ section.settings.btn1_url | default: '#' }}" class="ic-btn ic-btn--primary">
+            {{ section.settings.btn1_label }}
+            <span class="ic-btn__arrow">→</span>
+          </a>
+        {% endif %}
+        {% if section.settings.btn2_label != blank %}
+          <a href="{{ section.settings.btn2_url | default: '#' }}" class="ic-btn ic-btn--secondary">
+            {{ section.settings.btn2_label }}
+          </a>
+        {% endif %}
+      </div>
+
+    </div><!-- /.ic-content-col -->
+  </div><!-- /.ic-inner -->
+</section>
+
+<style>
+  /* ── Section ── */
+  .ic-section {
+    background-color: {{ section.settings.background_color }};
+    padding: {{ section.settings.vertical_padding }}px 60px;
+    overflow: hidden;
+  }
+
+  .ic-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: {{ section.settings.image_width }}fr {{ section.settings.content_width }}fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  /* ── Image Column ── */
+  .ic-image-col {
+    position: relative;
+  }
+
+  .ic-image-main-wrap {
+    position: relative;
+    border-radius: {{ section.settings.image_radius }}px;
+    overflow: hidden;
+    line-height: 0;
+  }
+
+  .ic-image-main {
+    width: 100%;
+    height: 100%;
+    max-height: 580px;
+    object-fit: cover;
+    display: block;
+    border-radius: {{ section.settings.image_radius }}px;
+  }
+
+  .ic-image--placeholder {
+    background: #d6cebb;
+    aspect-ratio: 9 / 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: {{ section.settings.image_radius }}px;
+  }
+
+  .ic-image--placeholder svg {
+    width: 48px;
+    height: 48px;
+    color: #a09070;
+  }
+
+  /* Badge on image */
+  .ic-image-badge {
+    position: absolute;
+    top: {{ section.settings.badge_top }}px;
+    right: {{ section.settings.badge_right }}px;
+    background-color: rgba(245, 240, 232, 0.93);
+    backdrop-filter: blur(6px);
+    border-radius: 6px;
+    padding: 10px 16px;
+    text-align: center;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+  }
+
+  .ic-image-badge__top {
+    display: block;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: {{ section.settings.badge_text_color }};
+    opacity: 0.7;
+    margin-bottom: 3px;
+  }
+
+  .ic-image-badge__main {
+    display: block;
+    font-family: {{ section.settings.heading_font }};
+    font-size: 16px;
+    font-weight: 400;
+    font-style: italic;
+    color: {{ section.settings.badge_text_color }};
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  /* Thumbnail */
+  .ic-image-thumb-wrap {
+    position: absolute;
+    bottom: -24px;
+    left: -24px;
+    width: 38%;
+    border-radius: {{ section.settings.image_radius }}px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    border: 3px solid {{ section.settings.background_color }};
+    line-height: 0;
+  }
+
+  .ic-image-thumb {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  /* ── Content Column ── */
+  .ic-content-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Label */
+  .ic-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: {{ section.settings.label_color }};
+    margin-bottom: 18px;
+  }
+
+  .ic-label__line {
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background-color: {{ section.settings.label_color }};
+    flex-shrink: 0;
+  }
+
+  /* Heading */
+  .ic-heading {
+    font-family: {{ section.settings.heading_font }};
+    font-size: clamp(30px, 3.2vw, 46px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: {{ section.settings.text_color }};
+    margin: 0 0 20px 0;
+  }
+
+  .ic-heading em {
+    font-style: italic;
+  }
+
+  /* Description */
+  .ic-description {
+    font-size: 14px;
+    line-height: 1.7;
+    color: {{ section.settings.text_color }};
+    opacity: 0.7;
+    margin-bottom: 28px;
+    max-width: 480px;
+  }
+
+  .ic-description p { margin: 0; }
+
+  /* Bullets */
+  .ic-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .ic-bullet {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ic-bullet__icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    color: {{ section.settings.bullet_icon_color }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ic-bullet__icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .ic-bullet__text {
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: {{ section.settings.text_color }};
+    line-height: 1.4;
+  }
+
+  /* CTAs */
+  .ic-ctas {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .ic-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .ic-btn--primary {
+    background-color: {{ section.settings.btn1_bg }};
+    color: {{ section.settings.btn1_text }};
+    border: 1.5px solid {{ section.settings.btn1_bg }};
+  }
+
+  .ic-btn--primary:hover {
+    background-color: transparent;
+    color: {{ section.settings.btn1_bg }};
+  }
+
+  .ic-btn--primary:hover .ic-btn__arrow {
+    transform: translateX(4px);
+  }
+
+  .ic-btn__arrow {
+    transition: transform 0.25s ease;
+  }
+
+  .ic-btn--secondary {
+    background-color: transparent;
+    color: {{ section.settings.btn2_text }};
+    border: 1.5px solid {{ section.settings.btn2_border }};
+  }
+
+  .ic-btn--secondary:hover {
+    background-color: {{ section.settings.btn2_text }};
+    color: {{ section.settings.background_color }};
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .ic-section { padding: 48px 24px 72px; }
+
+    .ic-inner {
+      grid-template-columns: 1fr;
+      gap: 60px;
+    }
+
+    .ic-image-col { order: 1; }
+    .ic-content-col { order: 2; }
+
+    .ic-image-thumb-wrap {
+      bottom: -20px;
+      left: -16px;
+      width: 32%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .ic-section { padding: 40px 16px 64px; }
+
+    .ic-ctas {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .ic-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Image with Content",
+  "tag": "section",
+  "class": "image-content-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "thumb_image",
+      "label": "Thumbnail Image (bottom-left overlap)"
+    },
+    {
+      "type": "header",
+      "content": "Image Badge"
+    },
+    {
+      "type": "text",
+      "id": "image_badge_line1",
+      "label": "Badge line 1 (small, uppercase)",
+      "default": "Crafted in"
+    },
+    {
+      "type": "text",
+      "id": "image_badge_line2",
+      "label": "Badge line 2 (italic, larger)",
+      "default": "The Caribbean"
+    },
+    {
+      "type": "range",
+      "id": "badge_top",
+      "label": "Badge position from top (px)",
+      "min": 10,
+      "max": 100,
+      "step": 2,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "badge_right",
+      "label": "Badge position from right (px)",
+      "min": 10,
+      "max": 100,
+      "step": 2,
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label (above heading)",
+      "default": "Caribbean Inspired"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading (use <em> for italic)",
+      "default": "<p>Inspired by <em>Caribbean</em> Hospitality</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Bringing warmth, elegance, and premium guest comfort to every stay. We blend the rituals of island living with the refined detail of the world's most celebrated hotels.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "btn1_label",
+      "label": "Button 1 Label",
+      "default": "Our Story"
+    },
+    {
+      "type": "url",
+      "id": "btn1_url",
+      "label": "Button 1 Link"
+    },
+    {
+      "type": "text",
+      "id": "btn2_label",
+      "label": "Button 2 Label",
+      "default": "Hospitality Solutions"
+    },
+    {
+      "type": "url",
+      "id": "btn2_url",
+      "label": "Button 2 Link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Image column width ratio",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content column width ratio",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Image border radius (px)",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "vertical_padding",
+      "label": "Vertical padding (px)",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#F5F0E8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#2A2420"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label Color",
+      "default": "#8A7A6A"
+    },
+    {
+      "type": "color",
+      "id": "bullet_icon_color",
+      "label": "Bullet Icon Color",
+      "default": "#6B8C6E"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge Text Color",
+      "default": "#2A2420"
+    },
+    {
+      "type": "color",
+      "id": "btn1_bg",
+      "label": "Button 1 Background",
+      "default": "#2A2420"
+    },
+    {
+      "type": "color",
+      "id": "btn1_text",
+      "label": "Button 1 Text",
+      "default": "#F5F0E8"
+    },
+    {
+      "type": "color",
+      "id": "btn2_text",
+      "label": "Button 2 Text & Border",
+      "default": "#2A2420"
+    },
+    {
+      "type": "color",
+      "id": "btn2_border",
+      "label": "Button 2 Border Color",
+      "default": "#2A2420"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "options": [
+        { "value": "'Cormorant Garamond', serif", "label": "Cormorant Garamond (recommended)" },
+        { "value": "'Playfair Display', serif", "label": "Playfair Display" },
+        { "value": "var(--font-heading-family)", "label": "Theme Heading Font" }
+      ],
+      "default": "var(--font-heading-family)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bullet",
+      "name": "Bullet Point",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "leaf", "label": "🌿 Leaf" },
+            { "value": "recycle", "label": "♻️ Recycle" },
+            { "value": "star", "label": "⭐ Star" },
+            { "value": "heart", "label": "🤍 Heart" },
+            { "value": "check", "label": "✓ Checkmark" }
+          ],
+          "default": "leaf"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Bullet Text",
+          "default": "Sourced ingredients from across the islands"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with Content",
+      "settings": {
+        "label": "Caribbean Inspired",
+        "btn1_label": "Our Story",
+        "btn2_label": "Hospitality Solutions"
+      },
+      "blocks": [
+        {
+          "type": "bullet",
+          "settings": {
+            "icon": "leaf",
+            "text": "Sourced ingredients from across the islands"
+          }
+        },
+        {
+          "type": "bullet",
+          "settings": {
+            "icon": "star",
+            "text": "Designed in collaboration with hoteliers"
+          }
+        },
+        {
+          "type": "bullet",
+          "settings": {
+            "icon": "recycle",
+            "text": "Refillable, recyclable, responsibly packaged"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

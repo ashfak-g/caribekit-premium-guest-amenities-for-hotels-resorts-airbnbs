@@ -1,0 +1,284 @@
+{%- style -%}
+/* ===== OUR PROMISE / SUSTAINABILITY SECTION ===== */
+#shopify-section-{{ section.id }} {
+  -webkit-font-smoothing: antialiased;
+}
+.sus-section-{{ section.id }} {
+  padding-top: calc({{ section.settings.padding_top }}px * 0.7);
+  padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.7);
+}
+@media (min-width: 768px) {
+  .sus-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+}
+.sus-container-{{ section.id }} {
+  max-width: 56rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .sus-container-{{ section.id }} {
+    padding-inline: 1.5rem;
+  }
+}
+/* ─── Header ─── */
+.sus-eyebrow-{{ section.id }} {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: inherit;
+  margin-bottom: 0.5rem;
+}
+.sus-heading-{{ section.id }} {
+  color: inherit;
+  margin: 0;
+}
+.sus-desc-{{ section.id }} {
+  margin-top: 1.25rem;
+  color: inherit;
+  opacity: 0.8;
+  max-width: 42rem;
+  margin-inline: auto;
+}
+/* ─── Grid ─── */
+.sus-grid-{{ section.id }} {
+  margin-top: 3rem;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 20px;
+  gap: 1.25rem;
+  padding-bottom: 1rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  align-items: stretch;
+}
+.sus-grid-{{ section.id }}::-webkit-scrollbar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sus-grid-{{ section.id }} {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+}
+/* ─── Card ─── */
+.sus-card-{{ section.id }} {
+  background-color: #FAF5EB;
+  border: 1px solid var(--color-border, #efe8df);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+  flex: 0 0 85%;
+  scroll-snap-align: start;
+}
+@media (min-width: 768px) {
+  .sus-card-{{ section.id }} {
+    flex: auto;
+    padding: 1.5rem;
+  }
+}
+.sus-card-{{ section.id }}:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+.sus-icon-wrap-{{ section.id }} {
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: #ffffff;
+  color: inherit;
+  margin-bottom: 1rem;
+}
+.sus-icon-wrap-{{ section.id }} svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: currentColor;
+}
+.sus-card-title-{{ section.id }} {
+  font-weight: 500;
+  color: inherit;
+  margin: 0;
+}
+{%- endstyle -%}
+<section id="sus-{{ section.id }}" class="sus-section-{{ section.id }} m-section m-color-{{ section.settings.color_scheme | default: 'background-1' }}">
+  <div class="sus-container-{{ section.id }}">
+    
+    {%- comment -%}── Section Header ──{%- endcomment -%}
+    {%- if section.settings.eyebrow != blank -%}
+      <span class="sus-eyebrow-{{ section.id }}">{{ section.settings.eyebrow }}</span>
+    {%- endif -%}
+    
+    {%- if section.settings.heading != blank -%}
+      <h2 class="sus-heading-{{ section.id }} {{ section.settings.heading_size | default: 'h2' }}">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    
+    {%- if section.settings.text != blank -%}
+      <p class="sus-desc-{{ section.id }}">{{ section.settings.text }}</p>
+    {%- endif -%}
+    {%- comment -%}── Features Grid ──{%- endcomment -%}
+    <div class="sus-grid-{{ section.id }}">
+      {%- for block in section.blocks -%}
+        <div class="sus-card-{{ section.id }}" {{ block.shopify_attributes }}>
+          <div class="sus-icon-wrap-{{ section.id }}">
+            {%- if block.settings.icon_image != blank -%}
+              <img src="{{ block.settings.icon_image | image_url: width: 60 }}" alt="{{ block.settings.title | escape }}" width="24" height="24" style="object-fit: contain;">
+            {%- elsif block.settings.icon_svg != blank -%}
+              {{ block.settings.icon_svg }}
+            {%- else -%}
+              <i class="{{ block.settings.icon_class }}" aria-hidden="true"></i>
+            {%- endif -%}
+          </div>
+          <span class="sus-card-title-{{ section.id }}">{{ block.settings.title }}</span>
+        </div>
+      {%- else -%}
+        {%- comment -%} Fallback if no blocks {%- endcomment -%}
+        <div class="sus-card-{{ section.id }}">
+          <div class="sus-icon-wrap-{{ section.id }}"><i class="ri-recycle-line" aria-hidden="true"></i></div>
+          <span class="sus-card-title-{{ section.id }}">Recyclable packaging</span>
+        </div>
+        <div class="sus-card-{{ section.id }}">
+          <div class="sus-icon-wrap-{{ section.id }}"><i class="ri-heart-3-line" aria-hidden="true"></i></div>
+          <span class="sus-card-title-{{ section.id }}">Cruelty-free certified</span>
+        </div>
+        <div class="sus-card-{{ section.id }}">
+          <div class="sus-icon-wrap-{{ section.id }}"><i class="ri-plant-line" aria-hidden="true"></i></div>
+          <span class="sus-card-title-{{ section.id }}">100% vegan formulas</span>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Our Promise",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Label",
+      "default": "Our Promise"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Committed to the Caribbean"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Description",
+      "default": "Recyclable packaging · Plastic-neutral · No parabens or sulfates. Every kit we ship gives back to ocean and reef restoration partners across the islands."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Promise Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon Image"
+        },
+        {
+          "type": "html",
+          "id": "icon_svg",
+          "label": "Icon SVG"
+        },
+        {
+          "type": "text",
+          "id": "icon_class",
+          "label": "Icon Class (Fallback)",
+          "default": "ri-recycle-line",
+          "info": "Use Remix Icon or Font Awesome classes."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Recyclable packaging"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our Promise",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon_class": "ri-recycle-line",
+            "title": "Recyclable packaging"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon_class": "ri-heart-3-line",
+            "title": "Cruelty-free certified"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon_class": "ri-plant-line",
+            "title": "100% vegan formulas"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

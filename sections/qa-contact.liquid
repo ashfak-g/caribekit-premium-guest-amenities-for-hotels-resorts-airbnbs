@@ -1,0 +1,414 @@
+{%- style -%}
+/* ===== Q&A CONTACT SECTION ===== */
+#shopify-section-{{ section.id }} {
+  --bg: #fffbf5;
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --text-soft: #5a5a5a;
+  --border: #e8e0d5;
+  --coral: #000000;
+  --coral-dark: #333333;
+  --radius-card: 20px;
+  --radius-pill: 40px;
+  color: inherit;
+  -webkit-font-smoothing: antialiased;
+}
+.qa-section-{{ section.id }} {
+  padding-top: calc({{ section.settings.padding_top }}px * 0.7);
+  padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.7);
+  {% if section.settings.bg_color != blank and section.settings.bg_color != 'rgba(0,0,0,0)' %}
+    background-color: {{ section.settings.bg_color }};
+  {% endif %}
+}
+@media (min-width: 768px) {
+  .qa-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+}
+.qa-container-{{ section.id }} {
+  margin: 0 auto;
+}
+.qa-grid-{{ section.id }} {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+@media (min-width: 1024px) {
+  .qa-grid-{{ section.id }} {
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+  }
+}
+/* ─── LEFT: FORM ─── */
+.qa-form-card-{{ section.id }} {
+  background: #fffbf5;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+@media (min-width: 768px) {
+  .qa-form-card-{{ section.id }} {
+    padding: 3rem;
+  }
+}
+
+.qa-input-{{ section.id }} {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  color: var(--text);
+  margin-bottom: 1rem;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.qa-input-{{ section.id }}::placeholder {
+  color: var(--text-soft);
+}
+.qa-input-{{ section.id }}:focus {
+  outline: none;
+  border-color: #000;
+}
+.qa-textarea-{{ section.id }} {
+  resize: vertical;
+  min-height: 120px;
+}
+.qa-submit-{{ section.id }} {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  background-color: #000000;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: none;
+  margin-top: 0.5rem;
+}
+.qa-submit-{{ section.id }}:hover {
+  background-color: #333333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.qa-form-success-{{ section.id }} {
+  background-color: #000;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9375rem;
+  text-align: center;
+}
+.qa-form-errors-{{ section.id }} {
+  color: #d9534f;
+  margin-bottom: 1.5rem;
+  font-size: 0.9375rem;
+}
+/* ─── RIGHT: ACCORDION ─── */
+
+.qa-accordion-{{ section.id }} {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.acc-item-{{ section.id }} {
+  background: #fffbf5;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+.acc-item-{{ section.id }}:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.acc-head-{{ section.id }} {
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: inherit;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+}
+.acc-head-icon-{{ section.id }} {
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+.acc-item-{{ section.id }}.active .acc-head-icon-{{ section.id }} {
+  transform: rotate(45deg);
+}
+.acc-body-{{ section.id }} {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+.acc-body-inner-{{ section.id }} {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+.acc-body-inner-{{ section.id }} p {
+  color: var(--text-soft);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin: 0;
+}
+{%- endstyle -%}
+
+{%- liquid
+  assign container = section.settings.container
+  if container == 'w-full'
+    assign container = 'container-full'
+  endif
+  if container == blank
+    assign container = 'container-fluid'
+  endif
+-%}
+
+<section id="qa-{{ section.id }}" class="qa-section-{{ section.id }} m-section m-color-{{ section.settings.color_scheme | default: 'background-1' }}">
+  <div class="{{ container }}">
+    <div class="qa-grid-{{ section.id }}">
+      
+      {%- comment -%} ── Left Column: Form ── {%- endcomment -%}
+      <div class="qa-form-card-{{ section.id }}">
+        {%- if section.settings.form_title != blank -%}
+          <h2 class="m-section__heading {{ section.settings.heading_size | default: 'h3' }}" style="margin-bottom: 1.5rem;">{{ section.settings.form_title }}</h2>
+        {%- endif -%}
+        {%- form 'contact', id: 'qa-form' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="qa-form-success-{{ section.id }}">Thank you! Your question has been submitted.</div>
+          {%- endif -%}
+          
+          {%- if form.errors -%}
+            <div class="qa-form-errors-{{ section.id }}">
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+          <input type="text" name="contact[name]" required class="qa-input-{{ section.id }}" placeholder="{{ section.settings.input_name_placeholder | default: 'Your name' }}">
+          <input type="email" name="contact[email]" required class="qa-input-{{ section.id }}" placeholder="{{ section.settings.input_email_placeholder | default: 'Email address' }}">
+          <textarea name="contact[body]" rows="4" required class="qa-input-{{ section.id }} qa-textarea-{{ section.id }}" placeholder="{{ section.settings.input_msg_placeholder | default: 'What would you like to know?' }}"></textarea>
+          
+          <button type="submit" class="qa-submit-{{ section.id }}">{{ section.settings.btn_label | default: 'Submit Question' }}</button>
+        {%- endform -%}
+      </div>
+      {%- comment -%} ── Right Column: Accordion ── {%- endcomment -%}
+      <div class="qa-accordion-wrap-{{ section.id }}">
+        {%- if section.settings.acc_title != blank -%}
+          <h2 class="m-section__heading {{ section.settings.heading_size | default: 'h3' }}" style="margin-bottom: 1.25rem;">{{ section.settings.acc_title }}</h2>
+        {%- endif -%}
+        <div class="qa-accordion-{{ section.id }}">
+          {%- for block in section.blocks -%}
+            <div class="acc-item-{{ section.id }}" {{ block.shopify_attributes }}>
+              <button class="acc-head-{{ section.id }}">
+                {{ block.settings.title }}
+                <span class="acc-head-icon-{{ section.id }}">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg>
+                </span>
+              </button>
+              <div class="acc-body-{{ section.id }}">
+                <div class="acc-body-inner-{{ section.id }}">
+                  <p>{{ block.settings.text }}</p>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  function initQA{{ section.id | replace: '-', '_' }}() {
+    const items = document.querySelectorAll('#qa-{{ section.id }} .acc-item-{{ section.id }}');
+    items.forEach(item => {
+      const head = item.querySelector('.acc-head-{{ section.id }}');
+      const body = item.querySelector('.acc-body-{{ section.id }}');
+      
+      const newHead = head.cloneNode(true);
+      head.parentNode.replaceChild(newHead, head);
+      
+      newHead.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        items.forEach(i => {
+          i.classList.remove('active');
+          i.querySelector('.acc-body-{{ section.id }}').style.maxHeight = null;
+        });
+        
+        if (!isActive) {
+          item.classList.add('active');
+          body.style.maxHeight = body.scrollHeight + 'px';
+        }
+      });
+    });
+  }
+  document.addEventListener('DOMContentLoaded', initQA{{ section.id | replace: '-', '_' }});
+  
+  if (window.Shopify && Shopify.designMode) {
+    document.addEventListener('shopify:section:load', function(event) {
+      if (event.detail.sectionId === '{{ section.id }}') {
+        initQA{{ section.id | replace: '-', '_' }}();
+      }
+    });
+  }
+</script>
+{% schema %}
+{
+  "name": "Q&A Contact",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "options": [
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" }
+      ],
+      "default": "h3"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container type",
+      "default": "container-fluid",
+      "options": [
+        { "value": "container-fluid", "label": "Default" },
+        { "value": "w-full", "label": "Full width" },
+        { "value": "container", "label": "Use container box" }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Custom Background Color",
+      "default": "#FFFFFF",
+      "info": "Leave blank to use the color scheme's background."
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Form Settings"
+    },
+    {
+      "type": "text",
+      "id": "form_title",
+      "label": "Form Title",
+      "default": "Have a question?"
+    },
+    {
+      "type": "text",
+      "id": "input_name_placeholder",
+      "label": "Name Placeholder",
+      "default": "Your name"
+    },
+    {
+      "type": "text",
+      "id": "input_email_placeholder",
+      "label": "Email Placeholder",
+      "default": "Email address"
+    },
+    {
+      "type": "text",
+      "id": "input_msg_placeholder",
+      "label": "Message Placeholder",
+      "default": "What would you like to know?"
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Submit Button Label",
+      "default": "Submit Question"
+    },
+    {
+      "type": "header",
+      "content": "Accordion Settings"
+    },
+    {
+      "type": "text",
+      "id": "acc_title",
+      "label": "Accordion Title",
+      "default": "Previously Asked"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "qa",
+      "name": "Q&A Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question",
+          "default": "Q: Can I get a sample first?"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Answer",
+          "default": "Yes — contact our wholesale team and we'll send a complimentary sample kit to qualifying properties."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Q&A Contact",
+      "blocks": [
+        { "type": "qa", "settings": { "title": "Q: Can I get a sample first?", "text": "Yes — contact our wholesale team and we'll send a complimentary sample kit to qualifying properties." } },
+        { "type": "qa", "settings": { "title": "Q: Bulk discount for hotels?", "text": "Yes — 15% off on orders of 500+ units, with custom-label options available on request." } },
+        { "type": "qa", "settings": { "title": "Q: Do you ship internationally?", "text": "Yes, we ship to over 40 countries via DHL Express. International delivery: 5–7 business days." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

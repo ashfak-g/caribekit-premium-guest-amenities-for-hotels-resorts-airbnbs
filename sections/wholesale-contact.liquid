@@ -1,0 +1,791 @@
+{% comment %}
+  Section: Wholesale Contact — Full-width BG image + floating form card
+  Style: Caribe Kit — Wholesale & Trade
+{% endcomment %}
+
+<section class="ws-section" id="wholesale-{{ section.id }}">
+
+  <!-- Background Image -->
+  <div class="ws-bg" aria-hidden="true">
+    {% if section.settings.bg_image %}
+      <img
+        src="{{ section.settings.bg_image | image_url: width: 1800 }}"
+        alt=""
+        class="ws-bg__img"
+        loading="lazy"
+        width="1800"
+        height="800"
+      >
+    {% endif %}
+    <div class="ws-bg__overlay"></div>
+  </div>
+
+  <div class="ws-inner">
+
+    <!-- ── LEFT: Content ── -->
+    <div class="ws-content">
+
+      {% if section.settings.label != blank %}
+        <p class="ws-label">
+          <span class="ws-label__line"></span>
+          {{ section.settings.label }}
+        </p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="ws-heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <p class="ws-desc">{{ section.settings.description }}</p>
+      {% endif %}
+
+      <!-- Stats -->
+      {% assign has_stats = false %}
+      {% for block in section.blocks %}
+        {% if block.type == 'stat' %}{% assign has_stats = true %}{% endif %}
+      {% endfor %}
+
+      {% if has_stats %}
+        <div class="ws-stats" role="list">
+          {% for block in section.blocks %}
+            {% if block.type == 'stat' %}
+              <div class="ws-stat" role="listitem" {{ block.shopify_attributes }}>
+                <span class="ws-stat__number">{{ block.settings.number }}</span>
+                <span class="ws-stat__label">{{ block.settings.label }}</span>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <!-- Buttons -->
+      <div class="ws-ctas">
+        {% if section.settings.btn1_label != blank %}
+          <a href="{{ section.settings.btn1_url | default: '/pages/contact' }}" class="ws-btn ws-btn--outline">
+            {{ section.settings.btn1_label }}
+            <span class="ws-btn__arrow">→</span>
+          </a>
+        {% endif %}
+        {% if section.settings.btn2_label != blank %}
+          <a href="{{ section.settings.btn2_url | default: '#wholesale-form' }}" class="ws-btn ws-btn--ghost">
+            {{ section.settings.btn2_label }}
+          </a>
+        {% endif %}
+      </div>
+
+    </div><!-- /.ws-content -->
+
+    <!-- ── RIGHT: Form Card ── -->
+    <div class="ws-card" id="wholesale-form">
+      <h3 class="ws-card__title">{{ section.settings.form_title }}</h3>
+      {% if section.settings.form_subtitle != blank %}
+        <p class="ws-card__subtitle">{{ section.settings.form_subtitle }}</p>
+      {% endif %}
+
+      {%- form 'contact', id: 'wholesale-contact-form-{{ section.id }}' -%}
+        {%- if form.posted_successfully? -%}
+          <div class="ws-form__success" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>{{ section.settings.success_message | default: "Thank you! We'll be in touch within 24 hours." }}</span>
+          </div>
+        {%- endif -%}
+
+        <div class="ws-form__grid">
+
+          <!-- Full Name -->
+          <div class="ws-field">
+            <label class="ws-field__label" for="ws-name-{{ section.id }}">{{ section.settings.field_name_label }}</label>
+            <input
+              class="ws-field__input"
+              type="text"
+              id="ws-name-{{ section.id }}"
+              name="contact[name]"
+              placeholder="{{ section.settings.field_name_placeholder }}"
+              autocomplete="name"
+              required
+            >
+          </div>
+
+          <!-- Email -->
+          <div class="ws-field">
+            <label class="ws-field__label" for="ws-email-{{ section.id }}">{{ section.settings.field_email_label }}</label>
+            <input
+              class="ws-field__input"
+              type="email"
+              id="ws-email-{{ section.id }}"
+              name="contact[email]"
+              placeholder="{{ section.settings.field_email_placeholder }}"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+          <!-- Property Name -->
+          <div class="ws-field">
+            <label class="ws-field__label" for="ws-property-{{ section.id }}">{{ section.settings.field_property_label }}</label>
+            <input
+              class="ws-field__input"
+              type="text"
+              id="ws-property-{{ section.id }}"
+              name="contact[Property Name]"
+              placeholder="{{ section.settings.field_property_placeholder }}"
+            >
+          </div>
+
+          <!-- Property Type -->
+          <div class="ws-field">
+            <label class="ws-field__label" for="ws-type-{{ section.id }}">{{ section.settings.field_type_label }}</label>
+            <div class="ws-field__select-wrap">
+              <select
+                class="ws-field__input ws-field__select"
+                id="ws-type-{{ section.id }}"
+                name="contact[Property Type]"
+              >
+                <option value="" disabled selected>{{ section.settings.field_type_placeholder }}</option>
+                {% assign type_options = section.settings.property_types | split: ',' %}
+                {% for option in type_options %}
+                  <option value="{{ option | strip }}">{{ option | strip }}</option>
+                {% endfor %}
+              </select>
+              <span class="ws-field__select-arrow" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </div>
+          </div>
+
+        </div><!-- /.ws-form__grid -->
+
+        <!-- Message -->
+        <div class="ws-field ws-field--full">
+          <label class="ws-field__label" for="ws-message-{{ section.id }}">{{ section.settings.field_message_label }}</label>
+          <textarea
+            class="ws-field__input ws-field__textarea"
+            id="ws-message-{{ section.id }}"
+            name="contact[body]"
+            rows="3"
+            placeholder="{{ section.settings.field_message_placeholder }}"
+          ></textarea>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="ws-submit">
+          {{ section.settings.submit_label }}
+        </button>
+
+        {% if section.settings.privacy_note != blank %}
+          <p class="ws-form__privacy">{{ section.settings.privacy_note }}</p>
+        {% endif %}
+
+      {%- endform -%}
+    </div><!-- /.ws-card -->
+
+  </div><!-- /.ws-inner -->
+</section>
+
+<style>
+  /* ── Section Wrapper ── */
+  .ws-section {
+    position: relative;
+    overflow: hidden;
+    min-height: {{ section.settings.min_height }}px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* ── Background ── */
+  .ws-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .ws-bg__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .ws-bg__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(0,0,0,{{ section.settings.overlay_opacity | divided_by: 100.0 }}) 0%,
+      rgba(0,0,0,{{ section.settings.overlay_opacity | divided_by: 100.0 | times: 0.3 }}) 55%,
+      rgba(0,0,0,0) 100%
+    );
+  }
+
+  /* ── Inner ── */
+  .ws-inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: {{ section.settings.vertical_padding }}px 60px;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 60px;
+    align-items: center;
+  }
+
+  /* ── Left: Content ── */
+  .ws-content {
+    color: #fff;
+    max-width: 520px;
+  }
+
+  .ws-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 20px;
+  }
+
+  .ws-label__line {
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background-color: rgba(255,255,255,0.6);
+  }
+
+  .ws-heading {
+    font-family: {{ section.settings.heading_font }};
+    font-size: clamp(28px, 3.5vw, 46px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: #fff;
+    margin: 0 0 20px 0;
+  }
+
+  .ws-heading em { font-style: italic; }
+
+  .ws-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.75);
+    margin: 0 0 36px 0;
+    max-width: 420px;
+  }
+
+  /* Stats */
+  .ws-stats {
+    display: flex;
+    gap: 36px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+
+  .ws-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .ws-stat__number {
+    font-family: {{ section.settings.heading_font }};
+    font-size: clamp(22px, 2.5vw, 32px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .ws-stat__label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.3;
+  }
+
+  /* CTAs */
+  .ws-ctas {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .ws-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border-radius: 30px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .ws-btn--outline {
+    background-color: transparent;
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.7);
+  }
+
+  .ws-btn--outline:hover {
+    background-color: rgba(255,255,255,0.15);
+    border-color: #fff;
+  }
+
+  .ws-btn--outline:hover .ws-btn__arrow { transform: translateX(4px); }
+  .ws-btn__arrow { transition: transform 0.25s ease; }
+
+  .ws-btn--ghost {
+    background-color: rgba(255,255,255,0.12);
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.4);
+  }
+
+  .ws-btn--ghost:hover {
+    background-color: rgba(255,255,255,0.25);
+    border-color: rgba(255,255,255,0.7);
+  }
+
+  /* ── Right: Form Card ── */
+  .ws-card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 36px 32px 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.22);
+  }
+
+  .ws-card__title {
+    font-family: {{ section.settings.heading_font }};
+    font-size: 22px;
+    font-weight: 400;
+    color: #1a1714;
+    margin: 0 0 8px 0;
+    line-height: 1.2;
+  }
+
+  .ws-card__subtitle {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: #6b6560;
+    margin: 0 0 22px 0;
+  }
+
+  /* Form Grid */
+  .ws-form__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .ws-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .ws-field--full {
+    margin-bottom: 18px;
+  }
+
+  .ws-field__label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8a8078;
+  }
+
+  .ws-field__input {
+    width: 100%;
+    padding: 10px 13px;
+    border: 1px solid #e2ddd6;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: inherit;
+    color: #1a1714;
+    background: #faf8f5;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .ws-field__input::placeholder { color: #bbb4aa; }
+
+  .ws-field__input:focus {
+    border-color: #b8a898;
+    box-shadow: 0 0 0 3px rgba(184,168,152,0.15);
+    background: #fff;
+  }
+
+  .ws-field__textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  /* Select */
+  .ws-field__select-wrap {
+    position: relative;
+  }
+
+  .ws-field__select {
+    cursor: pointer;
+    padding-right: 36px;
+  }
+
+  .ws-field__select-arrow {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #8a8078;
+    display: flex;
+    align-items: center;
+  }
+
+  .ws-field__select-arrow svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Submit */
+  .ws-submit {
+    width: 100%;
+    padding: 14px 24px;
+    background-color: #1a1714;
+    color: #f5f0e8;
+    border: none;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.25s ease, transform 0.15s ease;
+    font-family: inherit;
+    margin-bottom: 14px;
+  }
+
+  .ws-submit:hover { background-color: #2e2a26; }
+  .ws-submit:active { transform: scale(0.99); }
+
+  /* Privacy Note */
+  .ws-form__privacy {
+    font-size: 10.5px;
+    color: #aaa49e;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  /* Success Message */
+  .ws-form__success {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    background-color: #f0f7f0;
+    border: 1px solid #c3dcc3;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #3a6b3a;
+  }
+
+  .ws-form__success svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .ws-inner {
+      grid-template-columns: 1fr 380px;
+      gap: 40px;
+      padding: {{ section.settings.vertical_padding }}px 32px;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .ws-section { min-height: auto; }
+
+    .ws-inner {
+      grid-template-columns: 1fr;
+      padding: 60px 24px 48px;
+      gap: 40px;
+    }
+
+    .ws-content { max-width: 100%; }
+    .ws-card { border-radius: 10px; padding: 28px 22px 24px; }
+    .ws-form__grid { grid-template-columns: 1fr; }
+
+    .ws-bg__overlay {
+      background: rgba(0,0,0,{{ section.settings.overlay_opacity | divided_by: 100.0 | times: 0.75 }});
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ws-stats { gap: 24px; }
+    .ws-ctas { flex-direction: column; align-items: flex-start; }
+    .ws-btn { width: 100%; justify-content: center; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Wholesale Contact",
+  "tag": "section",
+  "class": "wholesale-contact-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay Darkness (%)",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "label": "Minimum section height (px)",
+      "min": 400,
+      "max": 900,
+      "step": 20,
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "vertical_padding",
+      "label": "Vertical Padding (px)",
+      "min": 40,
+      "max": 120,
+      "step": 8,
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Left Content"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label (above heading)",
+      "default": "Wholesale & Trade"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading (use <em> for italic)",
+      "default": "<p>Ready to elevate your <em>guest experience?</em></p>"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Partner with Caribe Kit for tailored amenity programs, custom packaging, dedicated logistics and white-glove account management across the Caribbean."
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "btn1_label",
+      "label": "Button 1 Label",
+      "default": "Contact Us"
+    },
+    {
+      "type": "url",
+      "id": "btn1_url",
+      "label": "Button 1 Link"
+    },
+    {
+      "type": "text",
+      "id": "btn2_label",
+      "label": "Button 2 Label",
+      "default": "Request Pricing"
+    },
+    {
+      "type": "url",
+      "id": "btn2_url",
+      "label": "Button 2 Link"
+    },
+    {
+      "type": "header",
+      "content": "Form Card"
+    },
+    {
+      "type": "text",
+      "id": "form_title",
+      "label": "Form Card Title",
+      "default": "Request Wholesale Pricing"
+    },
+    {
+      "type": "text",
+      "id": "form_subtitle",
+      "label": "Form Card Subtitle",
+      "default": "Tell us about your property and we'll send a tailored programme within 24 hours."
+    },
+    {
+      "type": "text",
+      "id": "field_name_label",
+      "label": "Full Name field label",
+      "default": "Full Name"
+    },
+    {
+      "type": "text",
+      "id": "field_name_placeholder",
+      "label": "Full Name placeholder",
+      "default": "Jane Beaumont"
+    },
+    {
+      "type": "text",
+      "id": "field_email_label",
+      "label": "Email field label",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "field_email_placeholder",
+      "label": "Email placeholder",
+      "default": "you@property.com"
+    },
+    {
+      "type": "text",
+      "id": "field_property_label",
+      "label": "Property Name field label",
+      "default": "Property Name"
+    },
+    {
+      "type": "text",
+      "id": "field_property_placeholder",
+      "label": "Property Name placeholder",
+      "default": "Maison Saint-Barth"
+    },
+    {
+      "type": "text",
+      "id": "field_type_label",
+      "label": "Property Type field label",
+      "default": "Property Type"
+    },
+    {
+      "type": "text",
+      "id": "field_type_placeholder",
+      "label": "Property Type placeholder",
+      "default": "Select..."
+    },
+    {
+      "type": "text",
+      "id": "property_types",
+      "label": "Property Type options (comma separated)",
+      "default": "Hotel, Resort, Villa, Boutique Hotel, Spa, Guesthouse, Other"
+    },
+    {
+      "type": "text",
+      "id": "field_message_label",
+      "label": "Message field label",
+      "default": "Tell Us a Little More"
+    },
+    {
+      "type": "text",
+      "id": "field_message_placeholder",
+      "label": "Message placeholder",
+      "default": "Number of rooms, target launch date, products of interest..."
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "Submit Button Label",
+      "default": "Submit Enquiry"
+    },
+    {
+      "type": "text",
+      "id": "privacy_note",
+      "label": "Privacy note (below submit)",
+      "default": "By submitting, you agree to be contacted by the Caribe Kit hospitality team."
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thank you! We'll be in touch within 24 hours."
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "options": [
+        { "value": "'Cormorant Garamond', serif", "label": "Cormorant Garamond (recommended)" },
+        { "value": "'Playfair Display', serif", "label": "Playfair Display" },
+        { "value": "var(--font-heading-family)", "label": "Theme Heading Font" }
+      ],
+      "default": "var(--font-heading-family)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number / Value",
+          "default": "240+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Hotel Partners"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wholesale Contact",
+      "settings": {
+        "label": "Wholesale & Trade",
+        "btn1_label": "Contact Us",
+        "btn2_label": "Request Pricing",
+        "form_title": "Request Wholesale Pricing"
+      },
+      "blocks": [
+        { "type": "stat", "settings": { "number": "240+", "label": "Hotel Partners" } },
+        { "type": "stat", "settings": { "number": "48h", "label": "Reorder Window" } },
+        { "type": "stat", "settings": { "number": "18", "label": "Islands Served" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

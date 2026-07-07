@@ -1,0 +1,105 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_form_id = 'product-form-' | append: section.id
+  assign product_form_class = 'product-form-' | append: section.id
+-%}
+
+<div
+  class="m-product-quickview m-main-product--wrapper m:flex"
+  data-color-scheme="m-color-{{ settings.drawer_popup_color_scheme }}"
+  data-view="quick-view"
+  data-section-id="{{ section.id }}"
+  style="--column-gap: 30px;"
+>
+  <product-recently-viewed data-product-id="{{ product.id }}" class="m:hidden"></product-recently-viewed>
+  <div class="m-product-quickview--media m:column m:w-full md:m:w-1/2">
+    {% render 'product-media',
+      product: product,
+      section: section,
+      media_layout: 'layout-4',
+      show_nav: true,
+      show_thumbnails: false
+    %}
+  </div>
+  <div class="m-product-quickview--info m:column m-scrollbar--vertical m:display-flex m:w-full md:m:w-1/2">
+    <div class="m-product-info--wrapper m:w-full">
+      <div class="main-product__block main-product__block-title">
+        <div class="product-block-group product-block-group--title">
+          <h1 class="m-product-title">
+            <a href="{{ product.url }}">{{ product.title }}</a>
+          </h1>
+        </div>
+      </div>
+      <div class="main-product__block main-product__block-price">
+        {% render 'product-prices',
+          use_variant: true,
+          product: product,
+          show_sale_badge: true,
+          sale_badge_type: 'text',
+          price_text_size: 'm:text-xl md:m:text-2xl'
+        %}
+      </div>
+      <div class="main-product__block main-product__block-description">
+        {{ product.description | strip_html | truncatewords: 15 }}
+        <a class="m-product-quickview--viewmore m:block" href="{{ product.url }}">
+          {{- 'products.product.view_details' | t -}}
+        </a>
+      </div>
+      <div class="main-product__block main-product__block-inventory_status">
+        {% liquid
+          assign inventory_threshold = settings.low_inventory_threshold
+          assign show_inventory_count = settings.show_inventory_count
+          assign inventory_visibility = settings.inventory_visibility
+        %}
+        <m-product-inventory
+          class="m-product-inventory m:block"
+          data-product-id="{{ product.id }}"
+          data-normal-text=""
+          data-low-text=""
+          data-outofstock-text=""
+          data-backordered-text="{%- render 'new-locale', key: 'products.product.backordered' -%}"
+          data-hide-stock-backordered="{%- if settings.inventory_hide_backordered -%}true{%- else -%}false{%- endif -%}"
+          data-inventory-threshold="{{ inventory_threshold }}"
+          data-show-inventory-count="{{ show_inventory_count }}"
+          data-inventory-visibility="{{ inventory_visibility }}"
+          data-status=""
+          data-variant-available="{{ current_variant.available }}"
+          data-inventory-quantity="{{ current_variant.inventory_quantity | at_least: 0 }}"
+          data-inventory-policy="{{ current_variant.inventory_policy | escape }}"
+          data-total="100"
+        >
+          <div class="m-product-inventory__inner">
+            <span class="m-product-inventory__text">
+              <span class="m-product-inventory__pin"></span>
+              <span class="m-product-inventory__status"></span>
+            </span>
+            <span class="m-product-inventory__message"></span>
+          </div>
+          <script type="application/json">
+            [
+              {%- for variant in product.variants -%}
+                {"id":{{- variant.id -}},"inventory_quantity":{{- variant.inventory_quantity | at_least: 0 -}},"available":{{- variant.available -}}, "inventory_policy":"{{- variant.inventory_policy -}}"}
+                {%- unless forloop.last -%},{%- endunless -%}
+              {%- endfor -%}
+            ]
+          </script>
+        </m-product-inventory>
+      </div>
+      {% render 'product-form',
+        section: section,
+        section_id: section.id,
+        product: product,
+        product_form_id: product_form_id,
+        product_form_class: product_form_class,
+        current_variant: current_variant,
+        show_quantity_selector: true,
+        show_sizeguide: false,
+        enable_dynamic_checkout: true,
+        template: 'quickview'
+      %}
+    </div>
+  </div>
+  <script id="productData" type="application/json">
+    {{ product | json }}
+  </script>
+</div>

@@ -1,0 +1,431 @@
+{% comment %}
+  Section: Testimonials
+  Style: Caribe Kit — Trusted by the Best
+  Layout: Centered heading + 3-column cards, decorative circle BG
+{% endcomment %}
+
+{%- liquid
+  assign container = section.settings.container
+  if container == 'w-full'
+    assign container = 'container-full'
+  endif
+  if container == blank
+    assign container = 'container-fluid'
+  endif
+-%}
+<section class="tm-section m-section m-color-{{ section.settings.color_scheme | default: 'background-1' }}" id="testimonials-{{ section.id }}">
+
+
+
+  <div class="{{ container }}">
+  <!-- Heading -->
+  <div class="tm-header">
+    {% if section.settings.label != blank %}
+      <p class="tm-label">{{ section.settings.label }}</p>
+    {% endif %}
+    <h2 class="tm-heading">{{ section.settings.heading }}</h2>
+  </div>
+
+  <!-- Cards Grid -->
+  <div class="tm-grid" role="list">
+    {% for block in section.blocks %}
+      {% if block.type == 'testimonial' %}
+        <article class="tm-card" role="listitem" {{ block.shopify_attributes }}>
+
+          <!-- Stars -->
+          <div class="tm-stars" aria-label="{{ block.settings.rating }} out of 5 stars" role="img">
+            {% assign full_stars = block.settings.rating | floor %}
+            {% for i in (1..5) %}
+              {% if i <= full_stars %}
+                <svg class="tm-star tm-star--filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="currentColor"/>
+                </svg>
+              {% else %}
+                <svg class="tm-star tm-star--empty" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+              {% endif %}
+            {% endfor %}
+          </div>
+
+          <!-- Quote -->
+          {% if block.settings.quote != blank %}
+            <blockquote class="tm-quote">
+              <p>{{ block.settings.quote | prepend: '"' | append: '"' }}</p>
+            </blockquote>
+          {% endif %}
+
+          <!-- Author -->
+          <footer class="tm-author">
+            <span class="tm-author__name">{{ block.settings.author_name }}</span>
+            {% if block.settings.author_role != blank %}
+              <span class="tm-author__role">{{ block.settings.author_role }}</span>
+            {% endif %}
+          </footer>
+
+        </article>
+      {% endif %}
+    {% endfor %}
+  </div>
+  </div>
+
+</section>
+
+<style>
+  .tm-section {
+    position: relative;
+    padding-top: calc({{ section.settings.padding_top }}px * 0.7);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.7);
+    overflow: hidden;
+  }
+  @media (min-width: 768px) {
+    .tm-section {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+
+
+  /* ── Header ── */
+  .tm-header {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    margin-bottom: {{ section.settings.header_gap }}px;
+  }
+
+  .tm-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: inherit;
+    opacity: 0.8;
+    margin-bottom: 10px;
+  }
+
+  .tm-heading {
+    font-size: clamp(28px, 3.2vw, 42px);
+    font-weight: 400;
+    color: inherit;
+    margin: 0;
+    line-height: 1.15;
+  }
+
+  /* ── Grid ── */
+  .tm-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns }}, 1fr);
+    gap: {{ section.settings.grid_gap }}px;
+    align-items: stretch;
+  }
+
+  /* ── Card ── */
+  .tm-card {
+    background-color: #FAF5EB;
+    border-radius: {{ section.settings.card_radius }}px;
+    padding: {{ section.settings.card_padding }}px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 18px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .tm-card:hover {
+    box-shadow: 0 8px 36px rgba(0,0,0,0.10);
+    transform: translateY(-2px);
+  }
+
+  /* Stars */
+  .tm-stars {
+    display: flex;
+    gap: 5px;
+  }
+
+  .tm-star {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .tm-star--filled { color: currentColor; }
+  .tm-star--empty  { color: currentColor; opacity: 0.3; }
+
+  /* Quote */
+  .tm-quote {
+    flex: 1;
+    margin: 0;
+  }
+
+  .tm-quote p {
+    font-style: italic;
+    font-size: {{ section.settings.quote_font_size }}px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: inherit;
+    opacity: 0.9;
+  }
+
+  /* Author */
+  .tm-author {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-top: 4px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .tm-author__name {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: inherit;
+    line-height: 1.2;
+  }
+
+  .tm-author__role {
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: inherit;
+    opacity: 0.7;
+    line-height: 1.3;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .tm-section { padding-left: 24px; padding-right: 24px; }
+    .tm-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 767px) {
+    .tm-grid { 
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-left: 24px;
+      gap: 16px;
+      margin-left: -24px;
+      margin-right: -24px;
+      padding-left: 24px;
+      padding-right: 24px;
+      padding-bottom: 20px;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .tm-grid::-webkit-scrollbar {
+      display: none;
+    }
+    .tm-card {
+      flex: 0 0 85%;
+      scroll-snap-align: start;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "class": "testimonials-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label (above heading, optional)"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Trusted by the Best"
+    },
+    {
+      "type": "range",
+      "id": "header_gap",
+      "label": "Gap below heading (px)",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container type",
+      "default": "container-fluid",
+      "options": [
+        { "value": "container-fluid", "label": "Default" },
+        { "value": "w-full", "label": "Full width" },
+        { "value": "container", "label": "Use container box" }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns (desktop)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Gap between cards (px)",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Card Style"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card Inner Padding (px)",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card Border Radius (px)",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "quote_font_size",
+      "label": "Quote font size (px)",
+      "min": 13,
+      "max": 22,
+      "step": 1,
+      "default": 16
+    },
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "limit": 9,
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "The aesthetic of Caribe Kit transformed our guest bathrooms. The quality of the formulations is matched only by the beauty of the bottles."
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author Name",
+          "default": "Sophia Martinez"
+        },
+        {
+          "type": "text",
+          "id": "author_role",
+          "label": "Author Role / Property",
+          "default": "Boutique Hotelier, St. Barts"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "settings": {
+        "heading": "Trusted by the Best",
+        "columns": 3
+      },
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "The aesthetic of Caribe Kit transformed our guest bathrooms. The quality of the formulations is matched only by the beauty of the bottles.",
+            "author_name": "Sophia Martinez",
+            "author_role": "Boutique Hotelier, St. Barts"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "As a superhost, I look for products that feel exclusive but are easy to manage. Caribe Kit's wholesale service is seamless and professional.",
+            "author_name": "Marcus Reed",
+            "author_role": "Airbnb Superhost, Turks & Caicos"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "Finally, a luxury amenity line that truly understands Caribbean hospitality. Our resort guests constantly ask where they can buy the shampoo.",
+            "author_name": "Elena Vargas",
+            "author_role": "Resort Manager, Antigua"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

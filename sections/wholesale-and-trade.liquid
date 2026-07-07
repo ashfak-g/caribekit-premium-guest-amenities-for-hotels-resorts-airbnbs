@@ -1,0 +1,538 @@
+{%- style -%}
+/* ===== WHOLESALE & TRADE SECTION ===== */
+#shopify-section-{{ section.id }} {
+  --font-display: "Playfair Display", serif;
+  --font-body: "Montserrat", sans-serif;
+  --teal: #1a4d5f;
+  --coral: #ff7f5c;
+  --sand: #f5e6d3;
+  --cream: #fffbf5;
+  --charcoal: #2e2e2e;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+.wt-section-{{ section.id }} {
+  background-color: var(--cream);
+  padding-top: calc({{ section.settings.padding_top }}px * 0.7);
+  padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.7);
+  position: relative;
+}
+@media (min-width: 768px) {
+  .wt-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+}
+@media (max-width: 767px) {
+  .wt-left-{{ section.id }} {
+    text-align: center;
+  }
+  .wt-eyebrow-{{ section.id }} {
+    justify-content: center;
+  }
+  .wt-desc-{{ section.id }} {
+    margin-inline: auto;
+  }
+  .wt-buttons-{{ section.id }} {
+    align-items: center;
+    width: 100%;
+  }
+  .wt-buttons-{{ section.id }} a {
+    width: 100%;
+  }
+}
+.wt-inner-{{ section.id }} {
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.wt-bg-img-{{ section.id }} {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+.wt-overlay-{{ section.id }} {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(20,20,20,0.7) 0%, rgba(20,20,20,0.45) 50%, rgba(20,20,20,0.15) 100%);
+}
+.wt-content-wrapper-{{ section.id }} {
+  position: relative;
+  padding: 4rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .wt-content-wrapper-{{ section.id }} {
+    padding: 6rem 3rem;
+  }
+}
+@media (min-width: 1024px) {
+  .wt-content-wrapper-{{ section.id }} {
+    padding: 7rem 5rem;
+    grid-template-columns: 7fr 5fr;
+    gap: 4rem;
+  }
+}
+/* --- LEFT COLUMN --- */
+.wt-left-{{ section.id }} {
+  color: var(--cream);
+}
+.wt-eyebrow-{{ section.id }} {
+  font-size: 0.6875rem; /* 11px */
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255, 251, 245, 0.85);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.wt-eyebrow-line-{{ section.id }} {
+  width: 2rem;
+  height: 1px;
+  background-color: rgba(255, 251, 245, 0.6);
+}
+.wt-heading-{{ section.id }} {
+  font-family: var(--font-display);
+  font-size: 42px;
+  line-height: 1.1;
+  margin: 0;
+  font-weight: 700;
+  color: var(--cream);
+}
+.wt-heading-{{ section.id }} em,
+.wt-heading-{{ section.id }} i {
+  font-weight: 300;
+  font-style: italic;
+}
+.wt-desc-{{ section.id }} {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  color: rgba(255, 251, 245, 0.85);
+  line-height: 1.625;
+  max-width: 36rem;
+}
+@media (min-width: 768px) {
+  .wt-desc-{{ section.id }} {
+    font-size: 1.125rem;
+  }
+}
+/* --- TAGLINE --- */
+.wt-tagline-{{ section.id }} {
+  margin-top: 2.5rem;
+  font-size: 1.125rem;
+  color: rgba(255, 251, 245, 0.95);
+  line-height: 1.5;
+  border-top: 1px solid rgba(255, 251, 245, 0.3);
+  padding-top: 1.5rem;
+  max-width: 42rem;
+}
+@media (min-width: 768px) {
+  .wt-tagline-{{ section.id }} {
+    font-size: 1.375rem;
+  }
+}
+/* --- BUTTONS --- */
+.wt-buttons-{{ section.id }} {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+@media (min-width: 640px) {
+  .wt-buttons-{{ section.id }} {
+    flex-direction: row;
+  }
+}
+.wt-btn-primary-{{ section.id }} {
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  background-color: var(--cream);
+  color: var(--charcoal);
+  font-size: 0.75rem; /* 12px */
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+.wt-btn-primary-{{ section.id }}:hover {
+  background-color: var(--sand);
+}
+.wt-btn-secondary-{{ section.id }} {
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 251, 245, 0.7);
+  color: var(--cream);
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+.wt-btn-secondary-{{ section.id }}:hover {
+  background-color: rgba(255, 251, 245, 0.1);
+}
+/* --- RIGHT COLUMN - FORM --- */
+.wt-form-card-{{ section.id }} {
+  background-color: rgba(255, 251, 245, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 0.5rem;
+  padding: 1.75rem;
+  border: 1px solid rgba(255, 251, 245, 0.4);
+}
+@media (min-width: 768px) {
+  .wt-form-card-{{ section.id }} {
+    padding: 2.25rem;
+  }
+}
+.wt-form-title-{{ section.id }} {
+  font-family: var(--font-display);
+  color: var(--charcoal);
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+@media (min-width: 768px) {
+  .wt-form-title-{{ section.id }} {
+    font-size: 2.25rem;
+  }
+}
+.wt-form-desc-{{ section.id }} {
+  font-size: 0.875rem;
+  color: rgba(46, 46, 46, 0.7);
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.wt-form-group-{{ section.id }} {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+@media (min-width: 640px) {
+  .wt-form-group-{{ section.id }} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.wt-label-{{ section.id }} {
+  display: block;
+  margin-bottom: 1rem;
+}
+.wt-label-text-{{ section.id }} {
+  font-size: 0.6875rem; /* 11px */
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(46, 46, 46, 0.7);
+  display: block;
+  font-weight: 500;
+}
+.wt-input-{{ section.id }} {
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border-radius: 0.25rem;
+  background-color: #ffffff;
+  border: 1px solid rgba(46, 46, 46, 0.15);
+  font-size: 0.875rem;
+  color: var(--charcoal);
+  font-family: var(--font-body);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+.wt-input-{{ section.id }}:focus {
+  outline: none;
+  border-color: var(--charcoal);
+  box-shadow: 0 0 0 1px var(--charcoal);
+}
+.wt-submit-{{ section.id }} {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 9999px;
+  background-color: var(--charcoal);
+  color: var(--cream);
+  font-size: 0.75rem; /* 12px */
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-body);
+}
+.wt-submit-{{ section.id }}:hover {
+  background-color: #000000;
+  transform: translateY(-1px);
+}
+.wt-disclaimer-{{ section.id }} {
+  font-size: 0.6875rem; /* 11px */
+  color: rgba(46, 46, 46, 0.6);
+  line-height: 1.625;
+  margin-top: 1rem;
+  text-align: left;
+}
+/* Form states */
+.wt-form-success-{{ section.id }} {
+  background-color: var(--teal);
+  color: #fff;
+  padding: 1rem;
+  border-radius: 0.375rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  text-align: center;
+}
+.wt-form-errors-{{ section.id }} {
+  color: #d9534f;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+{%- endstyle -%}
+{%- liquid
+  assign container = section.settings.container
+  if container == 'w-full'
+    assign container = 'container-full'
+  endif
+  if container == blank
+    assign container = 'container-fluid'
+  endif
+-%}
+<section id="wt-{{ section.id }}" class="wt-section-{{ section.id }}">
+  <div class="{{ container }}">
+    <div class="wt-inner-{{ section.id }}">
+      
+      {%- comment -%}-- Background Image & Overlay --{%- endcomment -%}
+      {%- if section.settings.background_image != blank -%}
+        <img
+          src="{{ section.settings.background_image | image_url: width: 2000 }}"
+          alt="{{ section.settings.background_image.alt | escape }}"
+          loading="lazy"
+          class="wt-bg-img-{{ section.id }}"
+          width="{{ section.settings.background_image.width }}"
+          height="{{ section.settings.background_image.height }}"
+        >
+      {%- else -%}
+        <div class="wt-bg-img-{{ section.id }}" style="background: linear-gradient(135deg, #d5c9bc 0%, #b8aa9a 100%);"></div>
+      {%- endif -%}
+      <div class="wt-overlay-{{ section.id }}"></div>
+      {%- comment -%}-- Content Wrapper --{%- endcomment -%}
+      <div class="wt-content-wrapper-{{ section.id }}">
+        
+        {%- comment -%}-- Left Column --{%- endcomment -%}
+        <div class="wt-left-{{ section.id }}">
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="wt-eyebrow-{{ section.id }}">
+              <span class="wt-eyebrow-line-{{ section.id }}"></span>
+              {{ section.settings.eyebrow }}
+            </p>
+          {%- endif -%}
+          
+          {%- if section.settings.heading != blank -%}
+            <h2 class="wt-heading-{{ section.id }}">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          
+          {%- if section.settings.description != blank -%}
+            <p class="wt-desc-{{ section.id }}">{{ section.settings.description }}</p>
+          {%- endif -%}
+          
+          {%- comment -%}-- Tagline --{%- endcomment -%}
+          {%- if section.settings.tagline != blank -%}
+            <div class="wt-tagline-{{ section.id }}">
+              {{ section.settings.tagline }}
+            </div>
+          {%- endif -%}
+          {%- comment -%}-- Buttons --{%- endcomment -%}
+          <div class="wt-buttons-{{ section.id }}">
+            {%- if section.settings.btn_1_label != blank -%}
+              <a href="{{ section.settings.btn_1_link | default: '#' }}" class="wt-btn-primary-{{ section.id }}">
+                {{ section.settings.btn_1_label }}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+              </a>
+            {%- endif -%}
+            {%- if section.settings.btn_2_label != blank -%}
+              <a href="{{ section.settings.btn_2_link | default: '#wholesale-form' }}" class="wt-btn-secondary-{{ section.id }}">
+                {{ section.settings.btn_2_label }}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+        {%- comment -%}-- Right Column (Form) --{%- endcomment -%}
+        <div class="wt-right-{{ section.id }}">
+          <div id="wholesale-form" class="wt-form-card-{{ section.id }}">
+            {%- if section.settings.form_title != blank -%}
+              <h3 class="wt-form-title-{{ section.id }}">{{ section.settings.form_title }}</h3>
+            {%- endif -%}
+            {%- if section.settings.form_desc != blank -%}
+              <p class="wt-form-desc-{{ section.id }}">{{ section.settings.form_desc }}</p>
+            {%- endif -%}
+            {%- form 'contact', id: 'wholesale-inquiry' -%}
+              {%- if form.posted_successfully? -%}
+                <div class="wt-form-success-{{ section.id }}">Thanks for contacting us! We'll get back to you within 24 hours.</div>
+              {%- endif -%}
+              
+              {%- if form.errors -%}
+                <div class="wt-form-errors-{{ section.id }}">
+                  {{ form.errors | default_errors }}
+                </div>
+              {%- endif -%}
+              <div class="wt-form-group-{{ section.id }}">
+                <label class="wt-label-{{ section.id }}">
+                  <span class="wt-label-text-{{ section.id }}">Full Name</span>
+                  <input type="text" name="contact[name]" required maxlength="80" class="wt-input-{{ section.id }}" placeholder="Jane Beaumont">
+                </label>
+                <label class="wt-label-{{ section.id }}">
+                  <span class="wt-label-text-{{ section.id }}">Email</span>
+                  <input type="email" name="contact[email]" required class="wt-input-{{ section.id }}" placeholder="you@property.com">
+                </label>
+              </div>
+              {%- comment -%} NOTE: Property Name & Property Type removed per user request {%- endcomment -%}
+              <label class="wt-label-{{ section.id }}" style="margin-bottom: 0;">
+                <span class="wt-label-text-{{ section.id }}">Tell us a little more</span>
+                <textarea name="contact[body]" rows="3" required maxlength="500" class="wt-input-{{ section.id }}" placeholder="Number of rooms, target launch date, products of interest..."></textarea>
+              </label>
+              <div style="margin-top: 1.5rem;">
+                <button type="submit" class="wt-submit-{{ section.id }}">Request Wholesale Pricing</button>
+              </div>
+              
+              <p class="wt-disclaimer-{{ section.id }}">By submitting, you agree to be contacted by the Caribe Kit hospitality team.</p>
+            {%- endform -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Wholesale & Trade",
+  "settings": [
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container type",
+      "default": "container-fluid",
+      "options": [
+        { "value": "container-fluid", "label": "Default" },
+        { "value": "w-full", "label": "Full width" },
+        { "value": "container", "label": "Use container box" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 140,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Wholesale & Trade"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Ready to elevate your <em>guest experience?</em>",
+      "info": "Use <em> tags to italicize text."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Partner with Caribe Kit for tailored amenity programs, custom packaging, dedicated logistics and white-glove account management across the Caribbean."
+    },
+    {
+      "type": "header",
+      "content": "Tagline"
+    },
+    {
+      "type": "textarea",
+      "id": "tagline",
+      "label": "Tagline Text",
+      "default": "Based in Curaçao and Designed for Caribbean hospitality."
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "btn_1_label",
+      "label": "Button 1 Label",
+      "default": "Contact Us"
+    },
+    {
+      "type": "url",
+      "id": "btn_1_link",
+      "label": "Button 1 Link"
+    },
+    {
+      "type": "text",
+      "id": "btn_2_label",
+      "label": "Button 2 Label",
+      "default": "Request Pricing"
+    },
+    {
+      "type": "url",
+      "id": "btn_2_link",
+      "label": "Button 2 Link"
+    },
+    {
+      "type": "header",
+      "content": "Form Content"
+    },
+    {
+      "type": "text",
+      "id": "form_title",
+      "label": "Form Title",
+      "default": "Request Wholesale Pricing"
+    },
+    {
+      "type": "text",
+      "id": "form_desc",
+      "label": "Form Description",
+      "default": "Tell us about your property and we'll send a tailored programme within 24 hours."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wholesale & Trade"
+    }
+  ]
+}
+{% endschema %}
