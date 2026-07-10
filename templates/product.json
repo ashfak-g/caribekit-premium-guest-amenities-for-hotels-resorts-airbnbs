@@ -1,0 +1,404 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "container": "container",
+        "text_alignment": "left",
+        "hide_current": false,
+        "hide_on_mb": false,
+        "animations": "inherit"
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "badge_ChqgGj": {
+          "type": "badge",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_saving": false,
+            "sale_badge_type": "percentage"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "size_title": "Size"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_atc_button": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "custom_liquid_cFqYBf": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<style>\n.ai-suite-section {\n  background: #ffffff;\n  padding: 0px;\n  font-family: Arial, sans-serif;\n}\n\n.ai-suite-container {\n  max-width: 1200px;\n  margin: 0 auto;\n}\n\n.ai-suite-text {\n  color: #000000;\n  font-size: 20px;\n  line-height: 1.7;\n  max-width: 950px;\n  margin-bottom: 20px;\n}\n\n.ai-suite-grid {\n  display: grid;\n  grid-template-columns: repeat(2, minmax(250px, 1fr));\n  gap: 10px 20px;\n}\n\n.ai-suite-item {\n  display: flex;\n  align-items: flex-start;\n  gap: 16px;\n}\n\n.ai-suite-icon {\n  width: 28px;\n  height: 28px;\n  background: #000;\n  color: #fff;\n  border-radius: 50%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 15px;\n  flex-shrink: 0;\n  margin-top: 3px;\n}\n\n.ai-suite-title {\n  font-size: 16px;\n  font-weight: 600;\n  color: #111827;\n  line-height: 1.4;\n}\n\n@media screen and (max-width: 768px) {\n  .ai-suite-section {\n    padding: 40px 20px;\n  }\n\n  .ai-suite-text {\n    font-size: 17px;\n  }\n\n  .ai-suite-grid {\n    grid-template-columns: 1fr;\n    gap: 25px;\n  }\n\n  .ai-suite-title {\n    font-size: 18px;\n  }\n}\n<\/style>\n\n<section class=\"ai-suite-section\">\n  <div class=\"ai-suite-container\">\n\n    <!-- Table Description -->\n    <div class=\"ai-suite-text\">\n      {{ product.metafields.custom.table_description }}\n    <\/div>\n\n    <div class=\"ai-suite-grid\">\n\n      <!-- Feature 1 -->\n      <div class=\"ai-suite-item\">\n        <div class=\"ai-suite-icon\">✓<\/div>\n        <div class=\"ai-suite-title\">\n          {{ product.metafields.custom.feature_1 }}\n        <\/div>\n      <\/div>\n\n      <!-- Feature 2 -->\n      <div class=\"ai-suite-item\">\n        <div class=\"ai-suite-icon\">✓<\/div>\n        <div class=\"ai-suite-title\">\n          {{ product.metafields.custom.feature_2 }}\n        <\/div>\n      <\/div>\n\n      <!-- Feature 3 -->\n      <div class=\"ai-suite-item\">\n        <div class=\"ai-suite-icon\">✓<\/div>\n        <div class=\"ai-suite-title\">\n          {{ product.metafields.custom.feature_3 }}\n        <\/div>\n      <\/div>\n\n      <!-- Feature 4 -->\n      <div class=\"ai-suite-item\">\n        <div class=\"ai-suite-icon\">✓<\/div>\n        <div class=\"ai-suite-title\">\n          {{ product.metafields.custom.feature_4 }}\n        <\/div>\n      <\/div>\n\n    <\/div>\n\n  <\/div>\n<\/section>"
+          }
+        },
+        "addons": {
+          "type": "addons",
+          "disabled": true,
+          "settings": {
+            "show_atcp": false,
+            "show_ask_a_question": false,
+            "show_social": false
+          }
+        },
+        "shipping_VBJFtx": {
+          "type": "shipping",
+          "disabled": true,
+          "settings": {
+            "show_delivery_times": true,
+            "deliver_text": "Estimated Delivery:",
+            "deliver_days": "7",
+            "date_format": "%b %d",
+            "show_shipping_text": true,
+            "shipping_text": "<p><strong>Free Shipping & Returns: <\/strong>On all orders over $75<\/p>"
+          }
+        },
+        "trust_badge_NyBMd4": {
+          "type": "trust_badge",
+          "settings": {
+            "trust_badges_text": "<p>Guarantee safe & secure checkout<\/p>",
+            "trust_badges_image_width": "60%",
+            "position": "below"
+          }
+        }
+      },
+      "block_order": [
+        "badge_ChqgGj",
+        "title",
+        "price",
+        "variant_picker",
+        "buy_buttons",
+        "custom_liquid_cFqYBf",
+        "addons",
+        "shipping_VBJFtx",
+        "trust_badge_NyBMd4"
+      ],
+      "settings": {
+        "container": "container-fluid",
+        "layout": "layout-4",
+        "show_atwl": false,
+        "enable_history_state": true,
+        "enable_variant_group_images": false,
+        "disable_selected_variant_default": false,
+        "show_featured_media": true,
+        "show_zoom_button": true,
+        "enable_video_autoplay": true,
+        "show_nav_media_mobile": false,
+        "show_pagination_mobile": true,
+        "use_sticky_atc": true,
+        "use_sticky_atc_on_mobile": true,
+        "enable_dynamic_checkout": false,
+        "sticky_atc_wishtlist": false,
+        "sticky_atc_compare": false
+      }
+    },
+    "product-details-tabs": {
+      "type": "product-details-tabs",
+      "blocks": {
+        "description": {
+          "type": "description",
+          "settings": {
+            "header": "Product Description"
+          }
+        }
+      },
+      "block_order": [
+        "description"
+      ],
+      "custom_css": [
+        ".m-tabs__header {justify-content: flex-start;}"
+      ],
+      "settings": {
+        "container": "container",
+        "color_scheme": "default",
+        "default_open": true,
+        "padding_top": 0,
+        "padding_bottom": 50,
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "product_specifications_NWzATn": {
+      "type": "product-specifications",
+      "blocks": {
+        "spec_row_eaPmNQ": {
+          "type": "spec_row",
+          "settings": {
+            "label": "Volume",
+            "value": "40ml \/ 1.35 fl oz"
+          }
+        },
+        "spec_row_DJpb7L": {
+          "type": "spec_row",
+          "settings": {
+            "label": "Bottle Material",
+            "value": "PCR Recycled Plastic"
+          }
+        },
+        "spec_row_UBhdYf": {
+          "type": "spec_row",
+          "settings": {
+            "label": "Cap Type",
+            "value": "Flip-top"
+          }
+        },
+        "spec_row_gMJUgW": {
+          "type": "spec_row",
+          "settings": {
+            "label": "Shelf Life",
+            "value": "24 months"
+          }
+        },
+        "spec_row_h9gMDn": {
+          "type": "spec_row",
+          "settings": {
+            "label": "Made in",
+            "value": "Dominican Republic"
+          }
+        },
+        "spec_row_AAgnqq": {
+          "type": "spec_row",
+          "settings": {
+            "label": "SKU",
+            "value": "CBK-SH-40"
+          }
+        },
+        "spec_row_m6BRUw": {
+          "type": "spec_row",
+          "settings": {
+            "label": "Case Quantity",
+            "value": "100 units"
+          }
+        }
+      },
+      "block_order": [
+        "spec_row_eaPmNQ",
+        "spec_row_DJpb7L",
+        "spec_row_UBhdYf",
+        "spec_row_gMJUgW",
+        "spec_row_h9gMDn",
+        "spec_row_AAgnqq",
+        "spec_row_m6BRUw"
+      ],
+      "name": "Product Specifications",
+      "settings": {
+        "container": "container-fluid",
+        "color_scheme": "",
+        "bg_color": "#fffbf5",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "title": "Product Specifications",
+        "heading_size": "h2",
+        "subtitle": "Everything you need to know"
+      }
+    },
+    "qa_contact_6NkBiY": {
+      "type": "qa-contact",
+      "blocks": {
+        "qa_3mBhzC": {
+          "type": "qa",
+          "settings": {
+            "title": "Q: Can I get a sample first?",
+            "text": "Yes — contact our wholesale team and we'll send a complimentary sample kit to qualifying properties."
+          }
+        },
+        "qa_mjmejG": {
+          "type": "qa",
+          "settings": {
+            "title": "Q: Bulk discount for hotels?",
+            "text": "Yes — 15% off on orders of 500+ units, with custom-label options available on request."
+          }
+        },
+        "qa_ir8Dzb": {
+          "type": "qa",
+          "settings": {
+            "title": "Q: Do you ship internationally?",
+            "text": "Yes, we ship to over 40 countries via DHL Express. International delivery: 5–7 business days."
+          }
+        }
+      },
+      "block_order": [
+        "qa_3mBhzC",
+        "qa_mjmejG",
+        "qa_ir8Dzb"
+      ],
+      "custom_css": [
+        "@media (max-width: 768px) {button.acc-head-template--21691127955686__qa_contact_6NkBiY {font-size: 17px; }}"
+      ],
+      "name": "Q&A Contact",
+      "settings": {
+        "heading_size": "h3",
+        "container": "container-fluid",
+        "color_scheme": "",
+        "bg_color": "#ffffff",
+        "padding_top": 80,
+        "padding_bottom": 0,
+        "form_title": "Have a question?",
+        "input_name_placeholder": "Your name",
+        "input_email_placeholder": "Email address",
+        "input_msg_placeholder": "What would you like to know?",
+        "btn_label": "Submit Question",
+        "acc_title": "Previously Asked"
+      }
+    },
+    "bundle_banner_73NDQU": {
+      "type": "bundle-banner",
+      "name": "Collection Bundle",
+      "settings": {
+        "container": "container-fluid",
+        "color_scheme": "",
+        "bg_gradient": "linear-gradient(135deg,#FFF6EC 0%,#FBE9DB 100%)",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "bundle_collection": "bath-amenities",
+        "discount_percent": 20,
+        "heading_size": "h2",
+        "title": "Complete the Caribe Kit Set",
+        "description": "Four signature amenities, one tropical experience. Save 20% when you order the complete bathroom set.",
+        "button_text": "Add Bundle to Cart"
+      }
+    },
+    "home_faq_PEW8rW": {
+      "type": "home-faq",
+      "blocks": {
+        "faq_R3zDNn": {
+          "type": "faq",
+          "settings": {
+            "title": "Is this suitable for sensitive skin?",
+            "text": "Yes — our formula is dermatologist tested, free from sulfates and parabens, and safe for daily use even on the most sensitive skin types."
+          }
+        },
+        "faq_JGrQzt": {
+          "type": "faq",
+          "settings": {
+            "title": "Can I order samples before bulk purchase?",
+            "text": "Absolutely. Hospitality professionals can request a free sample kit through our wholesale portal."
+          }
+        },
+        "faq_V8xpGD": {
+          "type": "faq",
+          "settings": {
+            "title": "Do you offer white-label options?",
+            "text": "Yes — minimum order of 1,000 units. Custom labels, bottle colors, and scent profiles available."
+          }
+        },
+        "faq_jwjimE": {
+          "type": "faq",
+          "settings": {
+            "title": "What's the lead time for bulk orders?",
+            "text": "Standard bulk orders ship within 7 business days. Custom-label orders take 4–6 weeks from artwork approval."
+          }
+        },
+        "faq_4BGqzK": {
+          "type": "faq",
+          "settings": {
+            "title": "Are these products TSA approved?",
+            "text": "Yes — at 40ml, the bottle is well under the TSA 100ml liquid limit and ideal for carry-on luggage."
+          }
+        },
+        "faq_tGzNJy": {
+          "type": "faq",
+          "settings": {
+            "title": "How do I become a wholesale partner?",
+            "text": "Apply via our For Hotels page. Approval typically takes 1–2 business days and unlocks tiered pricing."
+          }
+        }
+      },
+      "block_order": [
+        "faq_R3zDNn",
+        "faq_JGrQzt",
+        "faq_V8xpGD",
+        "faq_jwjimE",
+        "faq_4BGqzK",
+        "faq_tGzNJy"
+      ],
+      "name": "FAQ",
+      "settings": {
+        "container": "container-fluid",
+        "color_scheme": "",
+        "bg_color": "#fffbf5",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "heading_size": "h2",
+        "heading": "Frequently Asked Questions",
+        "subheading": "Everything you need to know before ordering"
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "container": "container-fluid",
+        "color_scheme": "",
+        "remove_params": false,
+        "heading": "You Might Also Like",
+        "heading_size": "h3",
+        "text_align": "center",
+        "limit": 8,
+        "columns": 5,
+        "column_gap": 30,
+        "enable_slider": true,
+        "use_scroll_mobile": true,
+        "padding_top": 80,
+        "padding_bottom": 0,
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "recent-viewed-products": {
+      "type": "recent-viewed-products",
+      "disabled": true,
+      "settings": {
+        "container": "container-fluid",
+        "color_scheme": "",
+        "heading": "Recently Viewed Products",
+        "heading_size": "h3",
+        "text_align": "center",
+        "limit": 8,
+        "columns": 5,
+        "column_gap": 30,
+        "pcard_layout": "",
+        "pcard_image_ratio": "",
+        "show_vendor": false,
+        "hide_title": false,
+        "enable_slider": true,
+        "show_pagination": false,
+        "show_navigation": false,
+        "mobile_disable_slider": false,
+        "use_scroll_mobile": true,
+        "item_gap_mobile": 16,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "main",
+    "product-details-tabs",
+    "product_specifications_NWzATn",
+    "qa_contact_6NkBiY",
+    "bundle_banner_73NDQU",
+    "home_faq_PEW8rW",
+    "product-recommendations",
+    "recent-viewed-products"
+  ]
+}
