@@ -1,0 +1,187 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-about-us",
+      "disabled": true,
+      "settings": {}
+    },
+    "slider_QkmxK3": {
+      "type": "slider",
+      "blocks": {
+        "slider_item_3F9k8h": {
+          "type": "slider_item",
+          "settings": {
+            "background": "shopify:\/\/shop_images\/Untitled_design_2_0a8647de-6275-4aa5-a210-4e4c5c582284.png",
+            "mb_background": "shopify:\/\/shop_images\/Untitled_design_3_f433f5f9-9889-400b-ae11-c2996504f2c7.png",
+            "content_in_container": false,
+            "content_position": "center middle",
+            "text_alignment": "center",
+            "text_size": "medium",
+            "text_color": "black",
+            "subheading": "",
+            "title": "Inspired by Island Living. Crafted for Exceptional Hospitality.",
+            "show_divider": true,
+            "description": "",
+            "image_link": "",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "m-button--primary",
+            "button_size": "",
+            "second_button_text": "",
+            "second_button_link": "",
+            "second_button_style": "m-button--primary",
+            "second_button_size": "",
+            "show_footer": false,
+            "footer_alignment": "end",
+            "footer_text": "New Collection",
+            "footer_button": "Shop Now",
+            "footer_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slider_item_3F9k8h"
+      ],
+      "disabled": true,
+      "name": "Slideshow",
+      "settings": {
+        "container": "w-full",
+        "slideshow_height": "adapt",
+        "show_overlay": false,
+        "dots_position": "bottom",
+        "dots_color": "dark",
+        "show_dots": true,
+        "show_arrows": false,
+        "autorotate": false,
+        "autorotate_speed": 5,
+        "use_content_above": false,
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "image_with_text_EXwwXj": {
+      "type": "image-with-text",
+      "custom_css": [
+        "img {border-radius: 15px;}"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "heading": "",
+        "heading_size": "h3",
+        "subheading": "",
+        "container": "container-fluid",
+        "color_scheme": "",
+        "item_gap": 100,
+        "item_gap_mobile": 30,
+        "layout": "left",
+        "image_column_size": "6",
+        "image_overlap": false,
+        "show_image_reverse": false,
+        "hover_effect": false,
+        "image_animation": "none",
+        "image": "shopify:\/\/shop_images\/Untitled_design_4.png",
+        "link": "",
+        "link_2": "",
+        "second_image_offset_top": 10,
+        "title": "Our Story",
+        "sub_title": "",
+        "text": "<p>Caribe Kit was born from our own experience in hospitality and Airbnb rentals in Curaçao. We saw the need for premium, island-inspired guest amenities that combine quality, convenience and beautiful presentation.<\/p><p><\/p><p>What started as a personal need became a brand trusted by hotels and hosts across the Caribbean. Every product we create is designed to bring resort-quality luxury into every stay — a small gesture that guests remember long after check-out.<\/p>",
+        "text_size": "medium",
+        "content_alignment": "left",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "m-button--link",
+        "button_size": "",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "image_with_text_9VBCFj": {
+      "type": "image-with-text",
+      "custom_css": [
+        "img {border-radius: 15px;}"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "heading": "",
+        "heading_size": "h3",
+        "subheading": "",
+        "container": "container-fluid",
+        "color_scheme": "",
+        "item_gap": 100,
+        "item_gap_mobile": 30,
+        "layout": "right",
+        "image_column_size": "6",
+        "image_overlap": false,
+        "show_image_reverse": false,
+        "hover_effect": false,
+        "image_animation": "none",
+        "image": "shopify:\/\/shop_images\/Untitled_design_6.png",
+        "link": "",
+        "link_2": "",
+        "second_image_offset_top": 10,
+        "title": "Our Mission",
+        "sub_title": "",
+        "text": "<p>To enhance every guest journey through thoughtfully crafted amenities that combine quality, sustainability, and island-inspired comfort.<\/p><p>We are committed to delivering reliable hospitality essentials that not only meet practical needs but also contribute to a more welcoming, memorable, and environmentally conscious experience for every traveler.<br\/><br\/><\/p>",
+        "text_size": "medium",
+        "content_alignment": "left",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "m-button--link",
+        "button_size": "",
+        "padding_top": 0,
+        "padding_bottom": 80,
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    },
+    "image_with_text_xkt8er": {
+      "type": "image-with-text",
+      "custom_css": [
+        "img {border-radius: 15px;}"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "heading": "",
+        "heading_size": "h3",
+        "subheading": "",
+        "container": "container-fluid",
+        "color_scheme": "",
+        "item_gap": 100,
+        "item_gap_mobile": 30,
+        "layout": "left",
+        "image_column_size": "6",
+        "image_overlap": false,
+        "show_image_reverse": false,
+        "hover_effect": false,
+        "image_animation": "none",
+        "image": "shopify:\/\/shop_images\/Untitled_design_5.png",
+        "link": "",
+        "link_2": "",
+        "second_image_offset_top": 10,
+        "title": "Our Vision",
+        "sub_title": "",
+        "text": "<p>To become the trusted hospitality amenities brand for destinations that value exceptional guest experiences, sustainable practices, and timeless island-inspired design.<\/p><p>We envision a future where every guest encounter reflects care, comfort, and authenticity — creating meaningful connections between people, places, and the environments they explore.<br\/><br\/><\/p>",
+        "text_size": "medium",
+        "content_alignment": "left",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "m-button--link",
+        "button_size": "",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "slider_QkmxK3",
+    "image_with_text_EXwwXj",
+    "image_with_text_9VBCFj",
+    "image_with_text_xkt8er"
+  ]
+}
