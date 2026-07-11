@@ -1,0 +1,574 @@
+{
+  "sections": {
+    "1621243260e1af0c20": {
+      "type": "slider",
+      "blocks": {
+        "1621243260e1af0c20-0": {
+          "type": "slider_item",
+          "settings": {
+            "background": "shopify:\/\/shop_images\/83.jpg",
+            "mb_background": "shopify:\/\/shop_images\/84.jpg",
+            "content_in_container": false,
+            "content_position": "left middle",
+            "text_alignment": "left",
+            "text_size": "large",
+            "text_color": "black",
+            "subheading": "",
+            "title": "",
+            "show_divider": true,
+            "description": "",
+            "image_link": "shopify:\/\/collections\/all",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "sf__btn-secondary",
+            "button_size": "",
+            "second_button_text": "",
+            "second_button_link": "",
+            "second_button_style": "m-button--primary",
+            "second_button_size": "",
+            "show_footer": true,
+            "footer_alignment": "end",
+            "footer_text": "",
+            "footer_button": "",
+            "footer_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "1621243260e1af0c20-0"
+      ],
+      "settings": {
+        "container": "w-full",
+        "slideshow_height": "adapt",
+        "show_overlay": false,
+        "dots_position": "right",
+        "dots_color": "dark",
+        "show_dots": false,
+        "show_arrows": false,
+        "autorotate": false,
+        "autorotate_speed": 2,
+        "use_content_above": false,
+        "custom_class": "sf-home__slideshow",
+        "animations": "inherit"
+      }
+    },
+    "features_bar_9cAYtV": {
+      "type": "features-bar",
+      "blocks": {
+        "badge_RPzLQA": {
+          "type": "badge",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/Untitled_design_1_14eb309b-b92c-43ed-af26-233740dfe6b6.png",
+            "icon_svg": "<svg width=\"34\" height=\"34\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <path d=\"M20.5 3.5c-4.5 0-9.5 3-13 8-1.5 2.1-2.5 4.5-3 7 2.5-.5 4.9-1.5 7-3 5-3.5 8-8.5 8-13z\"><\/path>\n  <path d=\"M20.5 3.5L3.5 20.5\"><\/path>\n  <path d=\"M14.5 9.5l-4 3.5\"><\/path>\n  <path d=\"M11.5 12.5l-3 3\"><\/path>\n  <path d=\"M8.5 15.5l-2 2\"><\/path>\n<\/svg>",
+            "title": "SUSTAINABLE",
+            "subtitle": "ECO-CONSCIOUS CHOICES"
+          }
+        },
+        "badge_CkJ4cA": {
+          "type": "badge",
+          "settings": {
+            "icon_svg": "<svg width=\"34\" height=\"34\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"><\/polygon>\n<\/svg>",
+            "title": "QUALITY",
+            "subtitle": "CAREFULLY CURATED"
+          }
+        },
+        "badge_97QpTR": {
+          "type": "badge",
+          "settings": {
+            "icon_svg": "<svg width=\"34\" height=\"34\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <path d=\"M12 22V9\"><\/path>\n  <path d=\"M12 9c-1-3-4-5-7-5\"><\/path>\n  <path d=\"M12 9c1-3 4-5 7-5\"><\/path>\n  <path d=\"M12 9c-3-1-7-1-10 1\"><\/path>\n  <path d=\"M12 9c3-1 7-1 10 1\"><\/path>\n  <path d=\"M12 9c-3 0-6 2-7 5\"><\/path>\n  <path d=\"M12 9c3 0 6 2 7 5\"><\/path>\n<\/svg>",
+            "title": "INSPIRED",
+            "subtitle": "BY CARIBBEAN NATURE"
+          }
+        },
+        "badge_h6FcQB": {
+          "type": "badge",
+          "settings": {
+            "icon_svg": "<svg width=\"34\" height=\"34\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <path d=\"M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z\"><\/path>\n<\/svg>",
+            "title": "MADE WITH CARE",
+            "subtitle": "FOR EVERY GUEST"
+          }
+        }
+      },
+      "block_order": [
+        "badge_RPzLQA",
+        "badge_CkJ4cA",
+        "badge_97QpTR",
+        "badge_h6FcQB"
+      ],
+      "name": "Trust Badges",
+      "settings": {
+        "container": "container-fluid",
+        "color_scheme": "scheme-1cb0c1b4-256e-4f0a-b044-a72cb7457566"
+      }
+    },
+    "guest_favourite_products_qQxJyq": {
+      "type": "guest-favourite-products",
+      "name": "Guest Favorites Products",
+      "settings": {
+        "container": "container-fluid",
+        "color_scheme": "default",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "eyebrow": "Best Sellers",
+        "heading": "Guest Favorites",
+        "heading_size": "h2",
+        "description": "The pieces our partner properties reorder most — quietly luxurious, quietly sustainable.",
+        "collection": "product"
+      }
+    },
+    "curated_collection_BU8ex7": {
+      "type": "curated-collection",
+      "name": "Curated Collections",
+      "settings": {
+        "container": "container-fluid",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 80,
+        "eyebrow": "Shop the collections",
+        "heading": "Curated for Every Stay",
+        "collection_1": "bath-amenities",
+        "col1_image": "shopify:\/\/shop_images\/Untitled_design_1.png",
+        "col1_title": "Bath Amenities",
+        "col1_subtitle": "Shampoo · Conditioner · Shower Gel · Body Lotion",
+        "col1_link": "",
+        "collection_2": "guest-essentials",
+        "col2_image": "shopify:\/\/shop_images\/Untitled_design_2.png",
+        "col2_title": "Guest Essentials",
+        "col2_subtitle": "Dental Kit · Vanity Kit · Wooden Comb",
+        "col2_link": "",
+        "collection_3": "hospitality-kits",
+        "col3_image": "shopify:\/\/shop_images\/Untitled_design_3.png",
+        "col3_title": "Hospitality",
+        "col3_subtitle": "Sustainable · Refillable · Natural",
+        "col3_link": ""
+      }
+    },
+    "premium_brand_story_Lf7XFJ": {
+      "type": "premium-brand-story",
+      "custom_css": [
+        ".story-badge-template--21691128086758__premium_brand_story_Lf7XFJ {display: none;}"
+      ],
+      "name": "Premium Brand Story",
+      "settings": {
+        "container": "container-fluid",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 35,
+        "image": "shopify:\/\/shop_images\/hero-beach-BdK28W2g.jpg",
+        "badge_number": "200+",
+        "badge_text": "Properties across the Caribbean",
+        "eyebrow": "The Caribe Kit Story",
+        "heading": "Crafted for the Caribbean",
+        "heading_size": "h2",
+        "text": "Each product is designed to bring resort-quality luxury into every stay. Gentle on skin, beautiful in presentation — a small gesture that guests remember long after check-out.",
+        "icon_image_1": "shopify:\/\/shop_images\/sprout.png",
+        "icon_svg_1": "",
+        "list_item_1": "Botanical formulas with coconut & aloe",
+        "icon_image_2": "shopify:\/\/shop_images\/triangular-arrows-sign-for-recycle.png",
+        "icon_svg_2": "",
+        "list_item_2": "Recyclable, plastic-neutral packaging",
+        "icon_image_3": "shopify:\/\/shop_images\/island.png",
+        "icon_svg_3": "",
+        "list_item_3": "Made with care in the islands",
+        "button_label": "Explore the Collection",
+        "button_link": "shopify:\/\/collections\/all"
+      }
+    },
+    "luxe_testmonials_BG9n7t": {
+      "type": "luxe-testmonials",
+      "blocks": {
+        "testimonial_C9yAD6": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "The aesthetic of Caribe Kit transformed our guest bathrooms. The quality of the formulations is matched only by the beauty of the bottles.",
+            "author_name": "Sophia Martinez",
+            "author_role": "Boutique Hotelier, St. Barts"
+          }
+        },
+        "testimonial_wP3KBH": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "The aesthetic of Caribe Kit transformed our guest bathrooms. The quality of the formulations is matched only by the beauty of the bottles.",
+            "author_name": "Sophia Martinez",
+            "author_role": "Boutique Hotelier, St. Barts"
+          }
+        },
+        "testimonial_7iVFcy": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "The aesthetic of Caribe Kit transformed our guest bathrooms. The quality of the formulations is matched only by the beauty of the bottles.",
+            "author_name": "Sophia Martinez",
+            "author_role": "Boutique Hotelier, St. Barts"
+          }
+        },
+        "testimonial_YXh3PT": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "The aesthetic of Caribe Kit transformed our guest bathrooms. The quality of the formulations is matched only by the beauty of the bottles.",
+            "author_name": "Sophia Martinez",
+            "author_role": "Boutique Hotelier, St. Barts"
+          }
+        },
+        "testimonial_3dqfqM": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "As a superhost, I look for products that feel exclusive but are easy to manage. Caribe Kit's wholesale service is seamless and professional.",
+            "author_name": "Marcus Reed",
+            "author_role": "Airbnb Superhost, Turks & Caicos"
+          }
+        },
+        "testimonial_am7VxY": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "Finally, a luxury amenity line that truly understands Caribbean hospitality. Our resort guests constantly ask where they can buy the shampoo.",
+            "author_name": "Elena Vargas",
+            "author_role": "Resort Manager, Antigua"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_C9yAD6",
+        "testimonial_wP3KBH",
+        "testimonial_7iVFcy",
+        "testimonial_YXh3PT",
+        "testimonial_3dqfqM",
+        "testimonial_am7VxY"
+      ],
+      "disabled": true,
+      "name": "Testimonials",
+      "settings": {
+        "label": "",
+        "heading": "Trusted by the Best",
+        "header_gap": 48,
+        "container": "container-fluid",
+        "color_scheme": "",
+        "columns": 3,
+        "grid_gap": 24,
+        "padding_top": 80,
+        "padding_bottom": 0,
+        "card_padding": 16,
+        "card_radius": 8,
+        "quote_font_size": 16
+      }
+    },
+    "trusted_partners_XCFMd9": {
+      "type": "trusted-partners",
+      "blocks": {
+        "partner_bJYK8z": {
+          "type": "partner",
+          "settings": {
+            "title": "Hotels"
+          }
+        },
+        "partner_GiiT9e": {
+          "type": "partner",
+          "settings": {
+            "title": "Airbnb Hosts"
+          }
+        },
+        "partner_LAAxWW": {
+          "type": "partner",
+          "settings": {
+            "title": "Boutique Stays"
+          }
+        },
+        "partner_rhinR9": {
+          "type": "partner",
+          "settings": {
+            "title": "Vacation Rentals"
+          }
+        }
+      },
+      "block_order": [
+        "partner_bJYK8z",
+        "partner_GiiT9e",
+        "partner_LAAxWW",
+        "partner_rhinR9"
+      ],
+      "custom_css": [],
+      "name": "Trusted Partners",
+      "settings": {
+        "label": "OUR PARTNERS",
+        "heading": "Trusted Across Caribbean Hospitality",
+        "description": "Trusted by growing hospitality partners across the Caribbean.",
+        "header_gap": 48,
+        "container": "container-fluid",
+        "color_scheme": "",
+        "columns": 4,
+        "grid_gap": 24,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "card_padding": 32,
+        "card_radius": 8,
+        "title_font_size": 20
+      }
+    },
+    "custom_banner_qFggaL": {
+      "type": "custom-banner",
+      "name": "Custom Banner",
+      "settings": {
+        "image_desktop": "shopify:\/\/shop_images\/Untitled_design_2_22fda0da-cda0-4f44-8f3e-ff1bd3177704.png",
+        "image_mobile": "shopify:\/\/shop_images\/Untitled_design_3_6731be60-9e92-4228-a897-1c99d598fa28.png",
+        "desktop_height": 600,
+        "mobile_height": 400,
+        "overlay_opacity": 30,
+        "title": "Based in Curaçao and Designed for Caribbean Hospitality",
+        "heading_size": "h2",
+        "description": "",
+        "button_text": "",
+        "button_link": "",
+        "button_style": "m-button--primary",
+        "text_alignment": "center",
+        "text_color": "#ffffff"
+      }
+    },
+    "why_caribe_kit_xjCMcQ": {
+      "type": "why-caribe-kit",
+      "blocks": {
+        "feature_teUVzK": {
+          "type": "feature",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/dermis.png",
+            "icon_svg": "",
+            "icon": "",
+            "title": "Dermatologically tested",
+            "text": "Skin-safe formulations approved by independent dermatologists."
+          }
+        },
+        "feature_m3idAT": {
+          "type": "feature",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/shampoo_4c332f65-a58f-4ddb-8323-68e4585fd6ee.png",
+            "icon_svg": "",
+            "icon": "",
+            "title": "Cruelty-free & vegan",
+            "text": "Never tested on animals. 100% vegan ingredients across the range."
+          }
+        },
+        "feature_Kk4GV3": {
+          "type": "feature",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/leaf.png",
+            "icon_svg": "",
+            "icon": "",
+            "title": "Natural coconut & aloe",
+            "text": "Powered by Caribbean coconut, aloe vera, and island botanical extracts."
+          }
+        }
+      },
+      "block_order": [
+        "feature_teUVzK",
+        "feature_m3idAT",
+        "feature_Kk4GV3"
+      ],
+      "name": "Why Caribe Kit",
+      "settings": {
+        "container": "container-fluid",
+        "color_scheme": "footer",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "eyebrow": "Why Caribe Kit",
+        "heading": "Quietly Considered, Thoroughly Proven",
+        "heading_size": "h2"
+      }
+    },
+    "premium_sustainability_7LEA46": {
+      "type": "premium-sustainability",
+      "blocks": {
+        "feature_twyrcM": {
+          "type": "feature",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/recycle.png",
+            "icon_svg": "",
+            "icon_class": "ri-recycle-line",
+            "title": "Recyclable packaging"
+          }
+        },
+        "feature_HX4B3a": {
+          "type": "feature",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/quality.png",
+            "icon_svg": "",
+            "icon_class": "ri-heart-3-line",
+            "title": "Cruelty-free certified"
+          }
+        },
+        "feature_WFUnVE": {
+          "type": "feature",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/vegan.png",
+            "icon_svg": "",
+            "icon_class": "ri-plant-line",
+            "title": "100% vegan formulas"
+          }
+        }
+      },
+      "block_order": [
+        "feature_twyrcM",
+        "feature_HX4B3a",
+        "feature_WFUnVE"
+      ],
+      "name": "Our Promise",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "eyebrow": "Our Promise",
+        "heading": "Committed to the Caribbean",
+        "heading_size": "h2",
+        "text": "Recyclable packaging · Plastic-neutral · No parabens or sulfates. Every kit we ship gives back to ocean and reef restoration partners across the islands."
+      }
+    },
+    "ingredients_benefits_dDCDwQ": {
+      "type": "ingredients-benefits",
+      "blocks": {
+        "accordion_nNRtYi": {
+          "type": "accordion",
+          "settings": {
+            "title": "Full Ingredients List (INCI)",
+            "content_type": "text",
+            "text": "Aqua, Cocos Nucifera (Coconut) Oil, Aloe Barbadensis Leaf Juice, Cocamidopropyl Betaine, Sodium Cocoyl Isethionate, Glycerin, Tocopherol (Vitamin E), Citrus Aurantium Dulcis Peel Oil, Citric Acid, Sodium Benzoate, Potassium Sorbate.",
+            "t1_name": "Coconut Oil",
+            "t1_val": "Deep hydration",
+            "t2_name": "Aloe Vera",
+            "t2_val": "Soothes scalp",
+            "t3_name": "Vitamin E",
+            "t3_val": "Antioxidant protection",
+            "t4_name": "Citrus Oil",
+            "t4_val": "Natural fragrance",
+            "tags": "No Parabens, No Sulfates, No Silicones, No Phthalates, No Dyes"
+          }
+        },
+        "accordion_tmjjRV": {
+          "type": "accordion",
+          "settings": {
+            "title": "Key Ingredients & Benefits",
+            "content_type": "table",
+            "text": "Aqua, Cocos Nucifera (Coconut) Oil, Aloe Barbadensis Leaf Juice, Cocamidopropyl Betaine, Sodium Cocoyl Isethionate, Glycerin, Tocopherol (Vitamin E), Citrus Aurantium Dulcis Peel Oil, Citric Acid, Sodium Benzoate, Potassium Sorbate.",
+            "t1_name": "Coconut Oil",
+            "t1_val": "Deep hydration",
+            "t2_name": "Aloe Vera",
+            "t2_val": "Soothes scalp",
+            "t3_name": "Vitamin E",
+            "t3_val": "Antioxidant protection",
+            "t4_name": "Citrus Oil",
+            "t4_val": "Natural fragrance",
+            "tags": "No Parabens, No Sulfates, No Silicones, No Phthalates, No Dyes"
+          }
+        },
+        "accordion_QbnLQK": {
+          "type": "accordion",
+          "settings": {
+            "title": "Free From",
+            "content_type": "tags",
+            "text": "Aqua, Cocos Nucifera (Coconut) Oil, Aloe Barbadensis Leaf Juice, Cocamidopropyl Betaine, Sodium Cocoyl Isethionate, Glycerin, Tocopherol (Vitamin E), Citrus Aurantium Dulcis Peel Oil, Citric Acid, Sodium Benzoate, Potassium Sorbate.",
+            "t1_name": "Coconut Oil",
+            "t1_val": "Deep hydration",
+            "t2_name": "Aloe Vera",
+            "t2_val": "Soothes scalp",
+            "t3_name": "Vitamin E",
+            "t3_val": "Antioxidant protection",
+            "t4_name": "Citrus Oil",
+            "t4_val": "Natural fragrance",
+            "tags": "No Parabens, No Sulfates, No Silicones, No Phthalates, No Dyes"
+          }
+        },
+        "card_3XjbxT": {
+          "type": "card",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/water.png",
+            "icon_svg": "",
+            "icon_class": "fa-solid fa-droplet",
+            "title": "Hydration",
+            "desc": "Locks in moisture"
+          }
+        },
+        "card_rd4CXr": {
+          "type": "card",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/thermometer.png",
+            "icon_svg": "",
+            "icon_class": "fa-solid fa-feather",
+            "title": "Gentle",
+            "desc": "Safe for daily use"
+          }
+        },
+        "card_jYniWb": {
+          "type": "card",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/wrench.png",
+            "icon_svg": "",
+            "icon_class": "fa-solid fa-wand-magic-sparkles",
+            "title": "Repair",
+            "desc": "Strengthens strands"
+          }
+        },
+        "card_QWT9R9": {
+          "type": "card",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/stars.png",
+            "icon_svg": "",
+            "icon_class": "fa-solid fa-sun",
+            "title": "Shine",
+            "desc": "Natural luminosity"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_nNRtYi",
+        "accordion_tmjjRV",
+        "accordion_QbnLQK",
+        "card_3XjbxT",
+        "card_rd4CXr",
+        "card_jYniWb",
+        "card_QWT9R9"
+      ],
+      "name": "Ingredients & Benefits",
+      "settings": {
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "heading": "Ingredients & Benefits",
+        "heading_size": "h2"
+      }
+    },
+    "wholesale_and_trade_DY4dGk": {
+      "type": "wholesale-and-trade",
+      "name": "Wholesale & Trade",
+      "settings": {
+        "container": "container-fluid",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "background_image": "shopify:\/\/shop_images\/hero-beach-BdK28W2g.jpg",
+        "eyebrow": "Wholesale & Trade",
+        "heading": "Ready to elevate your <em>guest experience?<\/em>",
+        "description": "Partner with Caribe Kit for tailored amenity programs, custom packaging, dedicated logistics and white-glove account management across the Caribbean.",
+        "btn_1_label": "Contact Us",
+        "btn_1_link": "shopify:\/\/pages\/contact",
+        "btn_2_label": "",
+        "btn_2_link": "",
+        "form_title": "Request Wholesale Pricing",
+        "form_desc": "Tell us about your property and we'll send a tailored programme within 24 hours."
+      }
+    }
+  },
+  "order": [
+    "1621243260e1af0c20",
+    "features_bar_9cAYtV",
+    "guest_favourite_products_qQxJyq",
+    "curated_collection_BU8ex7",
+    "premium_brand_story_Lf7XFJ",
+    "luxe_testmonials_BG9n7t",
+    "trusted_partners_XCFMd9",
+    "custom_banner_qFggaL",
+    "why_caribe_kit_xjCMcQ",
+    "premium_sustainability_7LEA46",
+    "ingredients_benefits_dDCDwQ",
+    "wholesale_and_trade_DY4dGk"
+  ]
+}
