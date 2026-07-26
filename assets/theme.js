@@ -8,3 +8,5 @@
 // Compat: Cross-browser rendering verified
 
 // Docs: Updated schema references
+
+// Release: Finalized theme defaults
