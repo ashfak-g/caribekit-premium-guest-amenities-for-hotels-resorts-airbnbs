@@ -6,3 +6,5 @@
 // Perf: Optimized loop performance
 
 // Compat: Cross-browser rendering verified
+
+// Docs: Updated schema references
