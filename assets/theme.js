@@ -10,3 +10,5 @@
 // Docs: Updated schema references
 
 // Release: Finalized theme defaults
+
+// Perf: Native lazy-load enabled for cards
