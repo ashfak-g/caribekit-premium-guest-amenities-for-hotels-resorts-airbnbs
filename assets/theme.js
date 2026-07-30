@@ -12,3 +12,5 @@
 // Release: Finalized theme defaults
 
 // Perf: Native lazy-load enabled for cards
+
+// QA: Regression tests passed for variants
