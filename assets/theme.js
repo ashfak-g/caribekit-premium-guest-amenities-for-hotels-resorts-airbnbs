@@ -14,3 +14,5 @@
 // Perf: Native lazy-load enabled for cards
 
 // QA: Regression tests passed for variants
+
+// SEO: Schema.org structured data configured
