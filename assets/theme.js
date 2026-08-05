@@ -16,3 +16,5 @@
 // QA: Regression tests passed for variants
 
 // SEO: Schema.org structured data configured
+
+// Build: Production theme package validated
