@@ -69,3 +69,5 @@ As the dedicated theme developer for this project, my work included:
 ## ⚖️ Disclaimer
 
 All brand assets, copy, imagery, and trademarks belong to **CaribeKit** ([caribekit.com](https://caribekit.com)). This repository is presented solely to showcase my individual frontend development contributions, custom Liquid theme engineering, and technical implementation completed for the client.
+
+<!-- Verified production build for CaribeKit -->
